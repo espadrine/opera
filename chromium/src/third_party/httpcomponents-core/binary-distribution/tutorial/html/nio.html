@@ -1,0 +1,1981 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;2.&nbsp;NIO extensions</title><link rel="stylesheet" type="text/css" href="css/hc-tutorial.css"><meta name="generator" content="DocBook XSL-NS Stylesheets V1.76.1"><link rel="home" href="index.html" title="HttpCore Tutorial"><link rel="up" href="index.html" title="HttpCore Tutorial"><link rel="prev" href="fundamentals.html" title="Chapter&nbsp;1.&nbsp;Fundamentals"><link rel="next" href="advanced.html" title="Chapter&nbsp;3.&nbsp;Advanced topics"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div xmlns:fo="http://www.w3.org/1999/XSL/Format" class="banner"><a class="bannerLeft" href="http://www.apache.org/" title="Apache Software Foundation"><img style="border:none;" src="images/asf_logo_wide.gif"></a><a class="bannerRight" href="http://hc.apache.org/httpcomponents-core-ga/" title="Apache HttpComponents Core"><img style="border:none;" src="images/hc_logo.png"></a><div class="clear"></div></div><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;2.&nbsp;NIO extensions</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="fundamentals.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="advanced.html">Next</a></td></tr></table><hr></div><div class="chapter" title="Chapter&nbsp;2.&nbsp;NIO extensions"><div class="titlepage"><div><div><h2 class="title"><a name="nio"></a>Chapter&nbsp;2.&nbsp;NIO extensions</h2></div></div></div>
+    
+    <div class="section" title="2.1.&nbsp;Benefits and shortcomings of the non-blocking I/O model"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e473"></a>2.1.&nbsp;Benefits and shortcomings of the non-blocking I/O model</h2></div></div></div>
+        
+        <p>
+        Contrary to the popular belief, the performance of NIO in terms of raw data throughput is
+        significantly lower than that of blocking I/O. NIO does not necessarily fit all use cases
+        and should be used only where appropriate:
+        </p>
+        <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+                <p>
+                handling of thousands of connections, a significant number of which can be idle.
+                </p>
+            </li><li class="listitem">
+                <p>
+                handling high latency connections.
+                </p>
+            </li><li class="listitem">
+                <p>
+                request / response handling needs to be decoupled.
+                </p>
+            </li></ul></div>
+    </div>
+    <div class="section" title="2.2.&nbsp;Differences from other NIO frameworks"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e483"></a>2.2.&nbsp;Differences from other NIO frameworks</h2></div></div></div>
+        
+        <p>
+        Solves similar problems as other frameworks, but has certain distinct features:
+        </p>
+        <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+                <p>
+                minimalistic, optimized for data volume intensive protocols such as HTTP.
+                </p>
+            </li><li class="listitem">
+                <p>
+                efficient memory management: data consumer can read is only as much input data as it
+                can process without having to allocate more memory.
+                </p>
+            </li><li class="listitem">
+                <p>
+                direct access to the NIO channels where possible.
+                </p>
+            </li></ul></div>
+    </div>
+    <div class="section" title="2.3.&nbsp;I/O reactor"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e493"></a>2.3.&nbsp;I/O reactor</h2></div></div></div>
+        
+        <p>
+        HttpCore NIO is based on the Reactor pattern as described by Doug Lea. The purpose of I/O
+        reactors is to react to I/O events and to dispatch event notifications to individual I/O
+        sessions. The main idea of I/O reactor pattern is to break away from the one thread per
+        connection model imposed by the classic blocking I/O model. The <code class="interfacename">IOReactor
+        </code> interface represents an abstract object which implements the Reactor pattern.
+        Internally, <code class="interfacename">IOReactor</code> implementations encapsulate
+        functionality of the NIO <code class="classname">java.nio.channels.Selector</code>.
+        </p>
+        <p>
+        I/O reactors usually employ a small number of dispatch threads (often as few as one) to
+        dispatch I/O event notifications to a much greater number (often as many as several
+        thousands) of I/O sessions or connections. It is generally recommended to have one dispatch
+        thread per CPU core.
+        </p>
+        <pre class="programlisting">
+HttpParams params = new BasicHttpParams();
+int workerCount = 2;
+IOReactor ioreactor = new DefaultConnectingIOReactor(workerCount,
+    params);
+</pre>
+        <div class="section" title="2.3.1.&nbsp;I/O dispatchers"><div class="titlepage"><div><div><h3 class="title"><a name="d5e501"></a>2.3.1.&nbsp;I/O dispatchers</h3></div></div></div>
+            
+            <p>
+            <code class="interfacename">IOReactor</code> implementations make use of the
+            <code class="interfacename">IOEventDispatch</code> interface to notify clients of events
+            pending for a particular session. All methods of the <code class="interfacename">IOEventDispatch
+            </code> are executed on a dispatch thread of the I/O reactor. Therefore, it is
+            important that processing that takes place in the event methods will not block the
+            dispatch thread for too long, as the I/O reactor will be unable to react to other
+            events.
+            </p>
+            <pre class="programlisting">
+HttpParams params = new BasicHttpParams();
+IOReactor ioreactor = new DefaultConnectingIOReactor(2, params);
+
+IOEventDispatch eventDispatch = new MyIOEventDispatch();
+ioreactor.execute(eventDispatch);
+</pre>
+            <p>
+            Generic I/O events as defined by the <code class="interfacename">IOEventDispatch</code>
+            interface:
+            </p>
+            <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+                    <p title="connected:">
+                    <b><code class="methodname">connected</code>:&nbsp;</b>
+                    
+                    Triggered when a new session has been created.
+                    
+                    </p>
+                </li><li class="listitem">
+                    <p title="inputReady:">
+                    <b><code class="methodname">inputReady</code>:&nbsp;</b>
+                    
+                    Triggered when the session has pending input.
+                    
+                    </p>
+                </li><li class="listitem">
+                    <p title="outputReady:">
+                    <b><code class="methodname">outputReady</code>:&nbsp;</b>
+                    
+                    Triggered when the session is ready for output.
+                    
+                    </p>
+                </li><li class="listitem">
+                    <p title="timeout:">
+                    <b><code class="methodname">timeout</code>:&nbsp;</b>
+                    
+                    Triggered when the session has timed out.
+                    
+                    </p>
+                </li><li class="listitem">
+                    <p title="disconnected:">
+                    <b><code class="methodname">disconnected</code>:&nbsp;</b>
+                    
+                    Triggered when the session has been terminated.
+                    
+                    </p>
+                </li></ul></div>
+        </div>
+        <div class="section" title="2.3.2.&nbsp;I/O reactor shutdown"><div class="titlepage"><div><div><h3 class="title"><a name="d5e536"></a>2.3.2.&nbsp;I/O reactor shutdown</h3></div></div></div>
+            
+            <p>
+            The shutdown of I/O reactors is a complex process and may usually take a while to
+            complete. I/O reactors will attempt to gracefully terminate all active I/O sessions and
+            dispatch threads approximately within the specified grace period. If any of the I/O
+            sessions fails to terminate correctly, the I/O reactor will forcibly shut down
+            remaining sessions.
+            </p>
+            <pre class="programlisting">
+long gracePeriod = 3000L; // milliseconds
+ioreactor.shutdown(gracePeriod);
+</pre>
+            <p>
+            The <code class="methodname">IOReactor#shutdown(long)</code> method is safe to call from any
+            thread.
+            </p>
+        </div>
+        <div class="section" title="2.3.3.&nbsp;I/O sessions"><div class="titlepage"><div><div><h3 class="title"><a name="d5e542"></a>2.3.3.&nbsp;I/O sessions</h3></div></div></div>
+            
+            <p>
+            The <code class="interfacename">IOSession</code> interface represents a sequence of
+            logically related data exchanges between two end points. <code class="interfacename">IOSession
+            </code> encapsulates functionality of NIO <code class="classname">
+            java.nio.channels.SelectionKey</code> and <code class="classname">
+            java.nio.channels.SocketChannel</code>. The channel associated with the
+            <code class="interfacename">IOSession</code> can be used to read data from and write data
+            to the session.
+            </p>
+            <pre class="programlisting">
+IOSession iosession;
+ReadableByteChannel ch = (ReadableByteChannel) iosession.channel();
+ByteBuffer dst = ByteBuffer.allocate(2048);
+ch.read(dst);
+</pre>
+        </div>
+        <div class="section" title="2.3.4.&nbsp;I/O session state management"><div class="titlepage"><div><div><h3 class="title"><a name="d5e551"></a>2.3.4.&nbsp;I/O session state management</h3></div></div></div>
+            
+            <p>
+            I/O sessions are not bound to an execution thread, therefore one cannot use the context
+            of the thread to store a session's state. All details about a particular session must
+            be stored within the session itself.
+            </p>
+            <pre class="programlisting">
+IOSession iosession;
+Object someState;
+iosession.setAttribute("state", someState);
+Object currentState = iosession.getAttribute("state");
+</pre>
+            <p>
+            Please note that if several sessions make use of shared objects, access to those
+            objects must be made thread-safe.
+            </p>
+        </div>
+        <div class="section" title="2.3.5.&nbsp;I/O session event mask"><div class="titlepage"><div><div><h3 class="title"><a name="d5e556"></a>2.3.5.&nbsp;I/O session event mask</h3></div></div></div>
+            
+            <p>
+            One can declare an interest in a particular type of I/O events for a particular I/O
+            session by setting its event mask.
+            </p>
+            <pre class="programlisting">
+IOSession iosession;
+iosession.setEventMask(SelectionKey.OP_READ | SelectionKey.OP_WRITE);
+</pre>
+            <p>
+            One can also toggle <code class="literal">OP_READ</code> and <code class="literal">OP_WRITE</code> flags
+            individually.
+            </p>
+            <pre class="programlisting">
+iosession.setEvent(SelectionKey.OP_READ);
+iosession.clearEvent(SelectionKey.OP_READ);
+</pre>
+            <p>
+            Event notifications will not take place if the corresponding interest flag is not set.
+            </p>
+        </div>
+        <div class="section" title="2.3.6.&nbsp;I/O session buffers"><div class="titlepage"><div><div><h3 class="title"><a name="d5e565"></a>2.3.6.&nbsp;I/O session buffers</h3></div></div></div>
+            
+            <p>
+            Quite often I/O sessions need to maintain internal I/O buffers in order to transform
+            input / output data prior to returning it to the consumer or writing it to the
+            underlying channel. Memory management in HttpCore NIO is based on the fundamental
+            principle that the data a consumer can read, is only as much input data as it can process
+            without having to allocate more memory. That means, quite often some input data may
+            remain unread in one of the internal or external session buffers. The I/O reactor can
+            query the status of these session buffers, and make sure the consumer gets notified
+            correctly as more data gets stored in one of the session buffers, thus allowing the
+            consumer to read the remaining data once it is able to process it. I/O sessions can be
+            made aware of the status of external session buffers using the <code class="interfacename">
+            SessionBufferStatus</code> interface.
+            </p>
+            <pre class="programlisting">
+IOSession iosession;
+SessionBufferStatus myBufferStatus = new MySessionBufferStatus();
+iosession.setBufferStatus(myBufferStatus);
+iosession.hasBufferedInput();
+iosession.hasBufferedOutput();
+</pre>
+        </div>
+        <div class="section" title="2.3.7.&nbsp;I/O session shutdown"><div class="titlepage"><div><div><h3 class="title"><a name="d5e570"></a>2.3.7.&nbsp;I/O session shutdown</h3></div></div></div>
+            
+            <p>
+            One can close an I/O session gracefully by calling <code class="methodname">IOSession#close()
+            </code> allowing the session to be closed in an orderly manner or by calling
+            <code class="methodname">IOSession#shutdown()</code> to forcibly close the underlying channel.
+            The distinction between two methods is of primary importance for those types of I/O
+            sessions that involve some sort of a session termination handshake such as SSL/TLS
+            connections.
+            </p>
+        </div>
+        <div class="section" title="2.3.8.&nbsp;Listening I/O reactors"><div class="titlepage"><div><div><h3 class="title"><a name="d5e575"></a>2.3.8.&nbsp;Listening I/O reactors</h3></div></div></div>
+            
+            <p>
+            <code class="interfacename">ListeningIOReactor</code> represents an I/O reactor capable of
+            listening for incoming connections on one or several ports.
+            </p>
+            <pre class="programlisting">
+ListeningIOReactor ioreactor;
+
+ListenerEndpoint ep1 = ioreactor.listen(new InetSocketAddress(8081));
+ListenerEndpoint ep2 = ioreactor.listen(new InetSocketAddress(8082));
+ListenerEndpoint ep3 = ioreactor.listen(new InetSocketAddress(8083));
+
+// Wait until all endpoints are up
+ep1.waitFor();
+ep2.waitFor();
+ep3.waitFor();
+</pre>
+            <p>
+            Once an endpoint is fully initialized it starts accepting incoming connections and
+            propagates I/O activity notifications to the <code class="interfacename">IOEventDispatch
+            </code> instance.
+            </p>
+            <p>
+            One can obtain a set of registered endpoints at runtime, query the status of an
+            endpoint at runtime, and close it if desired.
+            </p>
+            <pre class="programlisting">
+ListeningIOReactor ioreactor;
+
+Set&lt;ListenerEndpoint&gt; eps = ioreactor.getEndpoints();
+for (ListenerEndpoint ep: eps) {
+    // Still active?
+    System.out.println(ep.getAddress());
+    if (ep.isClosed()) {
+        // If not, has it terminated due to an exception?
+        if (ep.getException() != null) {
+            ep.getException().printStackTrace();
+        }
+    } else {
+        ep.close();
+    }
+}
+</pre>
+        </div>
+        <div class="section" title="2.3.9.&nbsp;Connecting I/O reactors"><div class="titlepage"><div><div><h3 class="title"><a name="d5e584"></a>2.3.9.&nbsp;Connecting I/O reactors</h3></div></div></div>
+            
+            <p>
+            <code class="interfacename">ConnectingIOReactor</code> represents an I/O reactor capable of
+            establishing connections with remote hosts.
+            </p>
+            <pre class="programlisting">
+ConnectingIOReactor ioreactor;
+
+SessionRequest sessionRequest = ioreactor.connect(
+        new InetSocketAddress("www.google.com", 80),
+        null, null, null);
+</pre>
+            <p>
+            Opening a connection to a remote host usually tends to be a time consuming process and
+            may take a while to complete. One can monitor and control the process of session
+            initialization by means of the <code class="interfacename">SessionRequest</code>interface.
+            </p>
+            <pre class="programlisting">
+// Make sure the request times out if connection
+// has not been established after 1 sec
+sessionRequest.setConnectTimeout(1000);
+// Wait for the request to complete
+sessionRequest.waitFor();
+// Has request terminated due to an exception?
+if (sessionRequest.getException() != null) {
+    sessionRequest.getException().printStackTrace();
+}
+// Get hold of the new I/O session
+IOSession iosession = sessionRequest.getSession();
+</pre>
+            <p>
+            <code class="interfacename">SessionRequest</code> implementations are expected to be
+            thread-safe. Session request can be aborted at any time by calling <code class="methodname">
+            IOSession#cancel()</code> from another thread of execution.
+            </p>
+            <pre class="programlisting">
+if (!sessionRequest.isCompleted()) {
+    sessionRequest.cancel();
+}
+</pre>
+            <p>
+            One can pass several optional parameters to the <code class="methodname">
+            ConnectingIOReactor#connect()</code> method to exert a greater control over the
+            process of session initialization.
+            </p>
+            <p>
+            A non-null local socket address parameter can be used to bind the socket to a specific
+            local address.
+            </p>
+            <pre class="programlisting">
+ConnectingIOReactor ioreactor;
+
+SessionRequest sessionRequest = ioreactor.connect(
+        new InetSocketAddress("www.google.com", 80),
+        new InetSocketAddress("192.168.0.10", 1234),
+        null, null);
+</pre>
+            <p>
+            One can provide an attachment object, which will be added to the new session's context
+            upon initialization. This object can be used to pass an initial processing state to
+            the protocol handler.
+            </p>
+            <pre class="programlisting">
+SessionRequest sessionRequest = ioreactor.connect(
+        new InetSocketAddress("www.google.com", 80),
+        null, new HttpHost("www.google.ru"), null);
+
+IOSession iosession = sessionRequest.getSession();
+HttpHost virtualHost = (HttpHost) iosession.getAttribute(
+    IOSession.ATTACHMENT_KEY);
+</pre>
+            <p>
+            It is often desirable to be able to react to the completion of a session request
+            asynchronously without having to wait for it, blocking the current thread of execution.
+            One can optionally provide an implementation <code class="interfacename">SessionRequestCallback
+            </code> interface to get notified of events related to session requests, such
+            as request completion, cancellation, failure or timeout.
+            </p>
+            <pre class="programlisting">
+ConnectingIOReactor ioreactor;
+
+SessionRequest sessionRequest = ioreactor.connect(
+        new InetSocketAddress("www.google.com", 80), null, null,
+        new SessionRequestCallback() {
+
+            public void cancelled(SessionRequest request) {
+            }
+
+            public void completed(SessionRequest request) {
+                System.out.println("new connection to " +
+                    request.getRemoteAddress());
+            }
+
+            public void failed(SessionRequest request) {
+                if (request.getException() != null) {
+                    request.getException().printStackTrace();
+                }
+            }
+
+            public void timeout(SessionRequest request) {
+            }
+
+        });
+</pre>
+        </div>
+        <div class="section" title="2.3.10.&nbsp;Queuing of I/O interest set operations"><div class="titlepage"><div><div><h3 class="title"><a name="d5e605"></a>2.3.10.&nbsp;Queuing of I/O interest set operations</h3></div></div></div>
+            
+            <p>
+            Several older JRE implementations (primarily from IBM) include what Java API
+            documentation refers to as a naive implementation of the <code class="classname">
+            java.nio.channels.SelectionKey</code> class. The problem with <code class="classname">
+            java.nio.channels.SelectionKey</code> in such JREs is that reading or writing
+            of the I/O interest set may block indefinitely if the I/O selector is in the process
+            of executing a select operation. HttpCore NIO can be configured to operate in a special
+            mode wherein I/O interest set operations are queued and executed by on the dispatch
+            thread only when the I/O selector is not engaged in a select operation.
+            </p>
+            <pre class="programlisting">
+HttpParams params = new BasicHttpParams();
+NIOReactorParams.setInterestOpsQueueing(params, true);
+ListeningIOReactor ioreactor = new DefaultListeningIOReactor(2, params);
+</pre>
+        </div>
+    </div>
+    <div class="section" title="2.4.&nbsp;I/O reactor exception handling"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e611"></a>2.4.&nbsp;I/O reactor exception handling</h2></div></div></div>
+        
+        <p>
+        Protocol specific exceptions as well as those I/O exceptions thrown in the course of
+        interaction with the session's channel are to be expected and are to be dealt with by specific
+        protocol handlers. These exceptions may result in termination of an individual session but
+        should not affect the I/O reactor and all other active sessions. There are situations,
+        however, when the I/O reactor itself encounters an internal problem such as an I/O
+        exception in the underlying NIO classes or an unhandled runtime exception. Those types of
+        exceptions are usually fatal and will cause the I/O reactor to shut down automatically.
+        </p>
+        <p>
+        There is a possibility to override this behavior and prevent I/O reactors from shutting
+        down automatically in case of a runtime exception or an I/O exception in internal classes.
+        This can be accomplished by providing a custom implementation of the <code class="interfacename">
+        IOReactorExceptionHandler</code> interface.
+        </p>
+        <pre class="programlisting">
+DefaultConnectingIOReactor ioreactor;
+
+ioreactor.setExceptionHandler(new IOReactorExceptionHandler() {
+
+    public boolean handle(IOException ex) {
+        if (ex instanceof BindException) {
+            // bind failures considered OK to ignore
+            return true;
+        }
+        return false;
+    }
+
+    public boolean handle(RuntimeException ex) {
+        if (ex instanceof UnsupportedOperationException) {
+            // Unsupported operations considered OK to ignore
+            return true;
+        }
+        return false;
+    }
+
+});
+</pre>
+        <p>
+        One needs to be very careful about discarding exceptions indiscriminately. It is often much
+        better to let the I/O reactor shut down itself cleanly and restart it rather than leaving
+        it in an inconsistent or unstable state.
+        </p>
+        <div class="section" title="2.4.1.&nbsp;I/O reactor audit log"><div class="titlepage"><div><div><h3 class="title"><a name="d5e618"></a>2.4.1.&nbsp;I/O reactor audit log</h3></div></div></div>
+            
+            <p>
+            If an I/O reactor is unable to automatically recover from an I/O or a runtime exception
+            it will enter the shutdown mode. First off, it will close all active listeners and
+            cancel all pending new session requests. Then it will attempt to close all active I/O
+            sessions gracefully giving them some time to flush pending output data and terminate
+            cleanly. Lastly, it will forcibly shut down those I/O sessions that still remain active
+            after the grace period. This is a fairly complex process, where many things can fail at
+            the same time and many different exceptions can be thrown in the course of the shutdown
+            process. The I/O reactor will record all exceptions thrown during the shutdown process,
+            including the original one that actually caused the shutdown in the first place, in an
+            audit log. One can examine the audit log and decide whether it is safe to restart the
+            I/O reactor.
+            </p>
+            <pre class="programlisting">
+DefaultConnectingIOReactor ioreactor;
+
+// Give it 5 sec grace period
+ioreactor.shutdown(5000);
+List&lt;ExceptionEvent&gt; events = ioreactor.getAuditLog();
+for (ExceptionEvent event: events) {
+    System.err.println("Time: " + event.getTimestamp());
+    event.getCause().printStackTrace();
+}
+</pre>
+        </div>
+    </div>
+    <div class="section" title="2.5.&nbsp;Non-blocking HTTP connections"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e622"></a>2.5.&nbsp;Non-blocking HTTP connections</h2></div></div></div>
+        
+        <p>
+        Effectively non-blocking HTTP connections are wrappers around <code class="interfacename">IOSession
+        </code> with HTTP specific functionality. Non-blocking HTTP connections are
+        stateful and not thread-safe. Input / output operations on non-blocking HTTP connections
+        should be restricted to the dispatch events triggered by the I/O event dispatch thread.
+        </p>
+        <div class="section" title="2.5.1.&nbsp;Execution context of non-blocking HTTP connections"><div class="titlepage"><div><div><h3 class="title"><a name="d5e626"></a>2.5.1.&nbsp;Execution context of non-blocking HTTP connections</h3></div></div></div>
+            
+            <p>
+            Non-blocking HTTP connections are not bound to a particular thread of execution and
+            therefore they need to maintain their own execution context. Each non-blocking HTTP
+            connection has an <code class="interfacename">HttpContext</code> instance associated with
+            it, which can be used to maintain a processing state. The <code class="interfacename">HttpContext
+            </code> instance is thread-safe and can be manipulated from multiple threads.
+            </p>
+            <pre class="programlisting">
+// Get non-blocking HTTP connection
+DefaultNHttpClientConnection conn;
+// State
+Object myStateObject;
+
+HttpContext context = conn.getContext();
+context.setAttribute("state", myStateObject);
+</pre>
+        </div>
+        <div class="section" title="2.5.2.&nbsp;Working with non-blocking HTTP connections"><div class="titlepage"><div><div><h3 class="title"><a name="d5e632"></a>2.5.2.&nbsp;Working with non-blocking HTTP connections</h3></div></div></div>
+            
+            <p>
+            At any point of time one can obtain the request and response objects currently being
+            transferred over the non-blocking HTTP connection. Any of these objects, or both, can
+            be null if there is no incoming or outgoing message currently being transferred.
+            </p>
+            <pre class="programlisting">
+NHttpConnection conn;
+
+HttpRequest request = conn.getHttpRequest();
+if (request != null) {
+    System.out.println("Transferring request: " +
+        request.getRequestLine());
+}
+HttpResponse response = conn.getHttpResponse();
+if (response != null) {
+    System.out.println("Transferring response: " +
+        response.getStatusLine());
+}
+</pre>
+            <p>
+            However, please note that the current request and the current response may not
+            necessarily represent the same message exchange! Non-blocking HTTP connections can
+            operate in a full duplex mode. One can process incoming and outgoing messages
+            completely independently from one another. This makes non-blocking HTTP connections
+            fully pipelining capable, but at same time implies that this is the job of the protocol
+            handler to match logically related request and the response messages.
+            </p>
+            <p>
+            Over-simplified process of submitting a request on the client side may look like this:
+            </p>
+            <pre class="programlisting">
+// Obtain HTTP connection
+NHttpClientConnection conn;
+
+// Obtain execution context
+HttpContext context = conn.getContext();
+
+// Obtain processing state
+Object state = context.getAttribute("state");
+
+// Generate a request based on the state information
+HttpRequest request = new BasicHttpRequest("GET", "/");
+
+conn.submitRequest(request);
+System.out.println(conn.isRequestSubmitted());
+</pre>
+            <p>
+            Over-simplified process of submitting a response on the server side may look like this:
+            </p>
+            <pre class="programlisting">
+// Obtain HTTP connection
+NHttpServerConnection conn;
+
+// Obtain execution context
+HttpContext context = conn.getContext();
+
+// Obtain processing state
+Object state = context.getAttribute("state");
+
+// Generate a response based on the state information
+HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1,
+    HttpStatus.SC_OK, "OK");
+BasicHttpEntity entity = new BasicHttpEntity();
+entity.setContentType("text/plain");
+entity.setChunked(true);
+response.setEntity(entity);
+
+conn.submitResponse(response);
+System.out.println(conn.isResponseSubmitted());
+</pre>
+            <p>
+            Please note that one should rarely need to transmit messages using these low level
+            methods and should use appropriate higher level HTTP service implementations instead.
+            </p>
+        </div>
+        <div class="section" title="2.5.3.&nbsp;HTTP I/O control"><div class="titlepage"><div><div><h3 class="title"><a name="d5e642"></a>2.5.3.&nbsp;HTTP I/O control</h3></div></div></div>
+            
+            <p>
+            All non-blocking HTTP connections classes implement <code class="interfacename">IOControl
+            </code> interface, which represents a subset of connection functionality for
+            controlling interest in I/O even notifications. <code class="interfacename">IOControl
+            </code> instances are expected to be fully thread-safe. Therefore
+            <code class="interfacename">IOControl</code> can be used to request / suspend I/O event
+            notifications from any thread.
+            </p>
+            <p>
+            One must take special precautions when interacting with non-blocking connections.
+            <code class="interfacename">HttpRequest</code> and <code class="interfacename">HttpResponse
+            </code>are not thread-safe. It is generally advisable that all input / output
+            operations on a non-blocking connection are executed from the I/O event dispatch
+            thread.
+            </p>
+            <p>
+            The following pattern is recommended:
+            </p>
+            <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+                    <p>
+                    Use <code class="interfacename">IOControl</code> interface to pass control over
+                    connection's I/O events to another thread / session.
+                    </p>
+                </li><li class="listitem">
+                    <p>
+                    If input / output operations need be executed on that particular connection,
+                    store all the required information (state) in the connection context and
+                    request the appropriate I/O operation by calling <code class="methodname">
+                    IOControl#requestInput()</code> or <code class="methodname">IOControl#requestOutput()
+                    </code> method.
+                    </p>
+                </li><li class="listitem">
+                    <p>
+                    Execute the required operations from the event method on the dispatch thread
+                    using information stored in connection context.
+                    </p>
+                </li></ul></div>
+            <p>
+            Please note all operations that take place in the event methods should not block for
+            too long, because while the dispatch thread remains blocked in one session, it is
+            unable to process events for all other sessions. I/O operations with the underlying
+            channel of the session are not a problem as they are guaranteed to be non-blocking.
+            </p>
+        </div>
+        <div class="section" title="2.5.4.&nbsp;Non-blocking content transfer"><div class="titlepage"><div><div><h3 class="title"><a name="d5e663"></a>2.5.4.&nbsp;Non-blocking content transfer</h3></div></div></div>
+            
+            <p>
+            The process of content transfer for non-blocking connections works completely
+            differently compared to that of blocking connections, as non-blocking connections need
+            to accommodate to the asynchronous nature of the NIO model. The main distinction
+            between two types of connections is inability to use the usual, but inherently blocking
+            <code class="classname">java.io.InputStream</code> and <code class="classname">java.io.OutputStream
+            </code> classes to represent streams of inbound and outbound content. HttpCore NIO
+            provides <code class="interfacename">ContentEncoder</code> and <code class="interfacename">
+            ContentDecoder</code> interfaces to handle the process of asynchronous content
+            transfer. Non-blocking HTTP connections will instantiate the appropriate implementation
+            of a content codec based on properties of the entity enclosed with the message.
+            </p>
+            <p>
+            Non-blocking HTTP connections will fire input events until the content entity is fully
+            transferred.
+            </p>
+            <pre class="programlisting">
+//Obtain content decoder
+ContentDecoder decoder;
+//Read data in
+ByteBuffer dst = ByteBuffer.allocate(2048);
+decoder.read(dst);
+// Decode will be marked as complete when
+// the content entity is fully transferred
+if (decoder.isCompleted()) {
+    // Done
+}
+</pre>
+            <p>
+            Non-blocking HTTP connections will fire output events until the content entity is
+            marked as fully transferred.
+            </p>
+            <pre class="programlisting">
+// Obtain content encoder
+ContentEncoder encoder;
+// Prepare output data
+ByteBuffer src = ByteBuffer.allocate(2048);
+// Write data out
+encoder.write(src);
+// Mark content entity as fully transferred when done
+encoder.complete();
+</pre>
+            <p>
+            Please note, one still has to provide an HttpEntity instance when submitting an entity
+            enclosing message to the non-blocking HTTP connection. Properties of that entity will
+            be used to initialize an <code class="interfacename">ContentEncoder</code> instance to be
+            used for transferring entity content. Non-blocking HTTP connections, however, ignore
+            inherently blocking <code class="methodname">HttpEntity#getContent()</code> and <code class="methodname">
+            HttpEntity#writeTo()</code> methods of the enclosed entities.
+            </p>
+            <pre class="programlisting">
+// Obtain HTTP connection
+NHttpServerConnection conn;
+
+HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1,
+    HttpStatus.SC_OK, "OK");
+BasicHttpEntity entity = new BasicHttpEntity();
+entity.setContentType("text/plain");
+entity.setChunked(true);
+entity.setContent(null);
+response.setEntity(entity);
+
+conn.submitResponse(response);
+</pre>
+            <p>
+            Likewise, incoming entity enclosing message will have an <code class="interfacename">HttpEntity
+            </code> instance associated with them, but an attempt to call <code class="methodname">
+            HttpEntity#getContent()</code> or <code class="methodname">HttpEntity#writeTo()</code>
+            methods will cause an <code class="classname">java.lang.IllegalStateException</code>. The
+            <code class="interfacename">HttpEntity</code> instance can be used to determine properties
+            of the incoming entity such as content length.
+            </p>
+            <pre class="programlisting">
+// Obtain HTTP connection
+NHttpClientConnection conn;
+
+HttpResponse response = conn.getHttpResponse();
+HttpEntity entity = response.getEntity();
+if (entity != null) {
+    System.out.println(entity.getContentType());
+    System.out.println(entity.getContentLength());
+    System.out.println(entity.isChunked());
+}
+</pre>
+        </div>
+        <div class="section" title="2.5.5.&nbsp;Supported non-blocking content transfer mechanisms"><div class="titlepage"><div><div><h3 class="title"><a name="d5e686"></a>2.5.5.&nbsp;Supported non-blocking content transfer mechanisms</h3></div></div></div>
+            
+            <p>
+            Default implementations of the non-blocking HTTP connection interfaces support three
+            content transfer mechanisms defined by the HTTP/1.1 specification:
+            </p>
+            <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+                    <p title="Content-Length delimited:">
+                    <b><code class="literal">Content-Length</code> delimited:&nbsp;</b>
+                    
+                    The end of the content entity is determined by the value of the
+                    <code class="literal">Content-Length</code> header. Maximum entity length:
+                    <code class="methodname">Long#MAX_VALUE</code>.
+                    
+                    </p>
+                </li><li class="listitem">
+                    <p title="Identity coding:">
+                    <b>Identity coding:&nbsp;</b>
+                    
+                    The end of the content entity is demarcated by closing the underlying
+                    connection (end of stream condition). For obvious reasons the identity encoding
+                    can only be used on the server side. Max entity length: unlimited.
+                    
+                    </p>
+                </li><li class="listitem">
+                    <p title="Chunk coding:">
+                    <b>Chunk coding:&nbsp;</b>
+                    
+                    The content is sent in small chunks. Max entity length: unlimited.
+                    
+                    </p>
+                </li></ul></div>
+            <p>
+            The appropriate content codec will be created automatically depending on properties of
+            the entity enclosed with the message.
+            </p>
+        </div>
+        <div class="section" title="2.5.6.&nbsp;Direct channel I/O"><div class="titlepage"><div><div><h3 class="title"><a name="d5e706"></a>2.5.6.&nbsp;Direct channel I/O</h3></div></div></div>
+            
+            <p>
+            Content codes are optimized to read data directly from or write data directly to the
+            underlying I/O session's channel, whenever possible avoiding intermediate buffering in
+            a session buffer. Moreover, those codecs that do not perform any content transformation
+            (<code class="literal">Content-Length</code> delimited and identity codecs, for example) can
+            leverage NIO <code class="classname">java.nio.FileChannel</code> methods for significantly
+            improved performance of file transfer operations both inbound and outbound.
+            </p>
+            <p>
+            If the actual content decoder implements <code class="interfacename">FileContentDecoder
+            </code> one can make use of its methods to read incoming content directly to a
+            file bypassing an intermediate <code class="classname">java.nio.ByteBuffer</code>.
+            </p>
+            <pre class="programlisting">
+//Obtain content decoder
+ContentDecoder decoder;
+//Prepare file channel
+FileChannel dst;
+//Make use of direct file I/O if possible
+if (decoder instanceof FileContentDecoder) {
+    long Bytesread = ((FileContentDecoder) decoder)
+        .transfer(dst, 0, 2048);
+     // Decode will be marked as complete when
+     // the content entity is fully transmitted
+     if (decoder.isCompleted()) {
+         // Done
+     }
+}
+</pre>
+            <p>
+            If the actual content encoder implements <code class="interfacename">FileContentEncoder
+            </code> one can make use of its methods to write outgoing content directly
+            from a file bypassing an intermediate <code class="classname">java.nio.ByteBuffer</code>.
+            </p>
+            <pre class="programlisting">
+// Obtain content encoder
+ContentEncoder encoder;
+// Prepare file channel
+FileChannel src;
+// Make use of direct file I/O if possible
+if (encoder instanceof FileContentEncoder) {
+    // Write data out
+    long bytesWritten = ((FileContentEncoder) encoder)
+        .transfer(src, 0, 2048);
+    // Mark content entity as fully transferred when done
+    encoder.complete();
+}
+</pre>
+        </div>
+    </div>
+    <div class="section" title="2.6.&nbsp;HTTP I/O event dispatchers"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e719"></a>2.6.&nbsp;HTTP I/O event dispatchers</h2></div></div></div>
+        
+        <p>
+        HTTP I/O event dispatchers serve to convert generic I/O events triggered by an I/O reactor
+        to HTTP protocol specific events. They rely on <code class="interfacename">NHttpClientEventHandler
+        </code> and <code class="interfacename">NHttpServerEventHandler</code> interfaces to
+        propagate HTTP protocol events to a HTTP protocol handler.
+        </p>
+        <p>
+        Server side HTTP I/O events as defined by the <code class="interfacename">NHttpServerEventHandler
+        </code> interface:
+        </p>
+        <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+                <p title="connected:">
+                <b><code class="methodname">connected</code>:&nbsp;</b>
+                
+                Triggered when a new incoming connection has been created.
+                
+                </p>
+            </li><li class="listitem">
+                <p title="requestReceived:">
+                <b><code class="methodname">requestReceived</code>:&nbsp;</b>
+                
+                Triggered when a new HTTP request is received. The connection passed as a parameter
+                to this method is guaranteed to return a valid HTTP request object. If the request
+                received encloses a request entity this method will be followed a series of
+                <code class="methodname">inputReady</code> events to transfer the request content.
+                
+                </p>
+            </li><li class="listitem">
+                <p title="inputReady:">
+                <b><code class="methodname">inputReady</code>:&nbsp;</b>
+                
+                Triggered when the underlying channel is ready for reading a new portion of
+                the request entity through the corresponding content decoder. If the content
+                consumer is unable to process the incoming content, input event notifications can
+                temporarily suspended using <code class="interfacename">IOControl</code> interface 
+                (super interface of <code class="interfacename">NHttpServerConnection</code>).
+                
+                
+                Please note that the <code class="interfacename">NHttpServerConnection</code> and 
+                <code class="interfacename">ContentDecoder</code> objects are not thread-safe and 
+                should only be used within the context of this method call. The <code class="interfacename">
+                IOControl</code> object can be shared and used on other thread to resume 
+                input event notifications when the handler is capable of processing more content.  
+                
+                </p>
+            </li><li class="listitem">
+                <p title="responseReady:">
+                <b><code class="methodname">responseReady</code>:&nbsp;</b>
+                
+                Triggered when the connection is ready to accept new HTTP response. The protocol
+                handler does not have to submit a response if it is not ready.
+                
+                </p>
+            </li><li class="listitem">
+                <p title="outputReady:">
+                <b><code class="methodname">outputReady</code>:&nbsp;</b>
+                
+                Triggered when the underlying channel is ready for writing a next portion of the
+                response entity through the corresponding content encoder. If the content producer
+                is unable to generate the outgoing content, output event notifications can be
+                temporarily suspended using <code class="interfacename">IOControl</code> interface
+                (super interface of <code class="interfacename">NHttpServerConnection</code>).
+                
+                
+                Please note that the <code class="interfacename">NHttpServerConnection</code> and 
+                <code class="interfacename">ContentEncoder</code> objects are not thread-safe and 
+                should only be used within the context of this method call. The <code class="interfacename">
+                IOControl</code> object can be shared and used on other thread to resume 
+                output event notifications when more content is made available.  
+                
+                </p>
+            </li><li class="listitem">
+                <p title="exception:">
+                <b><code class="methodname">exception</code>:&nbsp;</b>
+                
+                Triggered when an I/O error occurrs while reading from or writing to the underlying
+                channel or when an HTTP protocol violation occurs while receiving an HTTP request.
+                
+                </p>
+            </li><li class="listitem">
+                <p title="timeout:">
+                <b><code class="methodname">timeout</code>:&nbsp;</b>
+                
+                Triggered when no input is detected on this connection over the maximum period of
+                inactivity.
+                
+                </p>
+            </li><li class="listitem">
+                <p title="closed:">
+                <b><code class="methodname">closed</code>:&nbsp;</b>
+                
+                Triggered when the connection has been closed.
+                
+                </p>
+            </li></ul></div>
+        <p>
+        Client side HTTP I/O events as defined by the <code class="interfacename">NHttpClientEventHandler
+        </code> interface:
+        </p>
+        <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+                <p title="connected:">
+                <b><code class="methodname">connected</code>:&nbsp;</b>
+                
+                Triggered when a new outgoing connection has been created. The attachment object 
+                passed as a parameter to this event is an arbitrary object that was attached to 
+                the session request.
+                
+                </p>
+            </li><li class="listitem">
+                <p title="requestReady:">
+                <b><code class="methodname">requestReady</code>:&nbsp;</b>
+                
+                Triggered when the connection is ready to accept new HTTP request. The protocol 
+                handler does not have to submit a request if it is not ready.
+                
+                </p>
+            </li><li class="listitem">
+                <p title="outputReady:">
+                <b><code class="methodname">outputReady</code>:&nbsp;</b>
+                
+                Triggered when the underlying channel is ready for writing a next portion of the
+                request entity through the corresponding content encoder. If the content producer 
+                is unable to generate the outgoing content, output event notifications can be 
+                temporarily suspended using <code class="interfacename">IOControl</code> interface
+                (super interface of <code class="interfacename">NHttpClientConnection</code>).
+                
+                
+                Please note that the <code class="interfacename">NHttpClientConnection</code> and 
+                <code class="interfacename">ContentEncoder</code> objects are not thread-safe and 
+                should only be used within the context of this method call. The <code class="interfacename">
+                IOControl</code> object can be shared and used on other thread to resume 
+                output event notifications when more content is made available.  
+                
+                </p>
+            </li><li class="listitem">
+                <p title="responseReceived:">
+                <b><code class="methodname">responseReceived</code>:&nbsp;</b>
+                
+                Triggered when an HTTP response is received. The connection passed as a parameter to
+                this method is guaranteed to return a valid HTTP response object. If the response
+                received encloses a response entity this method will be followed a series of
+                <code class="methodname">inputReady</code> events to transfer the response content.
+                
+                </p>
+            </li><li class="listitem">
+                <p title="inputReady:">
+                <b><code class="methodname">inputReady</code>:&nbsp;</b>
+                
+                Triggered when the underlying channel is ready for reading a new portion of the
+                response entity through the corresponding content decoder. If the content consumer 
+                is unable to process the incoming content, input event notifications can be 
+                temporarily suspended using <code class="interfacename">IOControl</code> interface 
+                (super interface of <code class="interfacename">NHttpClientConnection</code>).
+                
+                
+                Please note that the <code class="interfacename">NHttpClientConnection</code> and 
+                <code class="interfacename">ContentDecoder</code> objects are not thread-safe and 
+                should only be used within the context of this method call. The <code class="interfacename">
+                IOControl</code> object can be shared and used on other thread to resume 
+                input event notifications when the handler is capable of processing more content.  
+                
+                </p>
+            </li><li class="listitem">
+                <p title="exception:">
+                <b><code class="methodname">exception</code>:&nbsp;</b>
+                
+                Triggered when an I/O error occurs while reading from or writing to the underlying
+                channel or when an HTTP protocol violation occurs while receiving an HTTP response.
+                
+                </p>
+            </li><li class="listitem">
+                <p title="timeout:">
+                <b><code class="methodname">timeout</code>:&nbsp;</b>
+                
+                Triggered when no input is detected on this connection over the maximum period of
+                inactivity.
+                
+                </p>
+            </li><li class="listitem">
+                <p title="closed:">
+                <b><code class="methodname">closed</code>:&nbsp;</b>
+                
+                Triggered when the connection has been closed.
+                
+                </p>
+            </li></ul></div>
+    </div>
+    <div class="section" title="2.7.&nbsp;Non-blocking HTTP content producers"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e836"></a>2.7.&nbsp;Non-blocking HTTP content producers</h2></div></div></div>
+        
+        <p>
+        As discussed previously the process of content transfer for non-blocking connections works
+        completely differently compared to that for blocking connections. For obvious reasons
+        classic I/O abstraction based on inherently blocking <code class="classname">java.io.InputStream
+        </code> and <code class="classname">java.io.OutputStream</code> classes is not well suited
+        for asynchronous data transfer. In order to avoid inefficient and potentially blocking
+        I/O operation redirection through <code class="methodname">java.nio.channels.Channles#newChannel
+        </code> non-blocking HTTP entities are expected to implement NIO specific extension
+        interface <code class="interfacename">HttpAsyncContentProducer</code>.
+        </p>
+        <p>
+        The <code class="interfacename">HttpAsyncContentProducer</code> interface defines several
+        additional method for efficient streaming of content to a non-blocking HTTP connection:
+        </p>
+        <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+                <p title="produceContent:">
+                <b><code class="methodname">produceContent</code>:&nbsp;</b>
+                
+                Invoked to write out a chunk of content to the <code class="interfacename">ContentEncoder
+                </code>. The <code class="interfacename">IOControl</code> interface can be
+                used to suspend output events if the entity is temporarily unable to produce more
+                content. When all content is finished, the producer MUST call
+                <code class="methodname">ContentEncoder#complete()</code>. Failure to do so may cause
+                the entity to be incorrectly delimited.
+                
+                
+                Please note that the <code class="interfacename">ContentEncoder</code> object is 
+                not thread-safe and should only be used within the context of this method call. 
+                The <code class="interfacename">IOControl</code> object can be shared and used on other 
+                thread resume output event notifications when more content is made available.  
+                
+                </p>
+            </li><li class="listitem">
+                <p title="isRepeatable:">
+                <b><code class="methodname">isRepeatable</code>:&nbsp;</b>
+                
+                Determines whether or not this producer is capable of producing its content more
+                than once. Repeatable content producers are expected to be able to recreate
+                their content even after having been closed.
+                
+                </p>
+            </li><li class="listitem">
+                <p title="close:">
+                <b><code class="methodname">close</code>:&nbsp;</b>
+                
+                Closes the producer and releases all resources currently allocated by it.
+                
+                </p>
+            </li></ul></div>
+        <div class="section" title="2.7.1.&nbsp;Creating non-blocking entities"><div class="titlepage"><div><div><h3 class="title"><a name="d5e867"></a>2.7.1.&nbsp;Creating non-blocking entities</h3></div></div></div>
+            
+            <p>
+            Several HTTP entity implementations included in HttpCore NIO support
+            <code class="interfacename">HttpAsyncContentProducer</code> interface:
+            </p>
+            <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+                    <p>
+                    <a class="link" href="nio.html#bytearray-n-entity" title="2.7.1.1.&nbsp;NByteArrayEntity">
+                        <code class="classname">NByteArrayEntity</code>
+                    </a>
+                    </p>
+                </li><li class="listitem">
+                    <p>
+                    <a class="link" href="nio.html#string-n-entity" title="2.7.1.2.&nbsp;NStringEntity">
+                        <code class="classname">NStringEntity</code>
+                    </a>
+                    </p>
+                </li><li class="listitem">
+                    <p>
+                    <a class="link" href="nio.html#file-n-entity" title="2.7.1.3.&nbsp;NFileEntity">
+                        <code class="classname">NFileEntity</code>
+                    </a>
+                    </p>
+                </li></ul></div>
+            <div class="section" title="2.7.1.1.&nbsp;NByteArrayEntity"><div class="titlepage"><div><div><h4 class="title"><a name="bytearray-n-entity"></a>2.7.1.1.&nbsp;<code class="classname">NByteArrayEntity</code></h4></div></div></div>
+                
+                <p>
+                This is a simple self contained repeatable entity, which receives its content from
+                a given byte array. This byte array is supplied to the constructor.
+                </p>
+                <pre class="programlisting">
+String myData = "Hello world on the other side!!";
+NByteArrayEntity entity = new NByteArrayEntity(myData.getBytes());
+    </pre>
+            </div>
+            <div class="section" title="2.7.1.2.&nbsp;NStringEntity"><div class="titlepage"><div><div><h4 class="title"><a name="string-n-entity"></a>2.7.1.2.&nbsp;<code class="classname">NStringEntity</code></h4></div></div></div>
+                
+                <p>
+                It's is a simple, self contained, repeatable entity that retrieves its data from a
+                <code class="classname">java.lang.String</code> object. It has 2 constructors, one simply
+                constructs with a given string where the other also takes a character encoding for
+                the data in the <code class="classname">java.lang.String</code>.
+                </p>
+                <pre class="programlisting">
+String myData = "Hello world on the other side!!";
+// construct without a character encoding
+NStringEntity myEntity1 = new NStringEntity(myData);
+// alternatively construct with an encoding
+NStringEntity myEntity2 = new NStringEntity(myData, "UTF-8");
+    </pre>
+            </div>
+            <div class="section" title="2.7.1.3.&nbsp;NFileEntity"><div class="titlepage"><div><div><h4 class="title"><a name="file-n-entity"></a>2.7.1.3.&nbsp;<code class="classname">NFileEntity</code></h4></div></div></div>
+                
+                <p>
+                This entity reads its content body from a file. This class is mostly used to stream
+                large files of different types, so one needs to supply the content type of the file
+                to make sure the content can be correctly recognized and processed by the
+                recipient.
+                </p>
+                <pre class="programlisting">
+File staticFile = new File("/path/to/myapp.jar");
+NHttpEntity entity = new NFileEntity(staticFile,
+    ContentType.create("application/java-archive", null));
+    </pre>
+                <p>
+                The <code class="classname">NHttpEntity</code> will make use of the direct channel I/O
+                whenever possible, provided the content encoder is capable of transferring data
+                directly from a file to the socket of the underlying connection.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="section" title="2.8.&nbsp;Non-blocking HTTP protocol handlers"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e903"></a>2.8.&nbsp;Non-blocking HTTP protocol handlers</h2></div></div></div>
+        
+        <div class="section" title="2.8.1.&nbsp;Asynchronous HTTP service"><div class="titlepage"><div><div><h3 class="title"><a name="d5e905"></a>2.8.1.&nbsp;Asynchronous HTTP service</h3></div></div></div>
+            
+            <p>
+            <code class="classname">HttpAsyncService</code> is a fully asynchronous HTTP server side
+            protocol handler based on the non-blocking (NIO) I/O model. <code class="classname">
+            HttpAsyncService</code> translates individual events fired through the
+            <code class="interfacename">NHttpServerEventHandler</code> interface into logically
+            related HTTP message exchanges.
+            </p>
+            <p>
+            Upon receiving an incoming request the <code class="classname">HttpAsyncService</code>
+            verifies the message for compliance with the server expectations using <code class="interfacename">
+            HttpAsyncExpectationVerifier</code>, if provided, and then <code class="interfacename">
+            HttpAsyncRequestHandlerResolver</code> is used to resolve the request URI to
+            a particular <code class="interfacename">HttpAsyncRequestHandler</code> intended to handle
+            the request with the given URI. The protocol handler uses the selected <code class="interfacename">
+            HttpAsyncRequestHandler</code> instance to process the incoming request and
+            to generate an outgoing response.
+            </p>
+            <p>
+            <code class="classname">HttpAsyncService</code> relies on <code class="interfacename">HttpProcessor
+            </code> to generate mandatory protocol headers for all outgoing messages
+            and apply common, cross-cutting message transformations to all incoming and outgoing
+            messages, whereas individual HTTP request handlers are expected to implement
+            application specific content generation and processing.
+            </p>
+            <pre class="programlisting">
+HttpParams params;
+// Initialize HTTP parameters
+HttpProcessor httpproc;
+// Initialize HTTP processor
+HttpAsyncRequestHandlerResolver handlerResolver;
+// Initialize HTTP request resolver
+HttpAsyncService protocolHandler = new HttpAsyncService(
+        httpproc,
+        new DefaultConnectionReuseStrategy(),
+        new DefaultHttpResponseFactory(),
+        handlerResolver,
+        null,
+        params);
+NHttpConnectionFactory&lt;DefaultNHttpServerConnection&gt; connFactory;
+// Initialize HTTP connection factory
+IOEventDispatch ioEventDispatch = new DefaultHttpServerIODispatch(
+    protocolHandler, connFactory);
+</pre>
+            <div class="section" title="2.8.1.1.&nbsp;Non-blocking HTTP request handlers"><div class="titlepage"><div><div><h4 class="title"><a name="d5e921"></a>2.8.1.1.&nbsp;Non-blocking HTTP request handlers</h4></div></div></div>
+                
+                <p>
+                <code class="interfacename">HttpAsyncRequestHandler</code> represents a routine for
+                asynchronous processing of a specific group of non-blocking HTTP requests.
+                Protocol handlers are designed to take care of protocol specific aspects, whereas
+                individual request handlers are expected to take care of application specific HTTP
+                processing. The main purpose of a request handler is to generate a response object
+                with a content entity to be sent back to the client in response to the given
+                request.
+                </p>
+                <pre class="programlisting">
+HttpAsyncRequestHandler&lt;HttpRequest&gt; rh = new HttpAsyncRequestHandler&lt;HttpRequest&gt;() {
+
+    public HttpAsyncRequestConsumer&lt;HttpRequest&gt; processRequest(
+            final HttpRequest request,
+            final HttpContext context) {
+        // Buffer request content in memory for simplicity
+        return new BasicAsyncRequestConsumer();
+    }
+
+    public void handle(
+            final HttpRequest request,
+            final HttpAsyncExchange httpexchange,
+            final HttpContext context) throws HttpException, IOException {
+        HttpResponse response = httpexchange.getResponse();
+        response.setStatusCode(HttpStatus.SC_OK);
+        NFileEntity body = new NFileEntity(new File("static.html"),
+                ContentType.create("text/html", null));
+        response.setEntity(body);
+        httpexchange.submitResponse(new BasicAsyncResponseProducer(response));
+    }
+
+};
+</pre>
+                <p>
+                Request handlers must be implemented in a thread-safe manner. Similarly to
+                servlets, request handlers should not use instance variables unless access to those
+                variables are synchronized.
+                </p>
+            </div>
+            <div class="section" title="2.8.1.2.&nbsp;Asynchronous HTTP exchange"><div class="titlepage"><div><div><h4 class="title"><a name="d5e927"></a>2.8.1.2.&nbsp;Asynchronous HTTP exchange</h4></div></div></div>
+                
+                <p>
+                The most fundamental difference of the non-blocking request handlers compared to
+                their blocking counterparts is ability to defer transmission of the HTTP response
+                back to the client without blocking the I/O thread by delegating the process of
+                handling the HTTP request to a worker thread or another service. The instance of
+                <code class="interfacename">HttpAsyncExchange</code> passed as a parameter to the
+                <code class="methodname">HttpAsyncRequestHandler#handle</code> method to submit
+                a response as at a later point once response content becomes available.
+                </p>
+                <p>
+                The <code class="interfacename">HttpAsyncExchange</code> interface can be interacted
+                with using the following methods:
+                </p>
+                <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+                        <p title="getRequest:">
+                        <b><code class="methodname">getRequest</code>:&nbsp;</b>
+                        
+                        Returns the received HTTP request message.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="getResponse:">
+                        <b><code class="methodname">getResponse</code>:&nbsp;</b>
+                        
+                        Returns the default HTTP response message that can submitted once ready.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="submitResponse:">
+                        <b><code class="methodname">submitResponse</code>:&nbsp;</b>
+                        
+                        Submits an HTTP response and completed the message exchange.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="isCompleted:">
+                        <b><code class="methodname">isCompleted</code>:&nbsp;</b>
+                        
+                        Determines whether or not the message exchange has been completed.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="setCallback:">
+                        <b><code class="methodname">setCallback</code>:&nbsp;</b>
+                        
+                        Sets <code class="interfacename">Cancellable</code> callback to be invoked
+                        in case the underlying connection times out or gets terminated prematurely
+                        by the client. This callback can be used to cancel a long running response
+                        generating process if a response is no longer needed.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="setTimeout:">
+                        <b><code class="methodname">setTimeout</code>:&nbsp;</b>
+                        
+                        Sets timeout for this message exchange.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="getTimeout:">
+                        <b><code class="methodname">getTimeout</code>:&nbsp;</b>
+                        
+                        Returns timeout for this message exchange.
+                        
+                        </p>
+                    </li></ul></div>
+                <pre class="programlisting">
+HttpAsyncRequestHandler&lt;HttpRequest&gt; rh = new HttpAsyncRequestHandler&lt;HttpRequest&gt;() {
+
+    public HttpAsyncRequestConsumer&lt;HttpRequest&gt; processRequest(
+            final HttpRequest request,
+            final HttpContext context) {
+        // Buffer request content in memory for simplicity
+        return new BasicAsyncRequestConsumer();
+    }
+
+    public void handle(
+            final HttpRequest request,
+            final HttpAsyncExchange httpexchange,
+            final HttpContext context) throws HttpException, IOException {
+
+        new Thread() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(10);
+                }
+                catch(InterruptedException ie) {}
+                HttpResponse response = httpexchange.getResponse();
+                response.setStatusCode(HttpStatus.SC_OK);
+                NFileEntity body = new NFileEntity(new File("static.html"),
+                        ContentType.create("text/html", null));
+                response.setEntity(body);
+                httpexchange.submitResponse(new BasicAsyncResponseProducer(response));
+            }
+        }.start();
+
+    }
+
+};
+</pre>
+                <p>
+                Please note <code class="interfacename">HttpResponse</code> instances are not
+                thread-safe and may not be modified concurrently. Non-blocking request handlers
+                must ensure HTTP response cannot be accessed by more than one thread at a time.
+                </p>
+            </div>
+            <div class="section" title="2.8.1.3.&nbsp;Asynchronous HTTP request consumer"><div class="titlepage"><div><div><h4 class="title"><a name="d5e974"></a>2.8.1.3.&nbsp;Asynchronous HTTP request consumer</h4></div></div></div>
+                
+                <p>
+                <code class="interfacename">HttpAsyncRequestConsumer</code> facilitates the process of
+                asynchronous processing of HTTP requests. It is a callback interface used by
+                <code class="interfacename">HttpAsyncRequestHandler</code>s to process an incoming
+                HTTP request message and to stream its content from a non-blocking server side
+                HTTP connection.
+                </p>
+                <p>
+                HTTP I/O events and methods as defined by the <code class="interfacename">
+                HttpAsyncRequestConsumer</code> interface:
+                </p>
+                <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+                        <p title="requestReceived:">
+                        <b><code class="methodname">requestReceived</code>:&nbsp;</b>
+                        
+                        Invoked when a HTTP request message is received.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="consumeContent:">
+                        <b><code class="methodname">consumeContent</code>:&nbsp;</b>
+                        
+                        Invoked to process a chunk of content from the <code class="interfacename">
+                        ContentDecoder</code>. The <code class="interfacename">IOControl
+                        </code> interface can be used to suspend input events if
+                        the consumer is temporarily unable to consume more content.
+                        
+                        
+                        The consumer can use the <code class="methodname">ContentDecoder#isCompleted()
+                        </code> method to find out whether or not the message content
+                        has been fully consumed.
+                        
+                        
+                        Please note that the <code class="interfacename">ContentDecoder</code> object 
+                        is not thread-safe and should only be used within the context of this 
+                        method call. The <code class="interfacename">IOControl</code> object can be 
+                        shared and used on other thread to resume input event notifications 
+                        when the consumer is capable of processing more content.
+                        
+                        
+                        This event is invoked only if the incoming request message has
+                        a content entity enclosed in it.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="requestCompleted:">
+                        <b><code class="methodname">requestCompleted</code>:&nbsp;</b>
+                        
+                        Invoked to signal that the request has been fully processed.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="failed:">
+                        <b><code class="methodname">failed</code>:&nbsp;</b>
+                        
+                        Invoked to signal that the request processing terminated abnormally.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="getException:">
+                        <b><code class="methodname">getException</code>:&nbsp;</b>
+                        
+                        Returns an exception in case of an abnormal termination. This method
+                        returns <code class="code">null</code> if the request execution is still ongoing or if
+                        it completed successfully.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="getResult:">
+                        <b><code class="methodname">getResult</code>:&nbsp;</b>
+                        
+                        Returns a result of the request execution, when available. This method
+                        returns <code class="code">null</code> if the request execution is still ongoing.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="isDone:">
+                        <b><code class="methodname">isDone</code>:&nbsp;</b>
+                        
+                        Determines whether or not the request execution completed. If the
+                        request processing terminated normally <code class="methodname">getResult()</code>
+                        can be used to obtain the result. If the request processing terminated
+                        abnormally <code class="methodname">getException()</code> can be used to obtain
+                        the cause.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="close:">
+                        <b><code class="methodname">close</code>:&nbsp;</b>
+                        
+                        Closes the consumer and releases all resources currently allocated by it.
+                        
+                        </p>
+                    </li></ul></div>
+                <p>
+                <code class="interfacename">HttpAsyncRequestConsumer</code> implementations are
+                expected to be thread-safe.
+                </p>
+                <p>
+                <code class="classname">BasicAsyncRequestConsumer</code> is a very basic implementation
+                of the <code class="interfacename">HttpAsyncRequestConsumer</code> interface shipped
+                with the library. Please note that this consumer buffers request content in memory and
+                therefore should be used for relatively small request messages.
+                </p>
+            </div>
+            <div class="section" title="2.8.1.4.&nbsp;Asynchronous HTTP response producer"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1039"></a>2.8.1.4.&nbsp;Asynchronous HTTP response producer</h4></div></div></div>
+                
+                <p>
+                <code class="interfacename">HttpAsyncResponseProducer</code> facilitates the process of
+                asynchronous generation of HTTP responses. It is a callback interface used by
+                <code class="interfacename">HttpAsyncRequestHandler</code>s to generate an HTTP response
+                message and to stream its content to a non-blocking server side HTTP connection.
+                </p>
+                <p>
+                HTTP I/O events and methods as defined by the
+                <code class="interfacename">HttpAsyncResponseProducer</code> interface:
+                </p>
+                <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+                        <p title="generateResponse:">
+                        <b><code class="methodname">generateResponse</code>:&nbsp;</b>
+                        
+                        Invoked to generate a HTTP response message header.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="produceContent:">
+                        <b><code class="methodname">produceContent</code>:&nbsp;</b>
+                        
+                        Invoked to write out a chunk of content to the <code class="interfacename">
+                        ContentEncoder</code>. The <code class="interfacename">IOControl
+                        </code> interface can be used to suspend output events if
+                        the producer is temporarily unable to produce more content.
+                        
+                        
+                        When all content is finished, the producer MUST call <code class="methodname">
+                        ContentEncoder#complete()</code>. Failure to do so may cause
+                        the entity to be incorrectly delimited.
+                        
+                        
+                        Please note that the <code class="interfacename">ContentEncoder</code> object 
+                        is not thread-safe and should only be used within the context of this 
+                        method call. The <code class="interfacename">IOControl</code> object can be 
+                        shared and used on other thread resume output event notifications when 
+                        more content is made available.  
+                        
+                        
+                        This event is invoked only for if the outgoing response message has
+                        a content entity enclosed in it, that is <code class="methodname">
+                        HttpResponse#getEntity()</code> returns <code class="code">null</code>.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="responseCompleted:">
+                        <b><code class="methodname">responseCompleted</code>:&nbsp;</b>
+                        
+                        Invoked to signal that the response has been fully written out.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="failed:">
+                        <b><code class="methodname">failed</code>:&nbsp;</b>
+                        
+                        Invoked to signal that the response processing terminated abnormally.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="close:">
+                        <b><code class="methodname">close</code>:&nbsp;</b>
+                        
+                        Closes the producer and releases all resources currently allocated by it.
+                        
+                        </p>
+                    </li></ul></div>
+                <p>
+                <code class="interfacename">HttpAsyncResponseProducer</code> implementations are
+                expected to be thread-safe.
+                </p>
+                <p>
+                <code class="classname">BasicAsyncResponseProducer</code> is a basic implementation
+                of the <code class="interfacename">HttpAsyncResponseProducer</code> interface shipped
+                with the library. The producer can make use of the <code class="interfacename">
+                HttpAsyncContentProducer</code> interface to efficiently stream out
+                message content to a non-blocking HTTP connection, if it is implemented by the
+                <code class="interfacename">HttpEntity</code> enclosed in the response.
+                </p>
+            </div>
+            <div class="section" title="2.8.1.5.&nbsp;Non-blocking request handler resolver"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1089"></a>2.8.1.5.&nbsp;Non-blocking request handler resolver</h4></div></div></div>
+                
+                <p>
+                The management of non-blocking HTTP request handlers is quite similar to that of
+                blocking HTTP request handlers. Usually an instance of <code class="interfacename">
+                HttpAsyncRequestHandlerResolver</code> is used to maintain a registry of
+                request handlers and to matches a request URI to a particular request handler.
+                HttpCore includes only a very simple implementation of the request handler resolver
+                based on a trivial pattern matching algorithm: <code class="classname">
+                HttpAsyncRequestHandlerRegistry</code> supports only three formats:
+                <code class="literal">*</code>, <code class="literal">&lt;uri&gt;*</code> and
+                <code class="literal">*&lt;uri&gt;</code>.
+                </p>
+                <pre class="programlisting">
+HttpAsyncRequestHandlerRegistry handlerReqistry =
+    new HttpAsyncRequestHandlerRegistry();
+handlerReqistry.register("/service/*", myRequestHandler1);
+handlerReqistry.register("*.do", myRequestHandler2);
+handlerReqistry.register("*", myRequestHandler3);
+</pre>
+                <p>
+                Users are encouraged to provide more sophisticated implementations of
+                <code class="interfacename">HttpAsyncRequestHandlerResolver</code>, for instance, based
+                on regular expressions.
+                </p>
+            </div>
+        </div>
+        <div class="section" title="2.8.2.&nbsp;Asynchronous HTTP request executor"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1100"></a>2.8.2.&nbsp;Asynchronous HTTP request executor</h3></div></div></div>
+            
+            <p>
+            <code class="classname">HttpAsyncRequestExecutor</code> is a fully asynchronous client side
+            HTTP protocol handler based on the NIO (non-blocking) I/O model. <code class="classname">
+            HttpAsyncRequestExecutor</code> translates individual events fired through the
+            <code class="interfacename">NHttpClientEventHandler</code> interface into logically
+            related HTTP message exchanges.
+            </p>
+            <p>
+            <code class="classname">HttpAsyncRequestExecutor</code> relies on <code class="interfacename">
+            HttpAsyncRequestExecutionHandler</code> to implement application specific
+            content generation and processing and to handle logically related series of HTTP
+            request / response exchanges, which may also span across multiple connections.
+            <code class="interfacename">HttpProcessor</code> provided by the <code class="interfacename">
+            HttpAsyncRequestExecutionHandler</code> instance will be used to generate
+            mandatory protocol headers for all outgoing messages and apply common, cross-cutting
+            message transformations to all incoming and outgoing messages. The caller is expected
+            to pass an instance of <code class="interfacename">HttpAsyncRequestExecutionHandler</code>
+            to be used for the next series of HTTP message exchanges through the connection
+            context using <code class="methodname">HttpAsyncRequestExecutor#HTTP_HANDLER</code> attribute.
+            HTTP exchange sequence is considered complete when the <code class="methodname">
+            HttpAsyncRequestExecutionHandler#isDone()</code> method returns <code class="code">true</code>.
+            </p>
+            <pre class="programlisting">
+HttpAsyncRequestExecutor ph = new HttpAsyncRequestExecutor();
+NHttpConnectionFactory&lt;DefaultNHttpClientConnection&gt; connFactory;
+// Initialize HTTP connection factory
+IOEventDispatch ioEventDispatch = new DefaultHttpClientIODispatch(ph, connFactory);
+</pre>
+            <p>
+            The <code class="classname">HttpAsyncRequester</code> utility class can be used to abstract
+            away low level details of <code class="interfacename">HttpAsyncRequestExecutionHandler
+            </code> management. Please note <code class="classname">HttpAsyncRequester</code>
+            supports single HTTP request / response exchanges only. It does not support HTTP
+            authentication and does not handle redirects automatically.
+            </p>
+            <pre class="programlisting">
+HttpParams params;
+// Initialize HTTP parameters
+HttpProcessor httpprocessor;
+// Initialize HTTP processor
+HttpAsyncRequester requester = new HttpAsyncRequester(
+        httpprocessor,
+        new DefaultConnectionReuseStrategy(),
+        params);
+
+//Obtain HTTP connection
+NHttpClientConnection conn;
+Future&lt;HttpResponse&gt; future = requester.execute(
+        new BasicAsyncRequestProducer(
+                new HttpHost("localhost"),
+                new BasicHttpRequest("GET", "/")),
+        new BasicAsyncResponseConsumer(),
+        conn);
+HttpResponse response = future.get();
+</pre>
+            <div class="section" title="2.8.2.1.&nbsp;Asynchronous HTTP request producer"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1121"></a>2.8.2.1.&nbsp;Asynchronous HTTP request producer</h4></div></div></div>
+                
+                <p>
+                <code class="interfacename">HttpAsyncRequestProducer</code> facilitates the process of
+                asynchronous generation of HTTP requests. It is a callback interface whose methods
+                get invoked to generate an HTTP request message and to stream message content to
+                a non-blocking client side HTTP connection.
+                </p>
+                <p>
+                Repeatable request producers capable of generating the same request message more
+                than once can be reset to their initial state by calling the <code class="methodname">
+                resetRequest()</code> method, at which point request producers are expected
+                to release currently allocated resources that are no longer needed or re-acquire
+                resources needed to repeat the process.
+                </p>
+                <p>
+                HTTP I/O events and methods as defined by the
+                <code class="interfacename">HttpAsyncRequestProducer</code> interface:
+                </p>
+                <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+                        <p title="getTarget:">
+                        <b><code class="methodname">getTarget</code>:&nbsp;</b>
+                        
+                        Invoked to obtain the request target host.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="generateRequest:">
+                        <b><code class="methodname">generateRequest</code>:&nbsp;</b>
+                        
+                        Invoked to generate a HTTP request message header. The message is expected
+                        to implement the <code class="interfacename">HttpEntityEnclosingRequest</code>
+                        interface if it is to enclose a content entity.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="produceContent:">
+                        <b><code class="methodname">produceContent</code>:&nbsp;</b>
+                        
+                        Invoked to write out a chunk of content to the <code class="interfacename">
+                        ContentEncoder</code>. The <code class="interfacename">IOControl
+                        </code> interface can be used to suspend output events if
+                        the producer is temporarily unable to produce more content.
+                        
+                        
+                        When all content is finished, the producer MUST call <code class="methodname">
+                        ContentEncoder#complete()</code>. Failure to do so may cause
+                        the entity to be incorrectly delimited
+                        
+                        
+                        Please note that the <code class="interfacename">ContentEncoder</code> object 
+                        is not thread-safe and should only be used within the context of this 
+                        method call. The <code class="interfacename">IOControl</code> object can be 
+                        shared and used on other thread resume output event notifications when 
+                        more content is made available.  
+                        
+                        
+                        This event is invoked only for if the outgoing request message has
+                        a content entity enclosed in it, that is <code class="methodname">
+                        HttpEntityEnclosingRequest#getEntity()</code> returns <code class="code">null
+                        </code>.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="requestCompleted:">
+                        <b><code class="methodname">requestCompleted</code>:&nbsp;</b>
+                        
+                        Invoked to signal that the request has been fully written out.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="failed:">
+                        <b><code class="methodname">failed</code>:&nbsp;</b>
+                        
+                        Invoked to signal that the request processing terminated abnormally.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="resetRequest:">
+                        <b><code class="methodname">resetRequest</code>:&nbsp;</b>
+                        
+                        Invoked to reset the producer to its initial state. Repeatable request
+                        producers are expected to release currently allocated resources that are
+                        no longer needed or re-acquire resources needed to repeat the process.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="close:">
+                        <b><code class="methodname">close</code>:&nbsp;</b>
+                        
+                        Closes the producer and releases all resources currently allocated by it.
+                        
+                        </p>
+                    </li></ul></div>
+                <p>
+                <code class="interfacename">HttpAsyncRequestProducer</code> implementations are
+                expected to be thread-safe.
+                </p>
+                <p>
+                <code class="classname">BasicAsyncRequestProducer</code> is a basic implementation
+                of the <code class="interfacename">HttpAsyncRequestProducer</code> interface shipped
+                with the library. The producer can make use of the <code class="interfacename">
+                HttpAsyncContentProducer</code> interface to efficiently stream out
+                message content to a non-blocking HTTP connection, if it is implemented by the
+                <code class="interfacename">HttpEntity</code> enclosed in the request.
+                </p>
+            </div>
+            <div class="section" title="2.8.2.2.&nbsp;Asynchronous HTTP response consumer"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1183"></a>2.8.2.2.&nbsp;Asynchronous HTTP response consumer</h4></div></div></div>
+                
+                <p>
+                <code class="interfacename">HttpAsyncResponseConsumer</code> facilitates the process of
+                asynchronous processing of HTTP responses. It is a callback interface whose methods
+                get invoked to process an HTTP response message and to stream message content from
+                a non-blocking client side HTTP connection.
+                </p>
+                <p>
+                HTTP I/O events and methods as defined by the <code class="interfacename">
+                HttpAsyncResponseConsumer</code> interface:
+                </p>
+                <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+                        <p title="responseReceived:">
+                        <b><code class="methodname">responseReceived</code>:&nbsp;</b>
+                        
+                        Invoked when a HTTP response message is received.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="consumeContent:">
+                        <b><code class="methodname">consumeContent</code>:&nbsp;</b>
+                        
+                        Invoked to process a chunk of content from the <code class="interfacename">
+                        ContentDecoder</code>. The <code class="interfacename">IOControl
+                        </code> interface can be used to suspend input events if
+                        the consumer is temporarily unable to consume more content.
+                        
+                        
+                        The consumer can use the <code class="methodname">ContentDecoder#isCompleted()
+                        </code> method to find out whether or not the message content
+                        has been fully consumed.
+                        
+                        
+                        Please note that the <code class="interfacename">ContentDecoder</code> object 
+                        is not thread-safe and should only be used within the context of this 
+                        method call. The <code class="interfacename">IOControl</code> object can be 
+                        shared and used on other thread to resume input event notifications 
+                        when the consumer is capable of processing more content.
+                        
+                        
+                        This event is invoked only for if the incoming response message has
+                        a content entity enclosed in it.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="responseCompleted:">
+                        <b><code class="methodname">responseCompleted</code>:&nbsp;</b>
+                        
+                        Invoked to signal that the response has been fully processed.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="failed:">
+                        <b><code class="methodname">failed</code>:&nbsp;</b>
+                        
+                        Invoked to signal that the response processing terminated abnormally.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="getException:">
+                        <b><code class="methodname">getException</code>:&nbsp;</b>
+                        
+                        Returns an exception in case of an abnormal termination. This method
+                        returns <code class="code">null</code> if the response processing is still ongoing or
+                        if it completed successfully.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="getResult:">
+                        <b><code class="methodname">getResult</code>:&nbsp;</b>
+                        
+                        Returns a result of the response processing, when available. This method
+                        returns <code class="code">null</code> if the response processing is still ongoing.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="isDone:">
+                        <b><code class="methodname">isDone</code>:&nbsp;</b>
+                        
+                        Determines whether or not the response processing completed. If the
+                        response processing terminated normally <code class="methodname">getResult()</code>
+                        can be used to obtain the result. If the response processing terminated
+                        abnormally <code class="methodname">getException()</code> can be used to obtain
+                        the cause.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="close:">
+                        <b><code class="methodname">close</code>:&nbsp;</b>
+                        
+                        Closes the consumer and releases all resources currently allocated by it.
+                        
+                        </p>
+                    </li></ul></div>
+                <p>
+                <code class="interfacename">HttpAsyncResponseConsumer</code> implementations are
+                expected to be thread-safe.
+                </p>
+                <p>
+                <code class="classname">BasicAsyncResponseConsumer</code> is a very basic implementation
+                of the <code class="interfacename">HttpAsyncResponseConsumer</code> interface shipped
+                with the library. Please note that this consumer buffers response content in memory
+                and therefore should be used for relatively small response messages.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="section" title="2.9.&nbsp;Non-blocking TLS/SSL"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e1247"></a>2.9.&nbsp;Non-blocking TLS/SSL</h2></div></div></div>
+        
+        <div class="section" title="2.9.1.&nbsp;SSL I/O session"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1249"></a>2.9.1.&nbsp;SSL I/O session</h3></div></div></div>
+            
+            <p>
+            <code class="classname">SSLIOSession</code> is a decorator class intended to transparently
+            extend any arbitrary <code class="interfacename">IOSession</code> with transport layer
+            security capabilities based on the SSL/TLS protocol. Default HTTP connection
+            implementations and protocol handlers should be able to work with SSL sessions without
+            special preconditions or modifications.
+            </p>
+            <pre class="programlisting">
+// Initialize HTTP parameters
+HttpParams params;
+// Initialize default SSL context
+SSLContext sslcontext = SSLContext.getInstance("SSL");
+sslcontext.init(null, null, null);
+// Plain I/O session
+IOSession iosession;
+SSLIOSession sslsession = new SSLIOSession(
+        iosession, SSLMode.CLIENT, sslcontext, null);
+iosession.setAttribute(SSLIOSession.SESSION_KEY, sslsession);
+NHttpClientConnection conn = new DefaultNHttpClientConnection(
+        sslsession,
+        new DefaultHttpResponseFactory(),
+        new HeapByteBufferAllocator(), params);
+</pre>
+            <p>
+            One can also use <code class="classname">SSLNHttpClientConnectionFactory</code> or <code class="classname">
+            SSLNHttpServerConnectionFactory</code> classes to conveniently create SSL
+            encrypterd HTTP connections.
+            </p>
+            <pre class="programlisting">
+// Initialize HTTP parameters
+HttpParams params;
+// Plain I/O session
+IOSession iosession;
+SSLNHttpClientConnectionFactory connfactory = new SSLNHttpClientConnectionFactory(
+        params);
+NHttpClientConnection conn = connfactory.createConnection(iosession);
+</pre>
+            <div class="section" title="2.9.1.1.&nbsp;SSL setup handler"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1259"></a>2.9.1.1.&nbsp;SSL setup handler</h4></div></div></div>
+                
+                <p>
+                Applications can customize various aspects of the TLS/SSl protocol by passing a
+                custom implementation of the <code class="interfacename">SSLSetupHandler</code>
+                interface.
+                </p>
+                <p>
+                SSL events as defined by the <code class="interfacename">SSLSetupHandler</code>
+                interface:
+                </p>
+                <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+                        <p title="initalize:">
+                        <b><code class="methodname">initalize</code>:&nbsp;</b>
+                        
+                        Triggered when the SSL connection is being initialized. The handler can use
+                        this callback to customize properties of the <code class="classname">
+                        javax.net.ssl.SSLEngine</code> used to establish the SSL session.
+                        
+                        </p>
+                    </li><li class="listitem">
+                        <p title="verify:">
+                        <b><code class="methodname">verify</code>:&nbsp;</b>
+                        
+                        Triggered when the SSL connection has been established and initial SSL
+                        handshake has been successfully completed. The handler can use this
+                        callback to verify properties of the SSLSession. For instance this would
+                        be the right place to enforce SSL cipher strength, validate certificate
+                        chain and do hostname checks.
+                        
+                        </p>
+                    </li></ul></div>
+                <pre class="programlisting">
+// Plain I/O session
+IOSession iosession;
+// Initialize default SSL context
+SSLContext sslcontext = SSLContext.getInstance("SSL");
+sslcontext.init(null, null, null);
+
+SSLIOSession sslsession = new SSLIOSession(
+    iosession, SSLMode.CLIENT, sslcontext, new SSLSetupHandler() {
+
+    public void initalize(final SSLEngine sslengine) throws SSLException {
+        // Enforce strong ciphers
+        sslengine.setEnabledCipherSuites(new String[] {
+                "TLS_RSA_WITH_AES_256_CBC_SHA",
+                "TLS_DHE_RSA_WITH_AES_256_CBC_SHA",
+                "TLS_DHE_DSS_WITH_AES_256_CBC_SHA" });
+    }
+
+    public void verify(
+            final IOSession iosession,
+            final SSLSession sslsession) throws SSLException {
+        X509Certificate[] certs = sslsession.getPeerCertificateChain();
+        // Examine peer certificate chain
+        for (X509Certificate cert: certs) {
+            System.out.println(cert.toString());
+        }
+    }
+
+});
+</pre>
+            <p>
+            <code class="interfacename">SSLSetupHandler</code> impelemntations can also be used with
+            the <code class="classname">SSLNHttpClientConnectionFactory</code> or <code class="classname">
+            SSLNHttpServerConnectionFactory</code> classes.
+            </p>
+            <pre class="programlisting">
+// Initialize HTTP parameters
+HttpParams params;
+// Initialize default SSL context
+SSLContext sslcontext = SSLContext.getInstance("SSL");
+sslcontext.init(null, null, null);
+SSLSetupHandler mysslhandler = new SSLSetupHandler() {
+
+    public void initalize(final SSLEngine sslengine) throws SSLException {
+        // Enforce strong ciphers
+        sslengine.setEnabledCipherSuites(new String[] {
+                "TLS_RSA_WITH_AES_256_CBC_SHA",
+                "TLS_DHE_RSA_WITH_AES_256_CBC_SHA",
+                "TLS_DHE_DSS_WITH_AES_256_CBC_SHA" });
+    }
+
+    public void verify(
+            final IOSession iosession, final SSLSession sslsession) throws SSLException {
+    }
+
+
+};
+// Plain I/O session
+IOSession iosession;
+SSLNHttpClientConnectionFactory connfactory = new SSLNHttpClientConnectionFactory(
+        sslcontext, mysslhandler, params);
+// Create SSL connection
+NHttpClientConnection conn = connfactory.createConnection(iosession);
+</pre>
+            </div>
+        </div>
+        <div class="section" title="2.9.2.&nbsp;TLS/SSL aware I/O event dispatches"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1283"></a>2.9.2.&nbsp;TLS/SSL aware I/O event dispatches</h3></div></div></div>
+            
+            <p>
+            Default <code class="interfacename">IOEventDispatch</code> implementations shipped with
+            the library such as <code class="classname">DefaultHttpServerIODispatch</code> and <code class="classname">
+            DefaultHttpClientIODispatch</code> automatically detect SSL encrypted sessions
+            and handle SSL transport aspects transparently. However, custom I/O event dispatchers
+            that do not extend <code class="classname">AbstractIODispatch</code> are required to take some
+            additional actions to ensure correct functioning of the transport layer encryption.
+            </p>
+            <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+                    <p>
+                    The I/O dispatch may need to call <code class="methodname">SSLIOSession#initalize()
+                    </code> method in order to put the SSL session either into a client or
+                    a server mode, if the SSL session has not been yet initialized.
+                    </p>
+                </li><li class="listitem">
+                    <p>
+                    When the underlying I/O session is input ready, the I/O dispatcher should check
+                    whether the SSL I/O session is ready to produce input data by calling
+                    <code class="methodname">SSLIOSession#isAppInputReady()</code>, pass control to the
+                    protocol handler if it is, and finally call <code class="methodname">
+                    SSLIOSession#inboundTransport()</code> method in order to do the
+                    necessary SSL handshaking and decrypt input data.
+                    </p>
+                </li><li class="listitem">
+                    <p>
+                    When the underlying I/O session is output ready, the I/O dispatcher should
+                    check whether the SSL I/O session is ready to accept output data by calling
+                    <code class="methodname">SSLIOSession#isAppOutputReady()</code>, pass control to the
+                    protocol handler if it is, and finally call <code class="methodname">
+                    SSLIOSession#outboundTransport()</code> method in order to do the necessary
+                    SSL handshaking and encrypt application data.
+                    </p>
+                </li></ul></div>
+        </div>
+    </div>
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="fundamentals.html">Prev</a>&nbsp;</td><td width="20%" align="center">&nbsp;</td><td width="40%" align="right">&nbsp;<a accesskey="n" href="advanced.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter&nbsp;1.&nbsp;Fundamentals&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;3.&nbsp;Advanced topics</td></tr></table></div></body></html>

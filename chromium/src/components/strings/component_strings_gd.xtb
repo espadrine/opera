@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="gd">
+<translation id="2835170189407361413">Falamhaich am foirm</translation>
+<translation id="2455981314101692989">Chuir an duilleag-lìn seo à comas lìonadh fèin-obrachail an fhoirm seo.</translation>
+<translation id="7542995811387359312">Tha lìonadh fèin-obrachail na cairt-chreidis à comas a chionn 's nach eil am foirm seo a' cleachdadh ceangal tèarainte.</translation>
+<translation id="4148925816941278100">American Express</translation>
+<translation id="933712198907837967">Diners Club</translation>
+<translation id="3169472444629675720">Fidir</translation>
+<translation id="6008256403891681546">JCB</translation>
+<translation id="3450660100078934250">MasterCard</translation>
+<translation id="719464814642662924">Visa</translation>
+<translation id="2451353479985491549">, </translation>
+<translation id="2107287771748948380"><ph name="OBFUSCATED_CC_NUMBER"/>, Falbhaidh an ùine air: <ph name="CC_EXPIRATION_DATE"/></translation>
+<translation id="5089810972385038852">Stàit</translation>
+<translation id="6839929833149231406">Sgìre</translation>
+<translation id="7087282848513945231">Siorrachd/Còigeamh</translation>
+<translation id="2096368010154057602">Roinn</translation>
+<translation id="6970216967273061347">Sgìre</translation>
+<translation id="7139724024395191329">Iomarat</translation>
+<translation id="3174168572213147020">Eilean</translation>
+<translation id="3885155851504623709">Paraiste</translation>
+<translation id="777702478322588152">Maorsainneachd</translation>
+<translation id="5095208057601539847">Mòr-roinn</translation>
+<translation id="2053553514270667976">Còd ZIP</translation>
+<translation id="6282194474023008486">Còd-puist</translation>
+<translation id="6445051938772793705">Dùthaich</translation>
+<translation id="1875753206475436906">seòrsa heuristigeach: <ph name="HEURISTIC_TYPE"/> seòrsa an fhrithealaiche: <ph name="SERVER_TYPE"/> soidhneadh an raoin: <ph name="FIELD_SIGNATURE"/> soidhneadh an fhoirm: <ph name="FORM_SIGNATURE"/> id na deuchainne: "<ph name="EXPERIMENT_ID"/>"</translation>
+<translation id="8804164990146287819">Am poileasaidh prìobhaideachd</translation>
+<translation id="540773678181631572">Roghainnean an fhèin-lìonaidh aig Opera</translation>
+<translation id="1847321074516120686">Roghainnean an fhèin-lìonaidh aig Chrome</translation>
+</translationbundle>

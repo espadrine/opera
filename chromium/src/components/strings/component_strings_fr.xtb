@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="fr">
+<translation id="2835170189407361413">Effacer le formulaire</translation>
+<translation id="2455981314101692989">Cette page web a désactivé le remplissage automatique pour ce formulaire.</translation>
+<translation id="7542995811387359312">Le remplissage automatique de carte de crédit a été désactivé parce que ce formulaire n'utilise pas une connexion sécurisée.</translation>
+<translation id="4148925816941278100">American Express</translation>
+<translation id="933712198907837967">Diners Club</translation>
+<translation id="3169472444629675720">Découvrir</translation>
+<translation id="6008256403891681546">JCB</translation>
+<translation id="3450660100078934250">MasterCard</translation>
+<translation id="719464814642662924">Visa</translation>
+<translation id="2451353479985491549">, </translation>
+<translation id="2107287771748948380"><ph name="OBFUSCATED_CC_NUMBER"/>, Exp : <ph name="CC_EXPIRATION_DATE"/></translation>
+<translation id="5089810972385038852">État</translation>
+<translation id="6839929833149231406">Zone</translation>
+<translation id="7087282848513945231">Pays</translation>
+<translation id="2096368010154057602">Département</translation>
+<translation id="6970216967273061347">District</translation>
+<translation id="7139724024395191329">Émirat</translation>
+<translation id="3174168572213147020">Île</translation>
+<translation id="3885155851504623709">Paroisse</translation>
+<translation id="777702478322588152">Préfecture</translation>
+<translation id="5095208057601539847">Province</translation>
+<translation id="2053553514270667976">Code ZIP</translation>
+<translation id="6282194474023008486">Code postal</translation>
+<translation id="6445051938772793705">Pays</translation>
+<translation id="1875753206475436906">type heuristique : <ph name="HEURISTIC_TYPE"/>
+    type du serveur : <ph name="SERVER_TYPE"/>
+    signature du champ : <ph name="FIELD_SIGNATURE"/>
+    signature du formulaire : <ph name="FORM_SIGNATURE"/>
+    id de l'expérience : "<ph name="EXPERIMENT_ID"/>"</translation>
+<translation id="8804164990146287819">Politique du respect de la vie privée</translation>
+<translation id="540773678181631572">Réglages du remplissage automatique d'Opera</translation>
+<translation id="1847321074516120686">Réglages du remplissage automatique de Chrome</translation>
+</translationbundle>

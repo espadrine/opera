@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="hu">
+<translation id="2835170189407361413">Űrlapadatok törlése</translation>
+<translation id="2455981314101692989">Ez a webhely letiltotta az űrlap automatikus kitöltését.</translation>
+<translation id="7542995811387359312">A hitelkártyaadatok automatikus kitöltése le van tiltva, mert az űrlap nem biztonságos kapcsolatot használ.</translation>
+<translation id="4148925816941278100">American Express</translation>
+<translation id="933712198907837967">Diners Club</translation>
+<translation id="3169472444629675720">Discover</translation>
+<translation id="6008256403891681546">JCB</translation>
+<translation id="3450660100078934250">MasterCard</translation>
+<translation id="719464814642662924">Visa</translation>
+<translation id="2451353479985491549">, </translation>
+<translation id="2107287771748948380"><ph name="OBFUSCATED_CC_NUMBER"/>, Lejárat: <ph name="CC_EXPIRATION_DATE"/></translation>
+<translation id="5089810972385038852">Állam</translation>
+<translation id="6839929833149231406">Régió</translation>
+<translation id="7087282848513945231">Ország</translation>
+<translation id="2096368010154057602">Megye</translation>
+<translation id="6970216967273061347">Körzet</translation>
+<translation id="7139724024395191329">Emirátus</translation>
+<translation id="3174168572213147020">Sziget</translation>
+<translation id="3885155851504623709">Egyházközség</translation>
+<translation id="777702478322588152">Prefektúra</translation>
+<translation id="5095208057601539847">Tartomány</translation>
+<translation id="2053553514270667976">Irányítószám</translation>
+<translation id="6282194474023008486">Irányítószám</translation>
+<translation id="6445051938772793705">Ország</translation>
+<translation id="1875753206475436906">heurisztika típusa: <ph name="HEURISTIC_TYPE"/>
+    kiszolgáló típusa: <ph name="SERVER_TYPE"/>
+    mező aláírása: <ph name="FIELD_SIGNATURE"/>
+    űrlap aláírása: <ph name="FORM_SIGNATURE"/>
+    kísérlet azonosítója: "<ph name="EXPERIMENT_ID"/>"</translation>
+<translation id="8804164990146287819">Adatvédelmi leírás</translation>
+<translation id="540773678181631572">Az Opera automatikus kitöltési beállításai</translation>
+<translation id="1847321074516120686">A Chrome automatikus kitöltési beállításai</translation>
+</translationbundle>

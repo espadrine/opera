@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="be">
+<translation id="2835170189407361413">Ачысьціць блянк</translation>
+<translation id="2455981314101692989">Старонка адключыла самазапаўненьне блянку.</translation>
+<translation id="7542995811387359312">Самазапаўненьне зьвестак крэдытнае карткі адключанае, бо ў гэтым блянку не выкарыстоўваецца бясьпечнае злучэньне</translation>
+<translation id="4148925816941278100">American Express</translation>
+<translation id="933712198907837967">Diners Club</translation>
+<translation id="3169472444629675720">Даведайцеся</translation>
+<translation id="6008256403891681546">JCB</translation>
+<translation id="3450660100078934250">MasterCard</translation>
+<translation id="719464814642662924">Visa</translation>
+<translation id="2451353479985491549">, </translation>
+<translation id="2107287771748948380"><ph name="OBFUSCATED_CC_NUMBER"/>, Эксп.: <ph name="CC_EXPIRATION_DATE"/></translation>
+<translation id="5089810972385038852">Штат</translation>
+<translation id="6839929833149231406">Край</translation>
+<translation id="7087282848513945231">Павет</translation>
+<translation id="2096368010154057602">Аддзел</translation>
+<translation id="6970216967273061347">Раён</translation>
+<translation id="7139724024395191329">Эмірат</translation>
+<translation id="3174168572213147020">Выспа</translation>
+<translation id="3885155851504623709">Прыход</translation>
+<translation id="777702478322588152">Прэфэктура</translation>
+<translation id="5095208057601539847">Вобласьць</translation>
+<translation id="2053553514270667976">Паштовы індэкс</translation>
+<translation id="6282194474023008486">Індэкс</translation>
+<translation id="6445051938772793705">Краіна</translation>
+<translation id="1875753206475436906">эўрыстычны тып: <ph name="HEURISTIC_TYPE"/>
+    тып сэрвэру: <ph name="SERVER_TYPE"/>
+    подпіс поля: <ph name="FIELD_SIGNATURE"/>
+    подпіс блянку: <ph name="FORM_SIGNATURE"/>
+    код экспэрымэнту: "<ph name="EXPERIMENT_ID"/>"</translation>
+<translation id="8804164990146287819">Правілы прыватнасьці</translation>
+<translation id="540773678181631572">Наладкі самазапаўненьня ад Opera</translation>
+<translation id="1847321074516120686">Наладкі самазапаўненьня ад Chrome</translation>
+</translationbundle>

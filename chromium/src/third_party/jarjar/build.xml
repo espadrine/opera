@@ -1,0 +1,16 @@
+<!--
+  Copyright (c) 2012 The Chromium Authors. All rights reserved.
+  Use of this source code is governed by a BSD-style license that can be
+  found in the LICENSE file.
+-->
+<project default="jar">
+  <target name="jar">
+    <taskdef name="jarjar"
+        classname="com.tonicsystems.jarjar.JarJarTask"
+        classpath="${JARJAR_JAR}"/>
+    <jarjar jarfile="${OUTPUT_JAR}">
+      <zipfileset src="${INPUT_JAR}"/>
+      <rule pattern="${PATTERN}" result="${RESULT_PACKAGE}"/>
+    </jarjar>
+  </target>
+</project>

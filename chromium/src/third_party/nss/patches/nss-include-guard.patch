@@ -1,0 +1,18 @@
+diff --git a/lib/pk11wrap/secmod.h b/lib/pk11wrap/secmod.h
+--- a/lib/pk11wrap/secmod.h
++++ b/lib/pk11wrap/secmod.h
+@@ -1,13 +1,13 @@
+ /* This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+ #ifndef _SECMOD_H_
+-#define _SEDMOD_H_
++#define _SECMOD_H_
+ #include "seccomon.h"
+ #include "secmodt.h"
+ #include "prinrval.h"
+ 
+ /* These mechanisms flags are visible to all other libraries. */
+ /* They must be converted to internal SECMOD_*_FLAG */
+ /* if used inside the functions of the security library */
+ #define PUBLIC_MECH_RSA_FLAG         0x00000001ul

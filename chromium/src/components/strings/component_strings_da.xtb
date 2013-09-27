@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="da">
+<translation id="2835170189407361413">Ryd formular</translation>
+<translation id="2455981314101692989">Denne webside har deaktiveret automatisk udfyldning af denne formular.</translation>
+<translation id="7542995811387359312">Automatisk udfyldning af kreditkort er deaktiveret, fordi denne formular ikke anvender en sikker forbindelse.</translation>
+<translation id="4148925816941278100">American Express</translation>
+<translation id="933712198907837967">Diners Club</translation>
+<translation id="3169472444629675720">Discover</translation>
+<translation id="6008256403891681546">JCB</translation>
+<translation id="3450660100078934250">MasterCard</translation>
+<translation id="719464814642662924">Visa</translation>
+<translation id="2451353479985491549">, </translation>
+<translation id="2107287771748948380"><ph name="OBFUSCATED_CC_NUMBER"/>, Udl.: <ph name="CC_EXPIRATION_DATE"/></translation>
+<translation id="5089810972385038852">Stat</translation>
+<translation id="6839929833149231406">Område</translation>
+<translation id="7087282848513945231">Kommune</translation>
+<translation id="2096368010154057602">Departement</translation>
+<translation id="6970216967273061347">Distrikt</translation>
+<translation id="7139724024395191329">Emirat</translation>
+<translation id="3174168572213147020">Ø</translation>
+<translation id="3885155851504623709">Sogn</translation>
+<translation id="777702478322588152">Præfektur</translation>
+<translation id="5095208057601539847">Provins</translation>
+<translation id="2053553514270667976">Postnummer</translation>
+<translation id="6282194474023008486">Postnummer</translation>
+<translation id="6445051938772793705">Land</translation>
+<translation id="1875753206475436906">hereustisk type: <ph name="HEURISTIC_TYPE"/>
+    servertype: <ph name="SERVER_TYPE"/>
+    feltsignatur: <ph name="FIELD_SIGNATURE"/>
+    formularsignatur: <ph name="FORM_SIGNATURE"/>
+    eksperiment-id: "<ph name="EXPERIMENT_ID"/>"</translation>
+<translation id="8804164990146287819">Politik om beskyttelse af personlige oplysninger</translation>
+<translation id="540773678181631572">Indstillinger for AutoFyld i Opera</translation>
+<translation id="1847321074516120686">Indstillinger for AutoFyld i Chrome</translation>
+</translationbundle>

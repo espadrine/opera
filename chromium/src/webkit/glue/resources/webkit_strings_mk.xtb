@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="mk">
+<translation id="4522570452068850558">Детали</translation>
+<translation id="3358049263351449631">Ова е индекс за пребарување. Внесете клучни зборови за пребарување: '''</translation>
+<translation id="6643016212128521049">Исчисти</translation>
+<translation id="2148716181193084225">Денеска</translation>
+<translation id="248395913932153421">Ден</translation>
+<translation id="8987927404178983737">Месец</translation>
+<translation id="6015796118275082299">Година</translation>
+<translation id="2653659639078652383">Поднеси</translation>
+<translation id="5939518447894949180">Ресетирај</translation>
+<translation id="7364796246159120393">Изберете датотека</translation>
+<translation id="1637811476055996098">Изберете датотеки</translation>
+<translation id="795667975304826397">Нема избрани датотеки</translation>
+<translation id="8964020114565522021">Повлечете ја датотеката тука</translation>
+<translation id="8444882422881193423"><ph name="NUMBER_OF_FILES"/> датотеки</translation>
+<translation id="668171684555832681">Друго...</translation>
+<translation id="1758486001363313524">Друго...</translation>
+<translation id="9132465097189459683">Друго...</translation>
+<translation id="5843503607508392247">Друго...</translation>
+<translation id="739024184232394898">Друго...</translation>
+<translation id="1921819250265091946">дд</translation>
+<translation id="3732799496749320381">мм</translation>
+<translation id="8199524924445686405">гггг</translation>
+<translation id="1591562245178063882">Овој месец</translation>
+<translation id="8117451130807776954">Оваа седмица</translation>
+<translation id="5966707198760109579">Седмица</translation>
+<translation id="2548326553472216322">Нема неодамнешни пребарувања</translation>
+<translation id="6663448176199120256">Неодамнешни пребарувања</translation>
+<translation id="1235745349614807883">Исчисти неодамнешни пребарувања</translation>
+<translation id="4611115858363067980"><ph name="FILENAME"/><ph name="WIDTH"/>×<ph name="HEIGHT"/></translation>
+<translation id="7740050170769002709">HTML-содржина</translation>
+<translation id="3040011195152428237">врска</translation>
+<translation id="5048533449481078685">маркер за списоци</translation>
+<translation id="8244226242650769279">мапа со слики</translation>
+<translation id="8597182159515967513">заглавие</translation>
+<translation id="2674318244760992338">подножје</translation>
+<translation id="6692633176391053278">чекори</translation>
+<translation id="6845533974506654842">притиснете</translation>
+<translation id="1842960171412779397">изберете</translation>
+<translation id="6119846243427417423">активирај</translation>
+<translation id="5476505524087279545">избриши избор</translation>
+<translation id="838869780401515933">означи</translation>
+<translation id="4202807286478387388">скокни</translation>
+<translation id="1822429046913737220">Претпладне/попладне</translation>
+<translation id="1014825444426747588">празно</translation>
+<translation id="7673697353781729403">Часови</translation>
+<translation id="8541249477527128034">контрола за медиуми</translation>
+<translation id="2723001399770238859">аудио</translation>
+<translation id="4763480195061959176">видео</translation>
+<translation id="6843725295806269523">исклучи звук</translation>
+<translation id="5546461542133609677">вклучи звук</translation>
+<translation id="2572483411312390101">пушти</translation>
+<translation id="7789962463072032349">пауза</translation>
+<translation id="7057186640035488495">време на филмот</translation>
+<translation id="6270583010843788609">сликичка со времето за филмот</translation>
+<translation id="3471999216963526757">назад 30 секунди</translation>
+<translation id="2615751259741237794">врати во реално време</translation>
+<translation id="7223624360433298498">изминато време</translation>
+<translation id="7720026100085573005">преостанато време</translation>
+<translation id="1930711995431081526">статус</translation>
+<translation id="658823671542763450">прикажи на цел екран</translation>
+<translation id="5468998798572797635">излези од цел екран</translation>
+<translation id="4851297395436456855">премотај напред</translation>
+<translation id="4484359737905287537">премотај назад</translation>
+<translation id="9050748414552849310">прикажи појаснување</translation>
+<translation id="6853785296079745596">сокриј појаснување</translation>
+<translation id="1020833440720551630">исклучи звук на аудио-записот</translation>
+<translation id="6101327004457443354">вклучи звук на аудио-записот</translation>
+<translation id="8785498733064193001">започни со репродукција</translation>
+<translation id="5641012560118721995">паузирај репродукција</translation>
+<translation id="3785482301506746191">чистач на времето за филмот</translation>
+<translation id="6359256949422175976">сликичка за чистачот на времето за филмот</translation>
+<translation id="3356679314312413792">врати го филмот назад 30 секунди</translation>
+<translation id="2426432199384958866">врати го пуштениот филм во реално време</translation>
+<translation id="901493112792887934">тековно време во секунди</translation>
+<translation id="3632707345189162177">број на преостанати секунди од филмот</translation>
+<translation id="2901282870647571346">тековен статус на филмот</translation>
+<translation id="819205353528511139">пушти го филмот во режим за цел екран</translation>
+<translation id="9039488204461337220">побарај накратко напред</translation>
+<translation id="1320012872283894746">побарај накратко назад</translation>
+<translation id="8115662671911883373">започни со прикажување на појаснувањата</translation>
+<translation id="7740016676195725605">прекини со прикажување на појаснувањата</translation>
+<translation id="4103419683916926126">Милисекунди</translation>
+<translation id="8534579021159131403">Минути</translation>
+<translation id="1088086359088493902">Секунди</translation>
+<translation id="5944544982112848342">2048 (висок квалитет)</translation>
+<translation id="2846343701378493991">1024 (среден квалитет)</translation>
+<translation id="2247351761944213033">Седмица <ph name="WEEKNUMBER"/>, <ph name="YEAR"/></translation>
+<translation id="5466621249238537318">Изберете една или неколку датотеки.</translation>
+<translation id="835897206747267392">Неважечка вредност.</translation>
+<translation id="2908441821576996758">Внесете список со адреси за е-пошта разделени со запирка</translation>
+<translation id="5164977714490026579">Вредноста мора да биде поголема или еднаква на <ph name="MINIMUM"/>.</translation>
+<translation id="3450233048674729344">Вредноста мора да биде помала или еднаква на <ph name="MAXIMUM"/>.</translation>
+<translation id="3075154866155599887">Внесете точна вредност. Полето не е комплетно или има неважечки податоци.</translation>
+<translation id="4812940957355064477">Внесете број.</translation>
+<translation id="2507943997699731163">Пополнете го ова поле.</translation>
+<translation id="2761667185364618470">Означете го ова поле ако сакате да продолжите.</translation>
+<translation id="8451268428117625855">Изберете датотека.</translation>
+<translation id="8750798805984357768">Изберете една од овие опции.</translation>
+<translation id="7263440858009898357">Изберете ставка од списокот.</translation>
+<translation id="1171774979989969504">Внесете адреса на е-пошта.</translation>
+<translation id="310520048233152454">Внесете УРЛ-адреса.</translation>
+<translation id="709897737746224366">Совпаднете со бараниот формат.</translation>
+<translation id="2226276347425096477">Скратете го овој текст на <ph name="MAX_CHARACTERS"/> знаци или помалку (тековно има <ph name="CURRENT_LENGTH"/> знаци).</translation>
+<translation id="2597378329261239068">Овој документ е заштитен со лозинка. Внесете лозинка.</translation>
+<translation id="370665806235115550">Се вчитува...</translation>
+<translation id="9186171386827445984">Документот се вчитува: <ph name="PAGE_NUMBER"/>/<ph name="NUMBER_OF_PAGES"/> страници...</translation>
+<translation id="3934680773876859118">PDF-документот не се вчита</translation>
+<translation id="1639239467298939599">Се вчитува</translation>
+<translation id="5919473608089529604">Приклучокот не можеше да се вчита.</translation>
+</translationbundle>

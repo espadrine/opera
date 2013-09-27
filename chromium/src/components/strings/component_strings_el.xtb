@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="el">
+<translation id="2835170189407361413">Απαλοιφή φόρμας</translation>
+<translation id="2455981314101692989">Αυτή η τοποθεσία έχει απενεργοποιήσει την αυτόματη συμπλήρωση για αυτή τη φόρμα.</translation>
+<translation id="7542995811387359312">Η αυτόματη συμπλήρωση πιστωτικής κάρτας είναι απενεργοποιημένη γιατί αυτή η φόρμα δεν χρησιμοποιεί ασφαλή σύνδεση.</translation>
+<translation id="4148925816941278100">American Express</translation>
+<translation id="933712198907837967">Diners Club</translation>
+<translation id="3169472444629675720">Discover</translation>
+<translation id="6008256403891681546">JCB</translation>
+<translation id="3450660100078934250">MasterCard</translation>
+<translation id="719464814642662924">Visa</translation>
+<translation id="2451353479985491549">, </translation>
+<translation id="2107287771748948380"><ph name="OBFUSCATED_CC_NUMBER"/>, Λήξη: <ph name="CC_EXPIRATION_DATE"/></translation>
+<translation id="5089810972385038852">Πολιτεία</translation>
+<translation id="6839929833149231406">Περιοχή</translation>
+<translation id="7087282848513945231">Κομητεία</translation>
+<translation id="2096368010154057602">Διαμέρισμα</translation>
+<translation id="6970216967273061347">Περιφέρεια</translation>
+<translation id="7139724024395191329">Εμιράτο</translation>
+<translation id="3174168572213147020">Νησί</translation>
+<translation id="3885155851504623709">Ενορία</translation>
+<translation id="777702478322588152">Νομαρχία</translation>
+<translation id="5095208057601539847">Επαρχία</translation>
+<translation id="2053553514270667976">Ταχ. Κώδ.</translation>
+<translation id="6282194474023008486">Ταχ. Κώδ./Zip</translation>
+<translation id="6445051938772793705">Χώρα</translation>
+<translation id="1875753206475436906">ευρετικός τύπος: <ph name="HEURISTIC_TYPE"/>
+    τύπος διακομιστή: <ph name="SERVER_TYPE"/>
+    υπογραφή πεδίου: <ph name="FIELD_SIGNATURE"/>
+    υπογραφή φόρμας: <ph name="FORM_SIGNATURE"/>
+    αναγνωριστικό πειράματος: "<ph name="EXPERIMENT_ID"/>"</translation>
+<translation id="8804164990146287819">Πολιτική απορρήτου</translation>
+<translation id="540773678181631572">Ρυθμίσεις αυτόματης συμπλήρωσης Opera</translation>
+<translation id="1847321074516120686">Ρυθμίσεις αυτόματης συμπλήρωσης Chrome</translation>
+</translationbundle>

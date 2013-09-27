@@ -1,0 +1,12 @@
+<resources>
+
+    <!-- Size of the outer browser view area that will trigger a scroll. The
+         value is specified as a percentange of the browser view size. -->
+    <item name="chromium_page_selection_scroll_area" type="integer">10</item>
+
+    <!-- Scroll speed is determined by how far the handle is dragged into the
+         scroll area (chromium_page_selection_scroll_area) divided by this
+         value. -->
+    <item name="chromium_page_selection_scroll_speed_factor" type="integer">4</item>
+
+</resources>

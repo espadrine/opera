@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="af">
+<translation id="2190355936436201913">(leeg)</translation>
+<translation id="688711909580084195">Ongetitelde webbladsy</translation>
+<translation id="2497284189126895209">Alle Lêers</translation>
+<translation id="8602707065186045623"><ph name="SAVEAS_EXTENSION_TYPE"/>Lêer (.<ph name="SAVEAS_EXTENSION_NAME"/>)</translation>
+<translation id="6945221475159498467">Kies</translation>
+<translation id="6845383723252244143">Kies Lêergids</translation>
+<translation id="6620110761915583480">Stoor lêer</translation>
+<translation id="7907591526440419938">Maak lêer oop</translation>
+<translation id="3036649622769666520">Maak lêers oop</translation>
+<translation id="436869212180315161">Druk</translation>
+<translation id="6040143037577758943">Maak toe</translation>
+<translation id="5941711191222866238">Minimeer</translation>
+<translation id="1398853756734560583">Maksimeer</translation>
+<translation id="3157931365184549694">Herstel</translation>
+<translation id="3183922693828471536">Rol hiernatoe</translation>
+<translation id="8328145009876646418">Linkerrand</translation>
+<translation id="3990502903496589789">Regterrand</translation>
+<translation id="2666092431469916601">Bo</translation>
+<translation id="3087734570205094154">Onder</translation>
+<translation id="2168039046890040389">Blaai op</translation>
+<translation id="8210608804940886430">Blaai af</translation>
+<translation id="6364916375976753737">Rol na links</translation>
+<translation id="4588090240171750605">Rol na regs</translation>
+<translation id="8331626408530291785">Rol na bo</translation>
+<translation id="815598010540052116">Rol na onder</translation>
+<translation id="9170848237812810038">&amp;Maak ongedaan</translation>
+<translation id="3909791450649380159">Kn&amp;ip</translation>
+<translation id="7814458197256864873">&amp;Kopieer</translation>
+<translation id="5076340679995252485">&amp;Plak</translation>
+<translation id="5329858601952122676">&amp;Skrap</translation>
+<translation id="1901303067676059328">Kies &amp;almal</translation>
+<translation id="6965382102122355670">OK</translation>
+<translation id="7658239707568436148">Kanselleer</translation>
+<translation id="1293699935367580298">Esc</translation>
+<translation id="6659594942844771486">Tab</translation>
+<translation id="1871244248791675517">Ins</translation>
+<translation id="932327136139879170">Tuis</translation>
+<translation id="6135826906199951471">Del</translation>
+<translation id="528468243742722775">Einde</translation>
+<translation id="8447116497070723931">PgUp</translation>
+<translation id="4552416320897244156">PgDwn</translation>
+<translation id="5613020302032141669">Linkerpyl</translation>
+<translation id="3889424535448813030">Regterpyl</translation>
+<translation id="3660179305079774227">Opwaartse pyl</translation>
+<translation id="3234408098842461169">Afwaartse pyl</translation>
+<translation id="8179976553408161302">Enter</translation>
+<translation id="7052633198403197513">F1</translation>
+<translation id="7222373446505536781">F11</translation>
+<translation id="5583640892426849032">Backspace</translation>
+<translation id="6394627529324717982">Komma</translation>
+<translation id="1801827354178857021">Tydperk</translation>
+<translation id="4999762576397546063">Ctrl+<ph name="KEY_COMBO_NAME"/></translation>
+<translation id="5948410903763073882">Alt+<ph name="KEY_COMBO_NAME"/></translation>
+<translation id="8400147561352026160">Shift+<ph name="KEY_COMBO_NAME"/></translation>
+<translation id="4820616160060340806">Command+<ph name="KEY_COMBO_NAME"/></translation>
+<translation id="1761785978543082658"><ph name="QUANTITY"/>G</translation>
+<translation id="8901569739625249689"><ph name="QUANTITY"/>kG</translation>
+<translation id="3049748772180311791"><ph name="QUANTITY"/>MG</translation>
+<translation id="3757388668994797779"><ph name="QUANTITY"/>GG</translation>
+<translation id="7460907917090416791"><ph name="QUANTITY"/>TG</translation>
+<translation id="520299402983819650"><ph name="QUANTITY"/>PG</translation>
+<translation id="6142413573757616983"><ph name="QUANTITY"/>G/s</translation>
+<translation id="8677655579646609597"><ph name="QUANTITY"/>kG/s</translation>
+<translation id="1809410197924942083"><ph name="QUANTITY"/>MG/s</translation>
+<translation id="3740362395218339114"><ph name="QUANTITY"/>GG/s</translation>
+<translation id="2297836609126180313"><ph name="QUANTITY"/>TG/s</translation>
+<translation id="6907759265145635167"><ph name="QUANTITY"/>PG/s</translation>
+<translation id="1190609913194133056">Kennisgewingsentrum</translation>
+<translation id="7420029124412548303">Deaktiveer kennisgewings vanaf <ph name="extension_name"/></translation>
+<translation id="6101372652171577303">Deaktiveer kennisgewings vanaf <ph name="site"/></translation>
+<translation id="2482878487686419369">Kennisgewings</translation>
+<translation id="8428213095426709021">Instellings</translation>
+<translation id="6829324100069873704">Gaan terug na kennisgewings</translation>
+<translation id="7135556860107312402">Laat kennisgewings toe vanaf die volgende:</translation>
+<translation id="2983818520079887040">Instellings...</translation>
+<translation id="7457942297256758195">Maak alles leeg</translation>
+<translation id="6528179044667508675">Moet nie steur nie</translation>
+<translation id="7850320739366109486">Moet nie steur nie</translation>
+<translation id="4927753642311223124">Niks om hier te sien nie, gaan voort.</translation>
+<translation id="7960078400008666149">Moet vir een uur nie steur nie</translation>
+<translation id="8226233771743600312">Moet vir een dag nie steur nie</translation>
+<translation id="1860796786778352021">Maak kennisgewing toe</translation>
+<translation id="4570886800634958009">Vou kennisgewing uit</translation>
+<translation id="562947159670281323"><ph name="product"/> - Kennisgewings</translation>
+<translation id="4750650230321497886"><ph name="product"/> - Kennisgewings (<ph name="QUANTITY"/>nie gelees nie)</translation>
+<translation id="4250229828105606438">Skermskoot</translation>
+<translation id="7649070708921625228">Hulp</translation>
+<translation id="945522503751344254">Stuur terugvoer</translation>
+</translationbundle>

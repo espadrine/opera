@@ -1,0 +1,948 @@
+# There are three kinds of suppressions in this file.
+# 1. third party stuff we have no control over
+#
+# 2. intentional unit test errors, or stuff that is somehow a false positive
+# in our own code, or stuff that is so trivial it's not worth fixing
+#
+# 3. Suppressions for real chromium bugs that are not yet fixed.
+# These should all be in chromium's bug tracking system (but a few aren't yet).
+# Periodically we should sweep this file and the bug tracker clean by
+# running overnight and removing outdated bugs/suppressions.
+#-----------------------------------------------------------------------
+
+# 1. third party stuff we have no control over
+{
+  bug_39050_a
+  Heapcheck:Leak
+  fun:FcPatternObjectAddWithBinding
+}
+{
+  bug_39050_b
+  Heapcheck:Leak
+  fun:FcPatternObjectInsertElt
+}
+{
+  bug_39050_c
+  Heapcheck:Leak
+  fun:FcConfigValues
+}
+{
+  bug_39050_d
+  Heapcheck:Leak
+  fun:IA__FcLangSetCreate
+}
+{
+  bug_39050_d2
+  Heapcheck:Leak
+  fun:FcLangSetCreate
+}
+{
+  bug_39050_e
+  Heapcheck:Leak
+  fun:IA__FcStrCopy
+}
+{
+  bug_39050_e2
+  Heapcheck:Leak
+  fun:FcStrCopy
+}
+{
+  bug_39050_f
+  Heapcheck:Leak
+  fun:FcValueSave
+}
+{
+  bug_39050_g
+  Heapcheck:Leak
+  fun:FcPatternHash
+}
+{
+  bug_39050_h
+  Heapcheck:Leak
+  fun:FcConfigFilename
+}
+{
+  bug_39050_i
+  Heapcheck:Leak
+  fun:FcCharSetFindLeafCreate
+}
+{
+  bug_39050_j
+  Heapcheck:Leak
+  fun:FcCharSetPutLeaf
+}
+{
+  bug_39050_k
+  Heapcheck:Leak
+  fun:IA__FcCharSetCreate
+}
+{
+   bug_186086 (Skia -- global singleton instance of SkFontConfigDirect)
+   Heapcheck:Leak
+   ...
+   fun:SkFontConfigInterfaceDirect::SkFontConfigInterfaceDirect
+   fun:SkFontConfigInterface::GetSingletonDirectInterface
+}
+{
+   bug_51988_a
+   Heapcheck:Leak
+   ...
+   fun:*nsPKCS12Blob_ImportHelper
+   fun:mozilla_security_manager::nsPKCS12Blob_Import
+   fun:net::NSSCertDatabase::ImportFromPKCS12
+}
+{
+   bug_51988_b
+   Heapcheck:Leak
+   ...
+   fun:mozilla_security_manager::nsPKCS12Blob_Export
+   fun:net::NSSCertDatabase::ExportToPKCS12
+}
+{
+   bug_51988_c
+   Heapcheck:Leak
+   ...
+   fun:crypto::Open*NSSDB
+}
+{
+   bug_51988_d
+   Heapcheck:Leak
+   ...
+   fun:*New
+   ...
+   fun:crypto::EnsureNSSInit
+}
+{
+   bug_51988_e
+   Heapcheck:Leak
+   ...
+   fun:net::CertDatabaseNSSTest_*_Test::TestBody
+}
+{
+   bug_51988_f
+   Heapcheck:Leak
+   ...
+   fun:net::CertDatabaseNSSTest::TearDown
+}
+{
+   bug_51988_g
+   Heapcheck:Leak
+   fun:sqlite3MemMalloc
+   ...
+   fun:net::CertDatabaseNSSTest::SetUp
+}
+{
+   bug_51988_h
+   Heapcheck:Leak
+   fun:sqlite3MemMalloc
+   ...
+   fun:chromeos::onc::CertificateImporter::ParseServerOrCaCertificate
+}
+{
+   bug_51988_i
+   Heapcheck:Leak
+   fun:sqlite3MemMalloc
+   fun:net::X509Certificate::GetDefaultNickname
+}
+{
+   bug_51988_j
+   Heapcheck:Leak
+   fun:sqlite3MemMalloc
+   fun:chromeos::*::ListCertsInSlot
+}
+{
+   bug_119677
+   Heapcheck:Leak
+   ...
+   fun:DisplayChangeObserverX11
+   fun:aura::Env::Init
+   fun:aura::Env::GetInstance
+}
+{
+   bug_146464_a
+   Heapcheck:Leak
+   fun:get_peer_sock_name
+   fun:base::MessagePumpAuraX11::GetDefaultXDisplay
+}
+{
+   bug_146464_b
+   Heapcheck:Leak
+   fun:add_codeset.isra.10
+   ...
+   fun:RootWindowHostX11
+   fun:aura::RootWindowHost::Create
+}
+{
+   bug_146464_c
+   Heapcheck:Leak
+   ...
+   fun:RootWindowHostX11
+   fun:aura::RootWindowHost::Create
+}
+
+# There is not CloseTestNSSDB due to NSS bug 588269.
+# When NSS 3.14 is the minimum version required, this should be removed.
+# http://crbug.com/156433 .
+{
+   bug_156433_a
+   Heapcheck:Leak
+   fun:sqlite3MemMalloc
+   fun:*OpenUserDB
+   fun:*OpenTestNSSDB
+   fun:*ScopedTestNSSDB
+}
+{
+   bug_156433_b
+   Heapcheck:Leak
+   fun:PORT_Alloc_Util
+   fun:*OpenUserDB
+   fun:*OpenTestNSSDB
+   fun:*ScopedTestNSSDB
+}
+
+# Probably a leak in GTK.
+{
+   bug_175744
+   Heapcheck:Leak
+   ...
+   fun:GtkThemeService::GtkThemeService
+   fun:ThemeServiceFactory::BuildServiceInstanceFor
+   fun:BrowserContextKeyedServiceFactory::GetServiceForBrowserContext
+   fun:*
+   fun:BrowserContextDependencyManager::CreateBrowserContextServices
+   fun:TestingProfile::Init
+   fun:TestingProfile::TestingProfile
+}
+
+
+#-----------------------------------------------------------------------
+# 2. intentional unit test errors, or stuff that is somehow a false positive
+# in our own code, or stuff that is so trivial it's not worth fixing
+{
+   Heapcheck sanity test (ToolsSanityTest.MemoryLeak).
+   Heapcheck:Leak
+   fun:base::ToolsSanityTest_MemoryLeak_Test::TestBody
+}
+{
+   FileStream::Context can leak through WorkerPool by design (Linux)
+   Heapcheck:Leak
+   fun:net::FileStream::FileStream
+}
+{
+   FileStream::Context can leak through WorkerPool by design (CrOS)
+   Heapcheck:Leak
+   fun:FileStream
+}
+{
+   Tasks posted to WorkerPool can leak by design
+   Heapcheck:Leak
+   fun:base::internal::PostTaskAndReplyImpl::PostTaskAndReply
+   fun:base::WorkerPool::PostTaskAndReply
+}
+
+#-----------------------------------------------------------------------
+# 3. Suppressions for real chromium bugs that are not yet fixed.
+# These should all be in chromium's bug tracking system (but a few aren't yet).
+# Periodically we should sweep this file and the bug tracker clean by
+# running overnight and removing outdated bugs/suppressions.
+{
+   bug_34994_a
+   Heapcheck:Leak
+   ...
+   fun:*Invoke
+   fun:v8::internal::Execution::Call
+   fun:v8::Script::Run
+}
+{
+   bug_34994_b
+   Heapcheck:Leak
+   ...
+   fun:*Invoke
+   fun:v8::internal::Execution::Call
+   fun:v8::Function::Call
+}
+{
+   bug_19775_a
+   Heapcheck:Leak
+   ...
+   fun:history::InMemoryHistoryBackend::Init
+   fun:history::HistoryBackend::InitImpl
+}
+{
+   bug_19775_b
+   Heapcheck:Leak
+   ...
+   fun:history::HistoryBackend::InitImpl
+   fun:history::HistoryBackend::Init
+}
+{
+   bug_19775_d
+   Heapcheck:Leak
+   ...
+   fun:ProfileManagerTest_CreateAndUseTwoProfiles_Test::TestBody
+}
+{
+   bug_49300_a
+   Heapcheck:Leak
+   fun:disk_cache::StorageBlock::AllocateData
+   fun:disk_cache::StorageBlock::Data
+}
+{
+   bug_49300_b
+   Heapcheck:Leak
+   ...
+   fun:disk_cache::BackendImpl::CreateEntryImpl
+   fun:disk_cache::BackendImpl::SyncCreateEntry
+   fun:disk_cache::BackendIO::ExecuteBackendOperation
+}
+{
+   bug_49300_c
+   Heapcheck:Leak
+   ...
+   fun:disk_cache::BackendImpl::NewEntry
+   fun:disk_cache::BackendImpl::MatchEntry
+}
+{
+   bug_65940_a
+   Heapcheck:Leak
+   ...
+   fun:IPC::SyncChannel::SyncChannel
+   fun:ChildThread::Init
+   fun:ChildThread::ChildThread
+   fun:RenderThreadImpl::RenderThreadImpl
+}
+{
+   bug_65940_b
+   Heapcheck:Leak
+   fun:__gnu_cxx::new_allocator::allocate
+   fun:std::_Vector_base::_M_allocate
+   fun:std::vector::_M_insert_aux
+   fun:std::vector::push_back
+   fun:IPC::ChannelProxy::Context::OnAddFilter
+}
+{
+   bug_67378_a
+   Heapcheck:Leak
+   ...
+   fun:*SetPacScriptFromDisk
+}
+{
+   bug_67378_b
+   Heapcheck:Leak
+   ...
+   fun:*LoadScriptData
+}
+{
+   bug_67378_c
+   Heapcheck:Leak
+   fun:*ASCIILiteralToV8String
+   fun:net::ProxyResolverV8::Context::InitV8
+   fun:net::ProxyResolverV8::SetPacScript
+}
+{
+   bug_67378_d
+   Heapcheck:Leak
+   fun:*ScriptDataToV8String
+   fun:net::ProxyResolverV8::Context::InitV8
+   fun:net::ProxyResolverV8::SetPacScript
+}
+{
+   bug_79328
+   Heapcheck:Leak
+   ...
+   fun:TestingProfile::CreateRequestContext
+   fun:*
+}
+{
+   bug_82974a
+   Heapcheck:Leak
+   ...
+   fun:net::X509Certificate::CreateOSCertHandleFromBytes*
+}
+{
+   bug_82974b
+   Heapcheck:Leak
+   ...
+   fun:*PKIXVerifyCert
+}
+{
+   bug_82974c
+   Heapcheck:Leak
+   fun:sqlite3MemMalloc
+   fun:net::*::ListCertsInSlot
+   ...
+   fun:net::CertDatabaseNSSTest::TearDown
+}
+{
+   bug_82974d
+   Heapcheck:Leak
+   fun:sqlite3MemMalloc
+   fun:net::NSSCertDatabase::ListCerts
+}
+{
+   bug_82974e
+   Heapcheck:Leak
+   ...
+   fun:net::NSSCertDatabase::DeleteCertAndKey
+   fun:*::CleanupSlotContents
+}
+{
+   bug_82974f
+   Heapcheck:Leak
+   ...
+   fun:net::NSSCertDatabase::DeleteCertAndKey
+   fun:*ParseServerOrCaCertificate
+}
+{
+   bug_90013_a
+   Heapcheck:Leak
+   fun:??
+   fun:gfx::RenderTextLinux::EnsureLayout
+}
+{
+   bug_90013_b
+   Heapcheck:Leak
+   fun:??
+   fun:gfx::RenderTextLinux::GetStringSize
+}
+{
+   bug_90013_c
+   Heapcheck:Leak
+   fun:??
+   fun:*FindBestMatchFontFamilyName
+   fun:PlatformFontPango
+}
+{
+   bug_90013_d
+   Heapcheck:Leak
+   fun:??
+   fun:gfx::GetPangoFontMetrics
+   fun:gfx::PlatformFontPango::InitPangoMetrics
+}
+{
+   bug_99304
+   Heapcheck:Leak
+   fun:v8::internal::SkipList::Update
+   fun:v8::internal::PagedSpace::AllocateRaw
+   fun:v8::internal::Heap::ReserveSpace
+   fun:v8::internal::Deserializer::Deserialize
+   fun:v8::internal::Isolate::Init
+   fun:v8::internal::V8::Initialize
+   fun:v8::internal::Snapshot::Initialize
+   fun:*InitializeHelper
+}
+{
+   bug_114750_a
+   Heapcheck:Leak
+   fun:::FindBestMatchFontFamilyName
+   fun:gfx::PlatformFontPango::PlatformFontPango
+   fun:PlatformFontPangoTest_FamilyList_Test::TestBody
+}
+{
+   bug_114750_b
+   Heapcheck:Leak
+   fun:??
+   fun:FindBestMatchFontFamilyName
+   fun:PlatformFontPango
+   fun:gfx::PlatformFont::CreateFromNativeFont
+   fun:Font
+   fun:PlatformFontPango
+   fun:gfx::PlatformFont::CreateDefault
+   fun:Font
+   ...
+   fun:*Test*
+}
+{
+   bug_114770
+   Heapcheck:Leak
+   ...
+   fun:TestShell::InitializeTestShell
+   fun:TestShellTestSuite::Initialize
+   fun:base::TestSuite::Run
+}
+{
+   bug_114978
+   Heapcheck:Leak
+   ...
+   fun:mozilla_security_manager::GenKeyAndSignChallenge
+   fun:net::KeygenHandler::GenKeyAndSignChallenge
+}
+{
+   bug_114986
+   Heapcheck:Leak
+   ...
+   fun:ThemeServiceFactory::BuildServiceInstanceFor
+   ...
+   fun:BrowserContextKeyedServiceFactory::GetServiceForBrowserContext
+   fun:ThemeServiceFactory::GetForProfile
+}
+{
+   bug_124758
+   Heapcheck:Leak
+   fun:sqlite3MemMalloc
+   fun:crypto::RSAPrivateKey::FindFromPublicKeyInfo
+   fun:crypto::RSAPrivateKeyNSSTest_*_Test::TestBody
+}
+{
+  bug_132431
+  Heapcheck:Leak
+  ...
+  fun:*LoadDefaults
+  fun:gfx::GetDefaultWebKitFontRenderParams
+  ...
+  fun:*TestBody
+}
+{
+   bug_145703
+   Heapcheck:Leak
+   ...
+   fun:content::SiteInstanceImpl::GetProcess
+   fun:RenderViewHostImpl
+   fun:content::RenderViewHostFactory::Create
+   fun:content::RenderViewHostManager::Init
+   fun:content::WebContentsImpl::Init
+   fun:content::TestWebContents::Create
+   fun:content::WebContentsTester::CreateTestWebContents
+}
+{
+   bug_145705
+   Heapcheck:Leak
+   ...
+   fun:extensions::SettingsFrontend::Create
+   fun:ExtensionService::ExtensionService
+   fun:extensions::TestExtensionSystem::CreateExtensionService
+   fun:extensions::::TestExtensionEnvironment::GetExtensionService
+   fun:extensions::::TestExtensionEnvironment::MakeExtension
+   fun:extensions::::DeclarativeContentActionTest_ShowPageAction_Test::TestBody
+}
+{
+   bug_150648
+   Heapcheck:Leak
+   fun:WTF::fastMalloc
+   fun:WTF::StringImpl::createUninitialized
+   fun:WTF::StringImpl::create
+   fun:WebKit::WebString::assign
+   fun:*WebString*
+   fun:webkit_glue::CppBoundClass::BindToJavascript
+   fun:*didClearWindowObject
+   fun:WebKit::FrameLoaderClientImpl::dispatchDidClearWindowObjectInWorld
+   fun:WebCore::FrameLoader::dispatchDidClearWindowObjectInWorld
+}
+{
+   bug_155530_a
+   Heapcheck:Leak
+   ...
+   fun:GeolocationInfoBarQueueControllerTests_OneObservationPerInfoBarCancelled_Test::TestBody
+}
+{
+   bug_155530_b
+   Heapcheck:Leak
+   ...
+   fun:*CreateLocaleDefaultValue
+   ...
+   fun:GeolocationInfoBarQueueControllerTests::SetUp
+}
+{
+   bug_157885
+   Heapcheck:Leak
+   ...
+   fun:dom_storage::DomStorageContext::CreateSessionNamespace
+}
+{
+   bug_159191
+   Heapcheck:Leak
+   ...
+   fun:SkFontHost::CreateTypeface
+   fun:SkTypeface::GetDefaultTypeface
+   fun:SkScalerContext::MakeRec
+   fun:SkPaint::descriptorProc
+   fun:SkPaint::detachCache
+   fun:SkAutoGlyphCache::SkAutoGlyphCache
+   fun:SkDraw::drawText
+   fun:SkDevice::drawText
+   fun:SkCanvas::drawText
+   fun:media::FakeVideoCaptureDevice::OnCaptureTask
+}
+# Need to figure out if the bug_159551 leaks are intentional or not.
+{
+   bug_159551_message_loop
+   Heapcheck:Leak
+   fun:MessageLoop
+   ...
+   fun:testing::internal::TestFactoryImpl::CreateTest
+}
+{
+   bug_159551_bind_cros
+   Heapcheck:Leak
+   fun:base::Bind
+   fun:net::FileStream::Context::CloseAndDelete
+   fun:net::FileStream::Context::Orphan
+   fun:~FileStream
+}
+{
+   bug_159551_bind_linux
+   Heapcheck:Leak
+   fun:base::Bind
+   fun:net::FileStream::Context::CloseAndDelete
+   fun:net::FileStream::Context::Orphan
+   fun:net::FileStream::~FileStream
+}
+{
+   bug_164185
+   Heapcheck:Leak
+   ...
+   fun:BookmarkBarGtk::GetFirstHiddenBookmark
+   fun:BookmarkBarGtk::SetChevronState
+   fun:BookmarkBarGtk::BookmarkNodeAdded
+   fun:BookmarkModel::AddNode
+   fun:BookmarkModel::AddURLWithCreationTime
+   fun:BookmarkModel::AddURL
+   fun:BookmarkBarGtkUnittest_HidesHelpMessageWithBookmark_Test::TestBody
+}
+{
+   bug_166989
+   Heapcheck:Leak
+   ...
+   fun:ui::CreateInvisibleCursor
+   ...
+   fun:ui::CursorLoader::Create
+   fun:ash::ImageCursors::SetDeviceScaleFactor
+   fun:ash::CursorManager::SetDeviceScaleFactor
+   fun:ash::Shell::Init
+}
+# TODO(thestig): bug_169185_a may be obsolete?
+{
+   bug_169185_a
+   Heapcheck:Leak
+   fun:v8::internal::SlotsBufferAllocator::AllocateBuffer
+   fun:v8::internal::SlotsBuffer::AddTo
+   fun:v8::internal::MarkCompactCollector::RecordSlot
+   ...
+   fun:v8::internal::StaticMarkingVisitor::IterateBody
+   fun:v8::internal::IncrementalMarking::VisitObject
+   fun:v8::internal::IncrementalMarking::ProcessMarkingDeque
+   fun:v8::internal::IncrementalMarking::Step
+   ...
+   fun:v8::internal::*Space::AllocateRaw
+}
+{
+   bug_169185_b
+   Heapcheck:Leak
+   fun:v8::internal::SkipList::Update
+   fun:v8::internal::PagedSpace::AllocateRaw
+   fun:v8::internal::Heap::CreateCode
+   fun:v8::internal::Factory::NewCode
+   fun:v8::internal::CodeGenerator::MakeCodeEpilogue
+   fun:v8::internal::FullCodeGenerator::MakeCode
+   fun:*GenerateCode
+   fun:*MakeCode
+   fun:v8::internal::Compiler::CompileLazy
+   fun:*CompileLazyHelper
+   fun:v8::internal::JSFunction::CompileLazy
+   ...
+   fun:*Invoke
+}
+{
+   bug_169185_c
+   Heapcheck:Leak
+   fun:v8::internal::SkipList::Update
+   fun:v8::internal::PagedSpace::AllocateRaw
+   fun:v8::internal::Heap::CreateCode
+   fun:v8::internal::Factory::NewCode
+   fun:v8::internal::StubCompiler::GetCodeWithFlags
+   fun:v8::internal::StubCompiler::GetCodeWithFlags
+   ...
+   fun:v8::internal::StubCache::Compute*
+}
+{
+   bug_169185_d
+   Heapcheck:Leak
+   fun:v8::internal::SkipList::Update
+   fun:v8::internal::PagedSpace::AllocateRaw
+   fun:v8::internal::Heap::CreateCode
+   fun:v8::internal::Factory::NewCode
+   fun:v8::internal::RegExpMacroAssemblerX64::GetCode
+   fun:v8::internal::RegExpCompiler::Assemble
+   fun:v8::internal::RegExpEngine::Compile
+}
+{
+   bug_169678
+   Heapcheck:Leak
+   fun:v8::internal::SlotsBufferAllocator::AllocateBuffer
+   fun:v8::internal::SlotsBuffer::AddTo
+   fun:v8::internal::MarkCompactCollector::RecordRelocSlot
+   fun:v8::internal::StaticMarkingVisitor::VisitEmbeddedPointer
+   fun:v8::internal::RelocInfo::Visit
+   fun:v8::internal::Code::CodeIterateBody
+   fun:v8::internal::StaticMarkingVisitor::VisitCode
+   fun:v8::internal::StaticMarkingVisitor::IterateBody
+   fun:v8::internal::IncrementalMarking::VisitObject
+   fun:v8::internal::IncrementalMarking::ProcessMarkingDeque
+   fun:v8::internal::IncrementalMarking::Step
+}
+{
+   bug_169678_a
+   Heapcheck:Leak
+   fun:v8::internal::SlotsBufferAllocator::AllocateBuffer
+   fun:v8::internal::SlotsBuffer::AddTo
+   fun:v8::internal::MarkCompactCollector::RecordSlot
+   fun:v8::internal::IncrementalMarkingMarkingVisitor::VisitPointers
+   ...
+   fun:v8::internal::Heap::CollectGarbage
+   ...
+   fun:v8::String::New
+}
+{
+   bug_171547_b
+   Heapcheck:Leak
+   ...
+   fun:FilterBuilder
+   fun:::LoadWhitelistsOnBlockingPoolThread
+}
+{
+   bug_171547_c
+   Heapcheck:Leak
+   ...
+   fun:FilterBuilder::Build
+   fun:::LoadWhitelistsOnBlockingPoolThread
+}
+{
+   bug_172077
+   Heapcheck:Leak
+   ...
+   fun:extensions::RegexSetMatcher::RebuildMatcher
+   fun:extensions::RegexSetMatcher::ClearPatterns
+   ...
+   fun:extensions::URLMatcher::UpdateRegexSetMatcher
+   fun:extensions::URLMatcher::UpdateInternalDatastructures
+   fun:extensions::URLMatcher::AddConditionSets
+   fun:::FilterBuilder::Build
+   fun:::LoadWhitelistsOnBlockingPoolThread
+}
+{
+   bug_173597
+   Heapcheck:Leak
+   fun:FcConfigEvaluate
+   fun:gfx::RenderTextLinux::EnsureLayout
+   fun:gfx::RenderTextTest_PangoAttributes_Test::TestBody
+}
+{
+   bug_175100
+   Heapcheck:Leak
+   ...
+   fun:*StartSync
+   ...
+   fun:OneClickSigninHelper::DidStopLoading
+   ...
+   fun:OneClickSigninHelperTest*::TestBody
+}
+{
+   bug_176888
+   Heapcheck:Leak
+   fun:__GI___strdup
+   fun:Init
+   fun:GcryptInitializer
+}
+{
+   bug_177285
+   Heapcheck:Leak
+   fun:MessageLoop
+   fun:FileSystemURLRequestJobTest
+}
+# * is for DeriveFont and InitWithNameAndSize.
+{
+   bug_189170
+   Heapcheck:Leak
+   ...
+   fun:SkFontHost::CreateTypeface
+   fun:SkTypeface::CreateFromName
+   fun:gfx::PlatformFontPango::*
+}
+{
+   bug_189194_a
+   Heapcheck:Leak
+   ...
+   fun:extensions::SettingsFrontend::Create
+   fun:ExtensionService::ExtensionService
+   fun:extensions::TestExtensionSystem::CreateExtensionService
+   fun:ProfileSigninConfirmationHelperTest::SetUp
+}
+{
+  bug_225596
+  Heapcheck:Leak
+  fun:chromeos::input_method::InputMethodManagerImpl::Init
+  fun:chromeos::input_method::Initialize
+  fun:chromeos::input_method::InputMethodConfigurationTest_TestInitialize_Test::TestBody
+}
+{
+   bug_181691
+   Heapcheck:Leak
+   ...
+   fun:InitThread
+   fun:ShCompile
+   fun:gpu::gles2::ShaderTranslator::Translate
+   fun:gpu::gles2::ProgramManager::ForceCompileShader
+   fun:gpu::gles2::ProgramManager::DoCompileShader
+   fun:gpu::gles2::GLES2DecoderImpl::DoCompileShader
+   fun:gpu::gles2::GLES2DecoderImpl::HandleCompileShader
+   fun:gpu::gles2::GLES2DecoderImpl::DoCommand
+   fun:gpu::CommandParser::ProcessCommand
+}
+{
+   bug_233532
+   Heapcheck:Leak
+   ...
+   fun:GetStoragePartitionFromConfig
+   fun:content::BrowserContext::GetStoragePartition
+   fun:content::NavigationControllerImpl::GetSessionStorageNamespace
+   fun:content::RenderViewHostManager::Init
+}
+{
+   bug_236791
+   Heapcheck:Leak
+   ...
+   fun:ash::test::FocusCyclerTest_CycleFocusThroughWindowWithPanes_Test::TestBody
+}
+{
+   bug_246567a
+   Heapcheck:Leak
+   fun:v8::internal::PerThreadAssertScopeBase::AssertData
+   fun:v8::internal::PerThreadAssertScope::IsAllowed
+   fun:v8::internal::Heap::AllocateRaw
+   fun:v8::internal::Heap::Allocate
+   fun:v8::internal::Heap::AllocateForeign
+   fun:v8::internal::Heap::AllocateExternal
+   fun:v8::internal::Factory::NewExternal
+   fun:v8::External::New
+   fun:net::ProxyResolverV8::Context::InitV8
+   fun:net::ProxyResolverV8::SetPacScript
+   fun:net::ProxyResolverV8Tracing::Job::ExecuteProxyResolver
+   fun:net::ProxyResolverV8Tracing::Job::ExecuteBlocking
+}
+{
+   bug_246567b
+   Heapcheck:Leak
+   fun:v8::internal::PerThreadAssertScopeBase::AssertData
+   fun:v8::internal::PerThreadAssertScope::IsAllowed
+   fun:v8::internal::HandleScope::CreateHandle
+   fun:Handle
+   fun:MacroAssembler
+   fun:v8::internal::Deoptimizer::EnsureCodeForDeoptimizationEntry
+   fun:v8::internal::Isolate::Init
+   fun:v8::internal::V8::Initialize
+   fun:v8::internal::Snapshot::Initialize
+   fun:InitializeHelper
+   fun:v8::V8::Initialize
+   fun:v8::Locker::Initialize
+   fun:net::ProxyResolverV8::Context::InitV8
+   fun:net::ProxyResolverV8::SetPacScript
+   fun:net::ProxyResolverV8Tracing::Job::ExecuteProxyResolver
+   fun:net::ProxyResolverV8Tracing::Job::ExecuteBlocking
+}
+{
+   bug_246567c
+   Heapcheck:Leak
+   fun:v8::internal::PerThreadAssertScopeBase::AssertData
+   fun:v8::internal::PerThreadAssertScope::IsAllowed
+   fun:v8::internal::HandleScope::CreateHandle
+   fun:Handle
+}
+{
+   bug_247525
+   Heapcheck:Leak
+   ...
+   fun:appcache::AppCacheStorageImpl::Initialize
+   fun:appcache::AppCacheService::Initialize
+   fun:content::ChromeAppCacheService::InitializeOnIOThread
+}
+{
+   bug_250533
+   Heapcheck:Leak
+   ...
+   fun:net::TestURLRequestContextGetter::GetURLRequestContext
+   fun:ProxyResolvingClientSocket
+   fun:jingle_glue::XmppClientSocketFactory::CreateTransportClientSocket
+   fun:jingle_glue::ChromeAsyncSocket::Connect
+}
+{
+   bug_251004
+   Heapcheck:Leak
+   fun:base::internal::PostTaskAndReplyImpl::PostTaskAndReply
+   fun:base::TaskRunner::PostTaskAndReply
+   fun:net::FileStream::Context::CloseAndDelete
+   fun:net::FileStream::Context::Orphan
+}
+{
+   bug_251034_a
+   Heapcheck:Leak
+   ...
+   fun:gfx::OSMESAApiBase::OSMesaMakeCurrentFn
+   fun:gfx::GLContextOSMesa::MakeCurrent
+   fun:gpu::gles2::GLES2DecoderImpl::MakeCurrent
+   fun:webkit::gpu::GLInProcessContext::PumpCommands
+}
+{
+   bug_251034_b
+   Heapcheck:Leak
+   ...
+   fun:gfx::OSMESAApiBase::OSMesaMakeCurrentFn
+   fun:gfx::GLContextOSMesa::MakeCurrent
+   fun:webkit::gpu::GLInProcessContext::Initialize
+   fun:webkit::gpu::GLInProcessContext::CreateContext
+   fun:webkit::gpu::WebGraphicsContext3DInProcessCommandBufferImpl::MaybeInitializeGL
+   fun:webkit::gpu::WebGraphicsContext3DInProcessCommandBufferImpl::makeContextCurrent
+   fun:ui::DefaultContextFactory::CreateContextCommon
+   fun:ui::DefaultContextFactory::CreateOutputSurface
+   fun:ui::Compositor::CreateOutputSurface
+   fun:cc::LayerTreeHost::CreateOutputSurface
+   fun:cc::LayerTreeHost::InitializeProxy
+   fun:cc::LayerTreeHost::Initialize
+   fun:cc::LayerTreeHost::Create
+   fun:Compositor
+   fun:ui::TestCompositorHostLinux::Show
+   fun:SetUp
+}
+{
+   bug_251034_c
+   Heapcheck:Leak
+   ...
+   fun:gfx::OSMESAApiBase::OSMesaMakeCurrentFn
+   fun:gfx::GLContextOSMesa::MakeCurrent
+   fun:ScopedMakeCurrent
+   fun:gfx::GLSurfaceOSMesa::Resize
+   fun:gfx::NativeViewGLSurfaceOSMesa::Resize
+   fun:webkit::gpu::GLInProcessContext::OnResizeView
+}
+{
+   bug_251034_d
+   Heapcheck:Leak
+   ...
+   fun:gfx::OSMESAApiBase::OSMesaMakeCurrentFn
+   fun:gfx::GLContextOSMesa::MakeCurrent
+   fun:~ScopedMakeCurrent
+   fun:base::DefaultDeleter::operator
+   fun:~scoped_ptr_impl
+   fun:~scoped_ptr
+   fun:gfx::GLSurfaceOSMesa::Resize
+   fun:gfx::NativeViewGLSurfaceOSMesa::Resize
+   fun:webkit::gpu::GLInProcessContext::OnResizeView
+}
+{
+   bug_251827_a
+   Heapcheck:Leak
+   fun:MakePlanarBuffer
+   fun:media::AudioBufferTest*
+}
+{
+   bug_251827_b
+   Heapcheck:Leak
+   fun:MakeInterleavedBuffer
+   fun:media::AudioBufferTest*
+}
+{
+   bug_252615
+   Heapcheck:Leak
+   fun:XGetWindowProperty
+   fun:GetXWindowName
+   fun:ash::test::DisplayControllerTest_XWidowNameForRootWindow_Test::TestBody
+}

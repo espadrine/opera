@@ -1,0 +1,12 @@
+[submodule "third_party/android_tools"]
+	path = third_party/android_tools
+	url = ../android_tools.git
+[submodule "third_party/cygwin"]
+	path = third_party/cygwin
+	url = ../cygwin.git
+[submodule "third_party/perl"]
+	path = third_party/perl
+	url = ../perl.git
+[submodule "third_party/python_26"]
+	path = third_party/python_26
+	url = ../python_26.git

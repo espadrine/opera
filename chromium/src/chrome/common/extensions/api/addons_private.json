@@ -1,0 +1,31 @@
+// -*- Mode: c++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
+//
+// Copyright (C) 2013 Opera Software ASA.  All rights reserved.
+//
+// This file is an original work developed by Opera Software ASA
+[
+  {
+    "namespace":"addonsPrivate",
+    "nodoc":"true",
+    "description": "Use the <code>addonsPrivate</code> API to install trusted extensions from the Addons Portal.",
+    "functions": [
+      {
+        "name": "install",
+        "description": "Installs the extension with a given ID",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "The id of the extension to be installed."
+          },
+          {
+            "name": "callback",
+            "type": "function",
+            "optional": "true",
+            "parameters": []
+          }
+        ]
+      }
+    ]
+  }
+]

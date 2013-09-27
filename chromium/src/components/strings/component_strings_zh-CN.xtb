@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="zh-CN">
+<translation id="2835170189407361413">清除表单</translation>
+<translation id="2455981314101692989">此网页已禁用该表单的自动填表功能。</translation>
+<translation id="7542995811387359312">此表单未使用安全连接，已禁用信用卡自动填表。</translation>
+<translation id="4148925816941278100">American Express</translation>
+<translation id="933712198907837967">Diners Club</translation>
+<translation id="3169472444629675720">Discover</translation>
+<translation id="6008256403891681546">JCB</translation>
+<translation id="3450660100078934250">MasterCard</translation>
+<translation id="719464814642662924">Visa</translation>
+<translation id="2451353479985491549">，</translation>
+<translation id="2107287771748948380"><ph name="OBFUSCATED_CC_NUMBER"/>，到期：<ph name="CC_EXPIRATION_DATE"/></translation>
+<translation id="5089810972385038852">州/省</translation>
+<translation id="6839929833149231406">区域</translation>
+<translation id="7087282848513945231">郡/县</translation>
+<translation id="2096368010154057602">部门</translation>
+<translation id="6970216967273061347">区</translation>
+<translation id="7139724024395191329">酋长国</translation>
+<translation id="3174168572213147020">岛</translation>
+<translation id="3885155851504623709">教区</translation>
+<translation id="777702478322588152">县</translation>
+<translation id="5095208057601539847">省</translation>
+<translation id="2053553514270667976">邮政编码</translation>
+<translation id="6282194474023008486">邮政编码</translation>
+<translation id="6445051938772793705">国家</translation>
+<translation id="1875753206475436906">推断类型：<ph name="HEURISTIC_TYPE"/>
+    服务器类型：<ph name="SERVER_TYPE"/>
+    字段签名：<ph name="FIELD_SIGNATURE"/>
+    表单签名：<ph name="FORM_SIGNATURE"/>
+    试验 ID："<ph name="EXPERIMENT_ID"/>"</translation>
+<translation id="8804164990146287819">隐私政策</translation>
+<translation id="540773678181631572">Opera 自动填表设置</translation>
+<translation id="1847321074516120686">Chrome 自动填表设置</translation>
+</translationbundle>

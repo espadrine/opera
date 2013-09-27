@@ -1,0 +1,25 @@
+Name: gold for Android
+URL: http://source.android.com/source/downloading.html
+Version: various (see below)
+License: GPL v2
+License File: COPYING
+Security Critical: no
+
+This directory contains binaries built from AOSP components.
+
+arm-linux-androideabi-ld.e4df3e0a5bb640ccfa2f30ee67fe9b3146b152d6:
+URL: http://www.gnu.org/software/binutils
+Version: 2.20.51.20100303
+Command: repo init -u https://android.googlesource.com/toolchain/manifest
+  This is a 64-bit gold for arm-linux-androideabi using the
+  binutils-20100303 in the Android Open Source Project.  The commit is
+  e4df3e0a5bb640ccfa2f30ee67fe9b3146b152d6.  This should be the same
+  source as the latest 32-bit linker binary in the AOSP (Android
+  Open Source Project) tree.
+  Chromium unit tests are too large to link properly with the latest
+  released AOSP 32-bit linker.  The Chromium
+  install-build-deps-android.sh will place this in the proper
+  location.
+
+The COPYING file is taken from binutils/binutils-20100303/COPYING of the above
+repository.

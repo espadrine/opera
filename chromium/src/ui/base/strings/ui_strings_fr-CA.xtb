@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="fr-CA">
+<translation id="2190355936436201913">(vide)</translation>
+<translation id="688711909580084195">Page sans titre)</translation>
+<translation id="2497284189126895209">Tous les fichiers</translation>
+<translation id="8602707065186045623"><ph name="SAVEAS_EXTENSION_TYPE"/> Fichier (.<ph name="SAVEAS_EXTENSION_NAME"/>)</translation>
+<translation id="6945221475159498467">Sélectionner</translation>
+<translation id="6845383723252244143">Choisir dossier</translation>
+<translation id="6620110761915583480">Enregistrer fichier</translation>
+<translation id="7907591526440419938">Ouvrir fichier</translation>
+<translation id="3036649622769666520">Ouvrir les fichiers</translation>
+<translation id="436869212180315161">Peser</translation>
+<translation id="6040143037577758943">Fermer</translation>
+<translation id="5941711191222866238">Réduire</translation>
+<translation id="1398853756734560583">Maximiser</translation>
+<translation id="3157931365184549694">Restaurer</translation>
+<translation id="3183922693828471536">Défiler ici</translation>
+<translation id="8328145009876646418">Bordure de gauche</translation>
+<translation id="3990502903496589789">Bordure de droite</translation>
+<translation id="2666092431469916601">Haut</translation>
+<translation id="3087734570205094154">Bas</translation>
+<translation id="2168039046890040389">Page haut</translation>
+<translation id="8210608804940886430">Page Bas</translation>
+<translation id="6364916375976753737">Défiler gauche</translation>
+<translation id="4588090240171750605">Défiler droite</translation>
+<translation id="8331626408530291785">Défiler haut</translation>
+<translation id="815598010540052116">Défiler bas</translation>
+<translation id="9170848237812810038">&amp;Défaire</translation>
+<translation id="3909791450649380159">Cou&amp;per</translation>
+<translation id="7814458197256864873">&amp;Copier</translation>
+<translation id="5076340679995252485">Co&amp;ller</translation>
+<translation id="5329858601952122676">&amp;Effacer</translation>
+<translation id="1901303067676059328">&amp;Tout sélectionner</translation>
+<translation id="6965382102122355670">OK</translation>
+<translation id="7658239707568436148">Annuler</translation>
+<translation id="1293699935367580298">Échap</translation>
+<translation id="6659594942844771486">Tab</translation>
+<translation id="1871244248791675517">Ins</translation>
+<translation id="932327136139879170">Accueil</translation>
+<translation id="6135826906199951471">Eff</translation>
+<translation id="528468243742722775">Fin</translation>
+<translation id="8447116497070723931">PgHaut</translation>
+<translation id="4552416320897244156">PgBas</translation>
+<translation id="5613020302032141669">Flèche gauche</translation>
+<translation id="3889424535448813030">Flèche droite</translation>
+<translation id="3660179305079774227">Flèche haut</translation>
+<translation id="3234408098842461169">Flèche bas</translation>
+<translation id="8179976553408161302">Entrée</translation>
+<translation id="7052633198403197513">F1</translation>
+<translation id="7222373446505536781">F11</translation>
+<translation id="5583640892426849032">Arrière</translation>
+<translation id="6394627529324717982">Virgule</translation>
+<translation id="1801827354178857021">Point</translation>
+<translation id="4999762576397546063">Ctrl+<ph name="KEY_COMBO_NAME"/></translation>
+<translation id="5948410903763073882">Alt+<ph name="KEY_COMBO_NAME"/></translation>
+<translation id="8400147561352026160">Shift+<ph name="KEY_COMBO_NAME"/></translation>
+<translation id="4820616160060340806">Commande+<ph name="KEY_COMBO_NAME"/></translation>
+<translation id="1761785978543082658"><ph name="QUANTITY"/> O</translation>
+<translation id="8901569739625249689"><ph name="QUANTITY"/> KO</translation>
+<translation id="3049748772180311791"><ph name="QUANTITY"/> MO</translation>
+<translation id="3757388668994797779"><ph name="QUANTITY"/> GO</translation>
+<translation id="7460907917090416791"><ph name="QUANTITY"/> TO</translation>
+<translation id="520299402983819650"><ph name="QUANTITY"/> PO</translation>
+<translation id="6142413573757616983"><ph name="QUANTITY"/> O/s</translation>
+<translation id="8677655579646609597"><ph name="QUANTITY"/> KO/s</translation>
+<translation id="1809410197924942083"><ph name="QUANTITY"/> MO/s</translation>
+<translation id="3740362395218339114"><ph name="QUANTITY"/> GO/s</translation>
+<translation id="2297836609126180313"><ph name="QUANTITY"/> TO/s</translation>
+<translation id="6907759265145635167"><ph name="QUANTITY"/> PO/s</translation>
+<translation id="1190609913194133056">Centre des Avis</translation>
+<translation id="7420029124412548303">Désactiver avis de <ph name="extension_name"/></translation>
+<translation id="6101372652171577303">Désactiver avis de <ph name="site"/></translation>
+<translation id="2482878487686419369">Avis</translation>
+<translation id="8428213095426709021">Réglages</translation>
+<translation id="6829324100069873704">Revenir aux avis</translation>
+<translation id="7135556860107312402">Permettre les avis provenant de:</translation>
+<translation id="2983818520079887040">Réglages...</translation>
+<translation id="7457942297256758195">Supprimer tout</translation>
+<translation id="6528179044667508675">Ne pas déranger</translation>
+<translation id="7850320739366109486">Ne pas déranger</translation>
+<translation id="4927753642311223124">Rien à voir ici, continuer.</translation>
+<translation id="7960078400008666149">Ne pas déranger durant une heure</translation>
+<translation id="8226233771743600312">Ne pas déranger de toute la journée</translation>
+<translation id="1860796786778352021">Fermer l'avis</translation>
+<translation id="4570886800634958009">Agrandir l'avis</translation>
+<translation id="562947159670281323"><ph name="product"/> - Avis</translation>
+<translation id="4750650230321497886"><ph name="product"/> - Avis (<ph name="QUANTITY"/> non lu(s))</translation>
+<translation id="4250229828105606438">Saisie d'écran</translation>
+<translation id="7649070708921625228">Aide</translation>
+<translation id="945522503751344254">Envoyer rétro-action</translation>
+</translationbundle>

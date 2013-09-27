@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="kk">
+<translation id="4522570452068850558">Мәліметтер</translation>
+<translation id="3358049263351449631">Бұл ізделетін индекс. Іздеу кілт сөздерін енгізіңіз: '''</translation>
+<translation id="6643016212128521049">Өшіру</translation>
+<translation id="2148716181193084225">Бүгін</translation>
+<translation id="248395913932153421">Күн</translation>
+<translation id="8987927404178983737">Ай</translation>
+<translation id="6015796118275082299">Жыл</translation>
+<translation id="2653659639078652383">Жіберу</translation>
+<translation id="5939518447894949180">Қалпына келтіру</translation>
+<translation id="7364796246159120393">Файлды таңдаңыз</translation>
+<translation id="1637811476055996098">Файлдарды таңдаңыз</translation>
+<translation id="795667975304826397">Таңдалған файл жоқ</translation>
+<translation id="8964020114565522021">Файлды осында сүйреңіз</translation>
+<translation id="8444882422881193423"><ph name="NUMBER_OF_FILES"/> файл</translation>
+<translation id="668171684555832681">Басқа...</translation>
+<translation id="1758486001363313524">Басқа...</translation>
+<translation id="9132465097189459683">Басқа...</translation>
+<translation id="5843503607508392247">Басқа...</translation>
+<translation id="739024184232394898">Басқа...</translation>
+<translation id="1921819250265091946">кк</translation>
+<translation id="3732799496749320381">аа</translation>
+<translation id="8199524924445686405">жжж</translation>
+<translation id="1591562245178063882">Осы ай</translation>
+<translation id="8117451130807776954">Осы апта</translation>
+<translation id="5966707198760109579">Апта</translation>
+<translation id="2548326553472216322">Соңғы іздеулер жоқ</translation>
+<translation id="6663448176199120256">Соңғы іздеулер</translation>
+<translation id="1235745349614807883">Соңғы іздеулерді өшіру</translation>
+<translation id="4611115858363067980"><ph name="FILENAME"/><ph name="WIDTH"/>×<ph name="HEIGHT"/></translation>
+<translation id="7740050170769002709">HTML мазмұны</translation>
+<translation id="3040011195152428237">сілтеме</translation>
+<translation id="5048533449481078685">тізім белгілеуіші</translation>
+<translation id="8244226242650769279">сурет картасы</translation>
+<translation id="8597182159515967513">тақырып</translation>
+<translation id="2674318244760992338">төменгі деректеме</translation>
+<translation id="6692633176391053278">степпер</translation>
+<translation id="6845533974506654842">басу</translation>
+<translation id="1842960171412779397">таңдау</translation>
+<translation id="6119846243427417423">іске қосу</translation>
+<translation id="5476505524087279545">құсбелгіні алу</translation>
+<translation id="838869780401515933">құсбелгі қою</translation>
+<translation id="4202807286478387388">өту</translation>
+<translation id="1822429046913737220">таңғы/кешкі</translation>
+<translation id="1014825444426747588">таза</translation>
+<translation id="7673697353781729403">Сағат</translation>
+<translation id="8541249477527128034">мультимедианы басқару</translation>
+<translation id="2723001399770238859">дыбыс</translation>
+<translation id="4763480195061959176">бейне</translation>
+<translation id="6843725295806269523">дыбысын өшіру</translation>
+<translation id="5546461542133609677">дыбысын қосу</translation>
+<translation id="2572483411312390101">ойнату</translation>
+<translation id="7789962463072032349">кідірту</translation>
+<translation id="7057186640035488495">фильм уақыты</translation>
+<translation id="6270583010843788609">фильм уақыт шкаласының меңзері</translation>
+<translation id="3471999216963526757">30 секунд артқа</translation>
+<translation id="2615751259741237794">нақты уақытқа қайту</translation>
+<translation id="7223624360433298498">өткен уақыт</translation>
+<translation id="7720026100085573005">қалған уақыт</translation>
+<translation id="1930711995431081526">күй</translation>
+<translation id="658823671542763450">толық экранды режимге кіру</translation>
+<translation id="5468998798572797635">толық экранды режимнен шығу</translation>
+<translation id="4851297395436456855">жылдам алға айналдыру</translation>
+<translation id="4484359737905287537">жылдам артқа айналдыру</translation>
+<translation id="9050748414552849310">жабық субтитрларды көрсету</translation>
+<translation id="6853785296079745596">жабық субтитрларды жасыру</translation>
+<translation id="1020833440720551630">дыбыс жолының дыбысын өшіру</translation>
+<translation id="6101327004457443354">дыбыс жолының дыбысын қосу</translation>
+<translation id="8785498733064193001">ойнатуды бастау</translation>
+<translation id="5641012560118721995">ойнатуды уақытша тоқтату</translation>
+<translation id="3785482301506746191">фильм уақытын айналдырғыш</translation>
+<translation id="6359256949422175976">фильм уақытын айналдырғыш меңзері</translation>
+<translation id="3356679314312413792">фильмді 30 секунд артқа айналдыру</translation>
+<translation id="2426432199384958866">ағымдағы фильмді нақты уақытқа қайтару</translation>
+<translation id="901493112792887934">ағымдағы уақыт секундпен</translation>
+<translation id="3632707345189162177">фильмнің қалған уақыты секундпен</translation>
+<translation id="2901282870647571346">фильмнің ағымдағы күйі</translation>
+<translation id="819205353528511139">фильмді толық экранды режимде ойнату</translation>
+<translation id="9039488204461337220">алға жылдам айналдыру</translation>
+<translation id="1320012872283894746">артқа жылдам айналдыру</translation>
+<translation id="8115662671911883373">жабық субтитрлерді көрсете бастау</translation>
+<translation id="7740016676195725605">жабық субтитрлерді көрсетуді тоқтату</translation>
+<translation id="4103419683916926126">Миллисекундтар</translation>
+<translation id="8534579021159131403">Минуттар</translation>
+<translation id="1088086359088493902">Секундтар</translation>
+<translation id="5944544982112848342">2048 (Жоғары деңгей)</translation>
+<translation id="2846343701378493991">1024 (Орташа деңгей)</translation>
+<translation id="2247351761944213033">Апта <ph name="WEEKNUMBER"/>, <ph name="YEAR"/></translation>
+<translation id="5466621249238537318">Бір немесе бірнеше файл таңдаңыз.</translation>
+<translation id="835897206747267392">Жарамсыз мән</translation>
+<translation id="2908441821576996758">Электрондық пошта мекенжайларын үтірмен бөліп енгізіңіз.</translation>
+<translation id="5164977714490026579">Мән <ph name="MINIMUM"/> санынан үлкен немесе оған тең болуы керек.</translation>
+<translation id="3450233048674729344">Мән <ph name="MAXIMUM"/> санынан кем немесе оған тең болуы керек.</translation>
+<translation id="3075154866155599887">Жарамды мәнді енгізіңіз. Өріс толық емес немесе күні жарамсыз.</translation>
+<translation id="4812940957355064477">Сан енгізіңіз.</translation>
+<translation id="2507943997699731163">Осы өрісті толтырыңыз.</translation>
+<translation id="2761667185364618470">Жалғастыру керек болса, осы ұяшыққа белгі қойыңыз.</translation>
+<translation id="8451268428117625855">Файлды таңдаңыз.</translation>
+<translation id="8750798805984357768">Осы опциялардың бірін таңдаңыз.</translation>
+<translation id="7263440858009898357">Тізімдегі элементті таңдаңыз.</translation>
+<translation id="1171774979989969504">Электрондық пошта мекенжайын енгізіңіз.</translation>
+<translation id="310520048233152454">URL мекенжайын енгізіңіз.</translation>
+<translation id="709897737746224366">Сұралған пішімге сәйкестендіріңіз.</translation>
+<translation id="2226276347425096477">Мәтінді <ph name="MAX_CHARACTERS"/> немесе одан аз таңбаға дейін қысқартыңыз (қазір <ph name="CURRENT_LENGTH"/> таңба пайдаланылуда).</translation>
+<translation id="2597378329261239068">Бұл құжат құпиясөзбен қорғалған. Құпиясөзді енгізіңіз.</translation>
+<translation id="370665806235115550">Жүктелуде…</translation>
+<translation id="9186171386827445984">Құжат жүктелуде: <ph name="PAGE_NUMBER"/>/<ph name="NUMBER_OF_PAGES"/> бет...</translation>
+<translation id="3934680773876859118">PDF құжаты жүктелмеді</translation>
+<translation id="1639239467298939599">Жүктелуде</translation>
+<translation id="5919473608089529604">Қосылатын модуль жүктелмеді.</translation>
+</translationbundle>

@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="hr">
+<translation id="2835170189407361413">Izbriši obrazac</translation>
+<translation id="2455981314101692989">Web-stranica onemogućila je automatsko popunjavanje za obrazac.</translation>
+<translation id="7542995811387359312">Automatsko popunjavanje podataka o kreditnoj kartici onemogućeno je jer obrazac ne koristi sigurnu vezu.</translation>
+<translation id="4148925816941278100">American Express</translation>
+<translation id="933712198907837967">Diners Club</translation>
+<translation id="3169472444629675720">Discover</translation>
+<translation id="6008256403891681546">JCB</translation>
+<translation id="3450660100078934250">MasterCard</translation>
+<translation id="719464814642662924">Visa</translation>
+<translation id="2451353479985491549">, </translation>
+<translation id="2107287771748948380"><ph name="OBFUSCATED_CC_NUMBER"/>, vrijedi do: <ph name="CC_EXPIRATION_DATE"/></translation>
+<translation id="5089810972385038852">Savezna država</translation>
+<translation id="6839929833149231406">Područje</translation>
+<translation id="7087282848513945231">Županija</translation>
+<translation id="2096368010154057602">Odjel</translation>
+<translation id="6970216967273061347">Distrikt</translation>
+<translation id="7139724024395191329">Emirat</translation>
+<translation id="3174168572213147020">Otok</translation>
+<translation id="3885155851504623709">Župa</translation>
+<translation id="777702478322588152">Prefektura</translation>
+<translation id="5095208057601539847">Provincija</translation>
+<translation id="2053553514270667976">Poštanski broj</translation>
+<translation id="6282194474023008486">Poštanski broj</translation>
+<translation id="6445051938772793705">Država</translation>
+<translation id="1875753206475436906">vrsta heuristike: <ph name="HEURISTIC_TYPE"/>
+    vrsta poslužitelja: <ph name="SERVER_TYPE"/>
+    potpis polja: <ph name="FIELD_SIGNATURE"/>
+    potpis obrasca: <ph name="FORM_SIGNATURE"/>
+    ID eksperimenta: "<ph name="EXPERIMENT_ID"/>"</translation>
+<translation id="8804164990146287819">Pravilnik o zaštiti privatnosti</translation>
+<translation id="540773678181631572">Postavke automatskog popunjavanja preglednika Opera</translation>
+<translation id="1847321074516120686">Postavke automatskog popunjavanja preglednika Chrome</translation>
+</translationbundle>

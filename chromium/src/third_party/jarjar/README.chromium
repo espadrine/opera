@@ -1,0 +1,46 @@
+Name: Jar Jar Links
+Short Name: jarjar
+URL: http://code.google.com/p/jarjar/
+Version: 1.4
+License: Apache 2.0
+License File: src-distribution/COPYING
+Security Critical: no
+
+Description:
+Jar Jar Links is a utility that makes it easy to repackage Java libraries and
+embed them into your own distribution. This is useful for two reasons:
+
+You can easily ship a single jar file with no external dependencies.
+You can avoid problems where your library depends on a specific version of a
+library, which may conflict with the dependencies of another library.
+How does it work?
+
+Jar Jar Links includes an Ant task that extends the built-in jar task. The
+normal zipfileset element is used to embed jar files. A new rule element is
+added which uses wildcards patterns to rename the embedded class files. Bytecode
+transformation (via ASM) is used to change references to the renamed classes,
+and special handling is provided for moving resource files and transforming
+string literals.
+
+Local Modifications:
+None.
+
+Update instructions:
+1. Find the new version you want on the project website. Use as $VERSION below:
+   $ VERSION={version from website}
+2. Download the binary distribution Java jar and the source ZIP-archive:
+   - jarjar-$VERSION.jar
+   - jarjar-src-$VERSION.zip
+3. Remove the contents of the binary-distribution subdirectory:
+   $ rm -rf binary-distribution/*
+4. Remove the src-distribution subdirectory:
+   $ rm -rf src-distribution/
+5. Move the binary distribution Java jar into the binary-distribution
+   subdirectory:
+   $ mv jarjar-$VERSION.jar binary-distribution/
+6. Extract the contents of the source distribution ZIP-archive into
+   src-distribution subdirectory:
+   $ unzip jarjar-src-$VERSION.zip
+   $ mv jarjar-$VERSION src-distribution
+7. Update jarjar.gypi 'jarjar_javalib_file' with path to new Java jar, eg:
+   'jarjar_javalib_file': '<(DEPTH)/third_party/jarjar/binary-distribution/jarjar-$VERSION.jar',

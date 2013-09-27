@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/chromium_select_menu_bubble_container"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20px"
+        android:background="@drawable/context_menu"
+        android:layout_below="@+id/chromium_select_menu_arrow_up" >
+
+      <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/PopupItemText"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/popup_menu_item_height"
+        android:gravity="center_vertical"
+        android:id="@+id/chromium_select_menu_copy" />
+
+      <View xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/chromium_select_menu_separator1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center_vertical"
+        android:background="@color/popup_menu_separator_color" />
+
+      <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/PopupItemText"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/popup_menu_item_height"
+        android:gravity="center_vertical"
+        android:id="@+id/chromium_select_menu_paste" />
+
+      <View xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/chromium_select_menu_separator2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center_vertical"
+        android:background="@color/popup_menu_separator_color" />
+
+      <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/PopupItemText"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/popup_menu_item_height"
+        android:gravity="center_vertical"
+        android:id="@+id/chromium_select_menu_search" />
+
+      <com.opera.android.custom_views.WrappingPopupMenu xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/dimmer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@id/chromium_select_menu_arrow_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/context_menu_arrow_up" />
+
+    <ImageView
+        android:id="@+id/chromium_select_menu_arrow_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/chromium_select_menu_bubble_container"
+        android:src="@drawable/context_menu_arrow_down" />
+
+</RelativeLayout>

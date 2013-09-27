@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="mk">
+<translation id="2835170189407361413">Исчисти формулар</translation>
+<translation id="2455981314101692989">Веб-страницата оневозможи автоматско пополнување за овој формулар.</translation>
+<translation id="7542995811387359312">Автоматското пополнување на кредитната картичка се оневозможи бидејќи овој формулар не користи сигурна врска.</translation>
+<translation id="4148925816941278100">American Express</translation>
+<translation id="933712198907837967">Diners Club</translation>
+<translation id="3169472444629675720">Discover</translation>
+<translation id="6008256403891681546">JCB</translation>
+<translation id="3450660100078934250">MasterCard</translation>
+<translation id="719464814642662924">Visa</translation>
+<translation id="2451353479985491549">, </translation>
+<translation id="2107287771748948380"><ph name="OBFUSCATED_CC_NUMBER"/>, Истекува на: <ph name="CC_EXPIRATION_DATE"/></translation>
+<translation id="5089810972385038852">Држава</translation>
+<translation id="6839929833149231406">Област</translation>
+<translation id="7087282848513945231">Регион</translation>
+<translation id="2096368010154057602">Оддел</translation>
+<translation id="6970216967273061347">Област</translation>
+<translation id="7139724024395191329">Емират</translation>
+<translation id="3174168572213147020">Остров</translation>
+<translation id="3885155851504623709">Парохија</translation>
+<translation id="777702478322588152">Општина</translation>
+<translation id="5095208057601539847">Провинција</translation>
+<translation id="2053553514270667976">Поштенски фах</translation>
+<translation id="6282194474023008486">Поштенски код</translation>
+<translation id="6445051938772793705">Земја</translation>
+<translation id="1875753206475436906">хевристички тип: <ph name="HEURISTIC_TYPE"/>
+    тип на сервер: <ph name="SERVER_TYPE"/>
+    потпис на поле: <ph name="FIELD_SIGNATURE"/>
+    потпис на формулар: <ph name="FORM_SIGNATURE"/>
+    ид на експеримент: "<ph name="EXPERIMENT_ID"/>"</translation>
+<translation id="8804164990146287819">Политика за приватност</translation>
+<translation id="540773678181631572">Поставки за автоматско пополнување на Opera</translation>
+<translation id="1847321074516120686">Поставки за автоматско пополнување на Chrome</translation>
+</translationbundle>

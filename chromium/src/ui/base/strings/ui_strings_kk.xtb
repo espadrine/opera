@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="kk">
+<translation id="2190355936436201913">(бос)</translation>
+<translation id="688711909580084195">Тақырыпсыз веб-бет</translation>
+<translation id="2497284189126895209">Барлық файлдар</translation>
+<translation id="8602707065186045623"><ph name="SAVEAS_EXTENSION_TYPE"/> файлы (.<ph name="SAVEAS_EXTENSION_NAME"/>)</translation>
+<translation id="6945221475159498467">Таңдау</translation>
+<translation id="6845383723252244143">Қалта таңдау</translation>
+<translation id="6620110761915583480">Файлды сақтау</translation>
+<translation id="7907591526440419938">Файлды ашу</translation>
+<translation id="3036649622769666520">Файлдарды ашу</translation>
+<translation id="436869212180315161">Басу</translation>
+<translation id="6040143037577758943">Жабу</translation>
+<translation id="5941711191222866238">Жию</translation>
+<translation id="1398853756734560583">Жаю</translation>
+<translation id="3157931365184549694">Қалпына келтіру</translation>
+<translation id="3183922693828471536">Осында жылжыту</translation>
+<translation id="8328145009876646418">Сол жиек</translation>
+<translation id="3990502903496589789">Оң жиек</translation>
+<translation id="2666092431469916601">Үсті</translation>
+<translation id="3087734570205094154">Асты</translation>
+<translation id="2168039046890040389">Бір бет жоғары</translation>
+<translation id="8210608804940886430">Бір бет төмен</translation>
+<translation id="6364916375976753737">Сол жаққа жылжыту</translation>
+<translation id="4588090240171750605">Оң жаққа жылжыту</translation>
+<translation id="8331626408530291785">Жоғары жылжыту</translation>
+<translation id="815598010540052116">Төмен жылжыту</translation>
+<translation id="9170848237812810038">&amp;Бас тарту</translation>
+<translation id="3909791450649380159">Қи&amp;ып алу</translation>
+<translation id="7814458197256864873">&amp;Көшіру</translation>
+<translation id="5076340679995252485">&amp;Қою</translation>
+<translation id="5329858601952122676">&amp;Жою</translation>
+<translation id="1901303067676059328">Бәрін та&amp;ңдау</translation>
+<translation id="6965382102122355670">ОК</translation>
+<translation id="7658239707568436148">Бас тарту</translation>
+<translation id="1293699935367580298">Esc</translation>
+<translation id="6659594942844771486">Tab</translation>
+<translation id="1871244248791675517">Ins</translation>
+<translation id="932327136139879170">Home</translation>
+<translation id="6135826906199951471">Del</translation>
+<translation id="528468243742722775">End</translation>
+<translation id="8447116497070723931">PgUp</translation>
+<translation id="4552416320897244156">PgDwn</translation>
+<translation id="5613020302032141669">Сол көрсеткі</translation>
+<translation id="3889424535448813030">Оң көрсеткі</translation>
+<translation id="3660179305079774227">Жоғары көрсеткі</translation>
+<translation id="3234408098842461169">Төмен көрсеткі</translation>
+<translation id="8179976553408161302">Enter</translation>
+<translation id="7052633198403197513">F1</translation>
+<translation id="7222373446505536781">F11</translation>
+<translation id="5583640892426849032">Backspace</translation>
+<translation id="6394627529324717982">Үтір</translation>
+<translation id="1801827354178857021">Мерзім</translation>
+<translation id="4999762576397546063">Ctrl+<ph name="KEY_COMBO_NAME"/></translation>
+<translation id="5948410903763073882">Alt+<ph name="KEY_COMBO_NAME"/></translation>
+<translation id="8400147561352026160">Shift+<ph name="KEY_COMBO_NAME"/></translation>
+<translation id="4820616160060340806">Command+<ph name="KEY_COMBO_NAME"/></translation>
+<translation id="1761785978543082658"><ph name="QUANTITY"/> Б</translation>
+<translation id="8901569739625249689"><ph name="QUANTITY"/> КБ</translation>
+<translation id="3049748772180311791"><ph name="QUANTITY"/> МБ</translation>
+<translation id="3757388668994797779"><ph name="QUANTITY"/> ГБ</translation>
+<translation id="7460907917090416791"><ph name="QUANTITY"/> ТБ</translation>
+<translation id="520299402983819650"><ph name="QUANTITY"/> ПБ</translation>
+<translation id="6142413573757616983"><ph name="QUANTITY"/> Байт/сек</translation>
+<translation id="8677655579646609597"><ph name="QUANTITY"/> Кбайт/сек</translation>
+<translation id="1809410197924942083"><ph name="QUANTITY"/> Мбайт/сек</translation>
+<translation id="3740362395218339114"><ph name="QUANTITY"/> Гбайт/сек</translation>
+<translation id="2297836609126180313"><ph name="QUANTITY"/> Тбайт/сек</translation>
+<translation id="6907759265145635167"><ph name="QUANTITY"/> Пбайт/сек</translation>
+<translation id="1190609913194133056">Хабарландыру орталығы</translation>
+<translation id="7420029124412548303"><ph name="extension_name"/> бағдарламасынан кеңейтімді ажырату</translation>
+<translation id="6101372652171577303"><ph name="site"/> бағдарламасынан кеңейтімді ажырату</translation>
+<translation id="2482878487686419369">Хабарландырулар</translation>
+<translation id="8428213095426709021">Параметрлер</translation>
+<translation id="6829324100069873704">Хабарландыруларға оралу</translation>
+<translation id="7135556860107312402">Келесі бағдарламалардан хабарландыру алуға рұқсат ету:</translation>
+<translation id="2983818520079887040">Параметрлер...</translation>
+<translation id="7457942297256758195">Барлығын өшіру</translation>
+<translation id="6528179044667508675">Мазаламаңыз</translation>
+<translation id="7850320739366109486">Мазаламаңыз</translation>
+<translation id="4927753642311223124">Мұнда көретін ештеңе жоқ, алға өтіңіз.</translation>
+<translation id="7960078400008666149">1 сағат мазаламаңыз</translation>
+<translation id="8226233771743600312">1 күн мазаламаңыз</translation>
+<translation id="1860796786778352021">Хабарландыруды жабу</translation>
+<translation id="4570886800634958009">Хабарландыруды жаю</translation>
+<translation id="562947159670281323"><ph name="product"/> - Хабарландырулар</translation>
+<translation id="4750650230321497886"><ph name="product"/> - Хабарландырулар (<ph name="QUANTITY"/> оқылмаған)</translation>
+<translation id="4250229828105606438">Скриншот</translation>
+<translation id="7649070708921625228">Анықтама</translation>
+<translation id="945522503751344254">Пікір жіберу</translation>
+</translationbundle>

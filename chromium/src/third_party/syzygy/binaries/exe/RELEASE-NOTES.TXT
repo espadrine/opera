@@ -1,0 +1,81 @@
+Syzygy Release Notes
+====================
+
+Version 0.2.23.0
+
+[-----] Build infrastructure changes to properly source index this build.
+[r1578] SyzyASAN - Bugfix to Realloc.
+
+Version 0.2.22.0
+
+[r1567] Various bugfixes to make Syzygy able to decompose Adobe Flash binaries.
+[r1566] SyzyASAN - Added reference counting and reuse to stack cache.
+
+Version 0.2.21.1
+
+[r1542] SyzyASAN - Remove use of a kernel32 import that was not available on XP.
+[r1529] SyzyASAN - More performance improvements to slow path.
+
+Version 0.2.21.0
+
+[r1524] Update asan rtl for minidump generation.
+[r1523] Add mini-dump generation to the logger.
+[r1520] Reduce the memory overhead per block and add the TIDs to the header.
+[r1503] Add more aggressive optimization settings to our official builds.
+
+Version 0.2.20.0
+
+[r1490] SyzyASAN - Cut shadow size in half.
+[r1469] Disable DCHECKs in official builds.
+[r1466] SyzyASAN - Make the slow path faster.
+
+Version 0.2.19.0
+
+[r1460] SyzyASAN - Include all stack frames by default.
+[r1459] SyzyASAN - Fix asan logger shutdown on error.
+[r1456] SyzyASAN - Capture time between free and use-after-free.
+
+Version 0.2.18.0
+
+[r1444] SyzyASAN - Use breakpad key/value pairs to label crashes.
+[r1443] SyzyASAN - Leave contents of freed blocks intact for better debugging.
+
+Version 0.2.17.1
+
+[r1425] SyzyASAN - Save crash analyses to the stack.
+[r1424] SyzyASAN - Directly report crashes via breakpad, if available.
+[r1417] Fix parsing to support trace files larger than 4GB.
+[r1411] SyzyASAN - Add support for string and other special instructions.
+
+Version 0.2.16.0
+
+[r1390] New genfilter tool for creating image filters.
+[r1389] Runtime filtering of SyzyASAN bugs by stack-trace IDs.
+[r1385] Performance improvements to profiler instrumentation.
+[r1381] Many performance improvements for SyzyASAN.
+[r1374] Instrumentation time filtering enabled for SyzyASAN.
+[r1366] SyzyASAN stack-traces can have configurable max depth and bottom frame
+        trimming.
+
+Version 0.2.15.0
+
+[r1359] Elide ASAN hooks for (unhandled) stack addresses.
+[r1330] Thunk entry points to blocks which are not basic-block decomposable.
+[r1344] Add client DLL symbol information to the release.
+
+Version 0.2.14.0
+
+[r1285] Small fix to binaries script.
+
+Version 0.2.13.0
+
+[r1284] Started keeping release notes.
+[r1283] SyzyASAN uses remote stack tracing in RPC logging service so as to get
+        accurate traces even in sandboxed code.
+[r1282] Much simplified straight-path decomposer.
+[r1281] SyzyASAN no longer corrupts IAT entries and NT headers size/start values
+        are properly calculated.
+[r1276] PDB/MSF files contain properly formatted free page maps.
+[r1272] zap_timestamps for normalizing PE/PDB pairs.
+[r1263] pdbfind for locating the PDB associated with a PE file.
+[r1261] Proper parsing of imported data symbols.

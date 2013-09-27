@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="ta">
+<translation id="2835170189407361413">படிவத்தை அழி</translation>
+<translation id="2455981314101692989">இந்த இணையப்பக்கம் தானியங்கி படிவ நிரப்புதலை இயங்காமல் வைத்திருக்கிறது.</translation>
+<translation id="7542995811387359312">இந்த படிவம் பாதுகாப்பான இணைப்பை பயன்படுத்தாததால் தானியங்கி க்ரெடிட் கார்டு நிரப்புதல் இயங்காமல் வைக்கப்பட்டிருக்கிறது.</translation>
+<translation id="4148925816941278100">American Express</translation>
+<translation id="933712198907837967">Diners Club</translation>
+<translation id="3169472444629675720">Discover</translation>
+<translation id="6008256403891681546">JCB</translation>
+<translation id="3450660100078934250">MasterCard</translation>
+<translation id="719464814642662924">Visa</translation>
+<translation id="2451353479985491549">, </translation>
+<translation id="2107287771748948380"><ph name="OBFUSCATED_CC_NUMBER"/>, Exp: <ph name="CC_EXPIRATION_DATE"/></translation>
+<translation id="5089810972385038852">மாநிலம்</translation>
+<translation id="6839929833149231406">பரப்பு</translation>
+<translation id="7087282848513945231">கோட்டம்</translation>
+<translation id="2096368010154057602">துறை</translation>
+<translation id="6970216967273061347">மாவட்டம்</translation>
+<translation id="7139724024395191329">எமிரேட்</translation>
+<translation id="3174168572213147020">தீவு</translation>
+<translation id="3885155851504623709">கோவிற்பற்று</translation>
+<translation id="777702478322588152">நிலப்பகுதி</translation>
+<translation id="5095208057601539847">அதிகாரவரம்பு</translation>
+<translation id="2053553514270667976">அஞ்சல் குறியீடு</translation>
+<translation id="6282194474023008486">அஞ்சல் குறியீடு</translation>
+<translation id="6445051938772793705">நாடு</translation>
+<translation id="1875753206475436906">குறை வகை:  <ph name="HEURISTIC_TYPE"/>
+    செர்வர் வகை: <ph name="SERVER_TYPE"/>
+    தரவிட கையொப்பம்: <ph name="FIELD_SIGNATURE"/>
+    படிவ கையொப்பம்: <ph name="FORM_SIGNATURE"/>
+    ஆய்வு ஐடி:"<ph name="EXPERIMENT_ID"/>"</translation>
+<translation id="8804164990146287819">ஆய்வு ஐடி தகவல்பாதுகாப்பு கொள்கை</translation>
+<translation id="540773678181631572">Opera தானியங்கு நிரப்பு அமைப்புகள்</translation>
+<translation id="1847321074516120686">க்ரோம்ஆட்டோபில் அமைப்புகள்</translation>
+</translationbundle>

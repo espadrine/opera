@@ -1,0 +1,54 @@
+Name: Apache James Mime4J
+Short Name: apache-mime4j
+URL: http://james.apache.org/mime4j/
+Version: 0.7.2
+License: Apache 2.0
+License File: binary-distribution/LICENSE
+Security Critical: no
+
+Description:
+Apache James Mime4J is developed by the Apache James team but now has a
+dedicated mailing list.
+
+Apache James Mime4J provides a parser, MimeStreamParser , for e-mail message
+streams in plain rfc822 and MIME format. The parser uses a callback mechanism
+to report parsing events such as the start of an entity header, the start of a
+body, etc. If you are familiar with the SAX XML parser interface you should
+have no problem getting started with mime4j.
+
+The parser only deals with the structure of the message stream. It won't do any
+decoding of base64 or quoted-printable encoded header fields and bodies. This
+is intentional - the parser should only provide the most basic functionality
+needed to build more complex parsers. However, mime4j does include facilities
+to decode bodies and fields and the Message class described below handles
+decoding of fields and bodies transparently.
+
+The parser has been designed to be extremely tolerant against messages
+violating the standards. It has been tested using a large corpus (>5000) of
+e-mail messages. As a benchmark the widely used perl MIME::Tools parser has
+been used. mime4j and MIME:Tools rarely differ (<25 in those 5000). When they
+do (which only occurs for illegally formatted spam messages) we think mime4j
+does a better job.
+
+mime4j can also be used to build a tree representation of an e-mail message
+using the Message class. Using this facility mime4j automatically handles the
+decoding of fields and bodies and uses temporary files for large attachments.
+This representation is similar to the representation constructed by the
+JavaMail API:s but is more tolerant to messages violating the standards.
+
+Local Modifications:
+None.
+
+Update instructions:
+1. Find the new version you want on the project website.  Use as $VERSION below:
+   $ VERSION={version from website}
+2. Download the binary distribution tarball: Binary (Unix TAR).
+3. Verify MD5 sum of package with online version:
+   $ md5sum apache-mime4j-$VERSION-bin.tar.gz
+4. Remove the binary-distribution subdirectory:
+   $ rm -rf binary-distribution/
+5. Extract the contents of the tarball into binary-distribution subdirectory:
+   $ tar xvfz apache-mime4j-$VERSION-bin.tar.gz
+   $ mv apache-mime4j-$VERSION binary-distribution
+6. Update apache-mime4j.gyp:apache_mime4j_javalib with path to new Java jar, eg:
+   'input_jar_file': 'binary-distribution/lib/apache-mime4j-core-$VERSION.jar'

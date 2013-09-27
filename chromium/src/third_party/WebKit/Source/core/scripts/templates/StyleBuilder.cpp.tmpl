@@ -1,0 +1,116 @@
+{% from "macros.tmpl" import wrap_with_condition, license -%}
+{{ license() }}
+
+#include "config.h"
+#include "core/css/resolver/StyleBuilder.h"
+
+#include "StyleBuilderFunctions.h"
+#include "core/css/CSSPrimitiveValueMappings.h"
+#include "core/css/resolver/StyleResolver.h"
+
+// FIXME: currently we're just generating a switch statement, but we should
+//   test other variations for performance once we have more properties here.
+
+{%- macro set_value(property) -%}
+    styleResolver->style()->{{property.setter}}
+{%- endmacro %}
+
+namespace WebCore {
+
+{%- macro apply_value_length(property) -%}
+    if (!value->isPrimitiveValue())
+        return;
+
+    CSSPrimitiveValue* primitiveValue = toCSSPrimitiveValue(value);
+{% if property.use_none %}
+    if (primitiveValue->getValueID() == CSSValueNone)
+        {{ set_value(property) }}(Length(Undefined));
+{% endif %}
+
+{%- if property.use_intrinsic %}
+    if (primitiveValue->getValueID() == CSSValueIntrinsic)
+        {{ set_value(property) }}(Length(Intrinsic));
+    else if (primitiveValue->getValueID() == CSSValueMinIntrinsic)
+        {{ set_value(property) }}(Length(MinIntrinsic));
+    else if (primitiveValue->getValueID() == CSSValueWebkitMinContent)
+        {{ set_value(property) }}(Length(MinContent));
+    else if (primitiveValue->getValueID() == CSSValueWebkitMaxContent)
+        {{ set_value(property) }}(Length(MaxContent));
+    else if (primitiveValue->getValueID() == CSSValueWebkitFillAvailable)
+        {{ set_value(property) }}(Length(FillAvailable));
+    else if (primitiveValue->getValueID() == CSSValueWebkitFitContent)
+        {{ set_value(property) }}(Length(FitContent));
+{% endif %}
+
+{%- if property.use_auto %}
+    if (primitiveValue->getValueID() == CSSValueAuto)
+        {{ set_value(property) }}(Length());
+{%- endif %}
+
+    if (primitiveValue->isLength()) {
+        Length length = primitiveValue->computeLength<Length>(styleResolver->style(), styleResolver->rootElementStyle(), styleResolver->style()->effectiveZoom());
+        length.setQuirk(primitiveValue->isQuirkValue());
+        {{ set_value(property) }}(length);
+    } else if (primitiveValue->isPercentage())
+        {{ set_value(property) }}(Length(primitiveValue->getDoubleValue(), Percent));
+    else if (primitiveValue->isCalculatedPercentageWithLength())
+        {{ set_value(property) }}(Length(primitiveValue->cssCalcValue()->toCalcValue(styleResolver->style(), styleResolver->rootElementStyle(), styleResolver->style()->effectiveZoom())));
+    else if (primitiveValue->isViewportPercentageLength())
+        {{ set_value(property) }}(primitiveValue->viewportPercentageLength());
+{%- endmacro %}
+
+{%- for property_id, property in properties.items() if not property.use_handlers_for %}
+{%- call wrap_with_condition(property.condition) %}
+{%- set apply_type = property.apply_type %}
+
+{%- if not property.custom_initial %}
+void StyleBuilderFunctions::applyInitial{{property_id}}(StyleResolver* styleResolver)
+{
+    {{ set_value(property) }}(RenderStyle::{{property.initial}}());
+}
+{% endif %}
+
+{%- if not property.custom_inherit %}
+void StyleBuilderFunctions::applyInherit{{property_id}}(StyleResolver* styleResolver)
+{
+    {{ set_value(property) }}(styleResolver->parentStyle()->{{property.getter}}());
+}
+{% endif %}
+
+{%- if not property.custom_value %}
+void StyleBuilderFunctions::applyValue{{property_id}}(StyleResolver* styleResolver, CSSValue* value)
+{
+{%- if apply_type == "length" %}
+    {{ apply_value_length(property) }}
+{%- else %}
+    {{ set_value(property) }}(static_cast<{{property.type_name}}>(*toCSSPrimitiveValue(value)));
+{%- endif %}
+}
+{% endif %}
+
+{%- endcall %}
+{%- endfor %}
+
+bool StyleBuilder::applyProperty(CSSPropertyID property, StyleResolver* styleResolver, CSSValue* value, bool isInitial, bool isInherit) {
+    switch(property) {
+{%- for property_id, property in properties.items() %}
+{%- set used_property = properties[property.use_handlers_for] or property %}
+{%- set used_property_id = used_property.property_id %}
+{%- call wrap_with_condition(used_property.condition) %}
+    case {{ property_id }}:
+        if (isInitial)
+            StyleBuilderFunctions::applyInitial{{ used_property_id }}(styleResolver);
+        else if (isInherit)
+            StyleBuilderFunctions::applyInherit{{ used_property_id }}(styleResolver);
+        else
+            StyleBuilderFunctions::applyValue{{ used_property_id }}(styleResolver, value);
+        return true;
+{%- endcall %}
+{% endfor %}
+    default:
+        return false;
+    }
+}
+
+} // namespace WebCore
+

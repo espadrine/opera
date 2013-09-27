@@ -1,0 +1,67 @@
+// -*- Mode: c++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
+//
+// Copyright (C) 2013 Opera Software ASA.  All rights reserved.
+//
+// This file is an original work developed by Opera Software ASA
+[
+  {
+    "namespace": "speeddial",
+    "description": "Use the <code>opr.speeddial</code> API to modify the URL and title of Speed Dial extensions' entries in the Start Page.",
+    "functions": [
+      {
+        "name": "get",
+        "description": "Retrieves details about the speeddial.",
+        "parameters": [
+          {
+            "name": "callback",
+            "type": "function",
+            "parameters": [
+              {
+                "name": "speeddial",
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "An URL the Speed Dial points to."
+                  },
+                  "title": {
+                    "type": "string",
+                    "description": "The title of the Speed Dial."
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "update",
+        "description": "Update the properties of the extension's Speed Dial.",
+        "parameters": [
+          {
+            "name": "updateProperties",
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "optional": true,
+                "description": "URL for the Speed Dial to point to."
+              },
+              "title": {
+                "type": "string",
+                "optional": true,
+                "description": "Title to set for the Speed Dial."
+              }
+            }
+          },
+          {
+            "name": "callback",
+            "type": "function",
+            "optional": true,
+            "parameters": []
+          }
+        ]
+      }
+    ]
+  }
+]

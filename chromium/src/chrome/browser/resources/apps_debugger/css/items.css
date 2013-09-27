@@ -1,0 +1,507 @@
+/* Copyright (c) 2012 The Chromium Authors. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be
+ * found in the LICENSE file. */
+
+body,
+html {
+  color: rgb(48, 57, 66);
+  font-family: Arial, sans-serif;
+  font-size: 90%;
+  height: 100%;
+  width: 100%;
+}
+
+html {
+  overflow: hidden;
+}
+
+body {
+  overflow: scroll;
+}
+
+body {
+  overflow-y: scroll;
+}
+
+hr {
+  color: rgb(115, 111, 110);
+  margin: 15px 0;
+}
+
+/* Override the visual style of tabs. */
+
+#tabs-header-container {
+  border-bottom: 1px solid #e0e0e0;
+  height: calc(100% - 53px);
+}
+
+#tabs {
+  border-bottom: none;
+  margin: 5px auto 0;
+  padding: 0 5px;
+  width: 710px;
+}
+
+tabs tab {
+  border-color: #e0e0e0;
+  min-width: 150px;
+  padding: 5px 20px;
+}
+
+tabs > [selected] {
+  background: white;
+  border-color: #e0e0e0;
+}
+
+html.focus-outline-visible tabs:focus > [selected] {
+  background: white;
+  border-color: rgb(160, 160, 255);
+  outline: none;
+}
+
+tabs > :not([selected]) {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: #e0e0e0;
+}
+
+tabs > :not([selected]):hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+tabpanels {
+  height: calc(100% - 20px);
+  padding: 0;
+  width: 100%;
+}
+
+tabpanel {
+  margin: 0 auto;
+  padding-top: 80px;
+  width: 710px;
+}
+
+/* Header */
+
+#header {
+  background-color: rgba(255, 255, 255, 0.9);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+#developer-controls {
+  margin-top: 0;
+  max-width: none;
+  padding: 3px 10px 8px;
+  width: calc(100% - 20px);
+}
+
+#header-title {
+  -webkit-margin-start: 50px;
+  display: inline-block;
+  font-size: 1.2em;
+  position: relative;
+  top: 3px;
+}
+
+#header-bottom-gradient {
+  background: linear-gradient(to bottom, white, rgba(255, 255, 255, 0));
+  height: 30px;
+  position: fixed;
+  top: 79px;
+  width: 100%;
+}
+
+#search {
+  float: right;
+  margin-top: 7px;
+  padding: 4px;
+  width: 200px;
+}
+
+html[dir='rtl'] #search {
+  float: left;
+}
+
+/* Contents */
+
+#extension-settings {
+  margin: 0;
+  max-width: 100%;
+  padding: 10px 0;
+}
+
+#no-extensions-message,
+#no-apps-message,
+#no-unpacked-message {
+  font-weight: bold;
+}
+
+.empty-item-list {
+  height: 3em;
+}
+
+#no-extensions,
+#no-apps,
+#no-unpacked {
+  margin: 10px;
+}
+
+#packed-app-list,
+#unpacked-list,
+#packed-extension-list {
+  margin-top: 30px;
+}
+
+.loading #no-extensions,
+.loading #no-apps,
+.loading #no-unpacked,
+#packed-extension-list:not(.empty-item-list) ~ #no-extensions,
+#packed-app-list:not(.empty-item-list) ~ #no-apps,
+#unpacked-list:not(.empty-item-list) ~ #no-unpacked,
+.empty-item-list {
+  display: none;
+}
+
+.extension-list-item-wrapper {
+  padding: 0 0 15px;
+}
+
+.extension-list-item {
+  /* Set in ItemsList.createNode_(). */
+  background-repeat: no-repeat;
+  display: -webkit-box;
+  min-height: 48px;
+}
+
+html[dir='rtl'] .extension-list-item {
+  background-position: right;
+}
+
+.extension-title {
+  -webkit-padding-end: 20px;
+  color: rgb(48, 57, 66);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/**
+ * extension-title should be unhighlighted as the parent when the extension is
+ * inactive.
+ */
+.inactive-extension .extension-title {
+  color: inherit;
+}
+
+.extension-version {
+  -webkit-padding-end: 7px;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.extension-description {
+  -webkit-padding-end: 5px;
+  font-size: 13px;
+  margin: 5px 0;
+  white-space: normal;
+}
+
+.extension-details {
+  -webkit-box-flex: 1;
+  -webkit-padding-start: 55px;
+  max-width: 600px;
+}
+
+.extension-description,
+.extension-list-item-wrapper.inactive-extension .extension-details,
+.location-text,
+.enable-checkbox input:disabled + .enable-checkbox-text {
+  color: rgb(151, 156, 160);
+}
+
+.site-link {
+  font-size: 90%;
+}
+
+html[dir='rtl'] .enable-control {
+  float: left;
+}
+
+.file-access-control,
+.incognito-control {
+  left: 0;
+  position: relative;
+  right: 0;
+}
+
+.enable-checkbox-text {
+  /* Matches width of trash. */
+  -webkit-margin-end: 30px;
+  min-width: 62px;
+}
+
+.checkbox {
+  display: inline-block;
+}
+
+.file-access-control,
+.incognito-control,
+.checkbox label {
+  margin: 5px 0;
+  padding: 0;
+}
+
+.enabled-text {
+  font-weight: bold;
+}
+
+.extension-list-item-wrapper.inactive-extension .enabled-text,
+.extension-list-item-wrapper:not(.inactive-extension) .enable-text,
+.extension-list-item-wrapper.inactive-extension .optional-controls {
+  display: none;
+}
+
+.load-path > span {
+  word-wrap: break-word;
+}
+
+.terminated-reload-link {
+  -webkit-margin-end: 2.5em;
+  padding-top: 7px;
+}
+
+.extension-list-item a {
+  -webkit-margin-end: 0.5em;
+  -webkit-margin-start: 0;
+  display: inline-block;
+}
+
+.install-warnings a {
+  -webkit-margin-start: 0;
+}
+
+.extension-run-button,
+.extension-restart-button,
+.extension-show-logs-button,
+.extension-more-details-button {
+  opacity: 0;
+  transition: 250ms opacity ease-in;
+}
+
+.extension-list-item-wrapper:hover .extension-run-button,
+.extension-list-item-wrapper:hover .extension-restart-button,
+.extension-list-item-wrapper:hover .extension-show-logs-button,
+.extension-list-item-wrapper:hover .extension-more-details-button {
+  opacity: 1;
+  transition-duration: 100ms;
+}
+
+.extension-details.expanded .extension-run-button,
+.extension-details.expanded .extension-restart-button,
+.extension-details.expanded .extension-show-logs-button,
+.extension-details.expanded .extension-more-details-button {
+  opacity: 1;
+}
+
+.extension-run-button,
+.extension-restart-button {
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  display: inline-block;
+  font-size: 12px;
+  height: 16px;
+  padding: 5px;
+  width: 16px;
+}
+
+.extension-run-button:hover,
+.extension-restart-button:hover {
+  border-color: #ddd;
+}
+
+.extension-run-button:active,
+.extension-restart-button:active {
+  background-color: #f8f8f8;
+  border-color: #ddd;
+}
+
+.extension-run-button {
+  background-image: url(../images/run.png);
+}
+
+.extension-restart-button {
+  background-image: url(../images/restart.png);
+}
+
+.extension-show-logs-button,
+.extension-more-details-button {
+  color: #aaa;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+.extension-show-logs-button {
+  position: relative;
+  top: -9px;
+}
+
+.extension-more-details-button {
+  float: right;
+  padding: 8px 0;
+}
+
+html[dir='rtl'] .extension-more-details-button {
+  float: left;
+}
+
+.extension-details-all {
+  height: 0;
+  margin-top: -5px;
+  opacity: 0;
+  overflow: hidden;
+  transition: height 250ms ease-in, opacity 250ms ease-in;
+}
+
+.extension-details.expanded .extension-details-all {
+  opacity: 1;
+}
+
+.extension-details-all-container {
+  position: relative;
+}
+
+.extension-details-all-arrow {
+  border: 9px solid transparent;
+  border-bottom-color: #f8f8f8;
+  height: 0;
+  position: absolute;
+  right: 21px;
+  top: -17px;
+  width: 0;
+}
+
+html[dir='rtl'] .extension-details-all-arrow {
+  left: 21px;
+  right: auto;
+}
+
+.extension-details-all-arrow-border {
+  border: 10px solid transparent;
+  border-bottom-color: #ddd;
+  height: 0;
+  position: absolute;
+  right: 20px;
+  top: -19px;
+  width: 0;
+}
+
+html[dir='rtl'] .extension-details-all-arrow-border {
+  left: 20px;
+  right: auto;
+}
+
+.extension-details-all-bubble {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 0 10px;
+}
+
+.extension-details-all-bubble > div {
+  margin: 10px 0;
+}
+
+.delete-link {
+  float: right;
+}
+
+html[dir='rtl'] .delete-link {
+  float: left;
+}
+
+.enable-checkbox-text {
+  -webkit-margin-end: 0;
+}
+
+:-webkit-any(.checkbox, .radio) label input ~ span {
+  -webkit-margin-start: 0;
+  display: inline;
+}
+
+#tabs {
+  background: none;
+}
+
+#tab-panels {
+  box-shadow: none;
+}
+
+/* Overlays */
+
+#overlay {
+  z-index: 5;
+}
+
+#overlay .page:not(.showing) {
+  display: none;
+}
+
+/* Trash */
+
+.enable-controls > .trash > .lid,
+.enable-controls > .trash > .can {
+  background: url(../../../../../ui/webui/resources/images/trash.png)
+      0 0 no-repeat;
+}
+
+.enable-controls > .trash > .can {
+  height: 15px;
+  top: 0;
+  width: 13px;
+}
+
+.extension-id {
+  -webkit-user-select: text;
+}
+
+#extension-settings .trash {
+  -webkit-transition: opacity 200ms;
+  height: 22px;
+  opacity: 0.8;
+  position: absolute;
+  right: 0;
+  top: 3px;
+  vertical-align: middle;
+}
+
+html[dir='rtl'] #extension-settings .trash {
+  left: 0;
+  right: auto;
+}
+
+.extension-list-item:not(:hover) .trash:not(:focus) {
+  opacity: 0;
+}
+
+.extension-list-item-wrapper.may-not-disable .trash {
+  visibility: hidden;
+}
+
+.may-not-disable .optional-controls .optional-controls-disableable {
+  display: none;
+}
+
+a {
+  color: rgb(17, 85, 204);
+  text-decoration: underline;
+}
+
+a:active {
+  color: rgb(5, 37, 119);
+}

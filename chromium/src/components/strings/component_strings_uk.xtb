@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="uk">
+<translation id="2835170189407361413">Спорожнити форму</translation>
+<translation id="2455981314101692989">На цій сторінці вимкнено автоматичне заповнення цієї форми.</translation>
+<translation id="7542995811387359312">Автоматичне заповнення полів даних кредитної картки вимкнено, оскільки для передавання даних форми не використовується захищене з’єднання.</translation>
+<translation id="4148925816941278100">American Express</translation>
+<translation id="933712198907837967">Diners Club</translation>
+<translation id="3169472444629675720">Discover</translation>
+<translation id="6008256403891681546">JCB</translation>
+<translation id="3450660100078934250">MasterCard</translation>
+<translation id="719464814642662924">Visa</translation>
+<translation id="2451353479985491549">, </translation>
+<translation id="2107287771748948380"><ph name="OBFUSCATED_CC_NUMBER"/>, Строк дії до: <ph name="CC_EXPIRATION_DATE"/></translation>
+<translation id="5089810972385038852">Штат</translation>
+<translation id="6839929833149231406">Область</translation>
+<translation id="7087282848513945231">Графство</translation>
+<translation id="2096368010154057602">Департамент</translation>
+<translation id="6970216967273061347">Район</translation>
+<translation id="7139724024395191329">Емірат</translation>
+<translation id="3174168572213147020">Острів</translation>
+<translation id="3885155851504623709">Округ</translation>
+<translation id="777702478322588152">Префектура</translation>
+<translation id="5095208057601539847">Провінція</translation>
+<translation id="2053553514270667976">Поштовий індекс</translation>
+<translation id="6282194474023008486">Поштовий код</translation>
+<translation id="6445051938772793705">Країна</translation>
+<translation id="1875753206475436906">тип евристики: <ph name="HEURISTIC_TYPE"/>
+    тип сервера: <ph name="SERVER_TYPE"/>
+    підпис поля: <ph name="FIELD_SIGNATURE"/>
+    підпис форми: <ph name="FORM_SIGNATURE"/>
+    ідентифікатор експерименту: "<ph name="EXPERIMENT_ID"/>"</translation>
+<translation id="8804164990146287819">Правила конфіденційності</translation>
+<translation id="540773678181631572">Параметри автозаповнення форм Opera</translation>
+<translation id="1847321074516120686">Параметри автозаповнення форм Chrome</translation>
+</translationbundle>

@@ -1,0 +1,46 @@
+Name: Apache HttpComponents Client
+Short Name: httpcomponents-client
+URL: http://hc.apache.org/httpcomponents-client-ga/
+Version: 4.2.2
+License: Apache 2.0
+License File: binary-distribution/LICENSE.txt
+Security Critical: no
+
+Description:
+The Hyper-Text Transfer Protocol (HTTP) is perhaps the most significant
+protocol used on the Internet today. Web services, network-enabled appliances
+and the growth of network computing continue to expand the role of the HTTP
+protocol beyond user-driven web browsers, while increasing the number of
+applications that require HTTP support.
+
+Although the java.net package provides basic functionality for accessing
+resources via HTTP, it doesn't provide the full flexibility or functionality
+needed by many applications. HttpClient seeks to fill this void by providing
+an efficient, up-to-date, and feature-rich package implementing the client side
+of the most recent HTTP standards and recommendations.
+
+Designed for extension while providing robust support for the base HTTP
+protocol, HttpClient may be of interest to anyone building HTTP-aware client
+applications such as web browsers, web service clients, or systems that leverage
+or extend the HTTP protocol for distributed communication.
+
+Local Modifications:
+None.
+
+Update instructions:
+1. Find the new version you want on the project website.  Use as $VERSION below:
+   $ VERSION={version from website}
+2. Download the binary distribution tarball.
+3. Verify MD5 sum of package with online version:
+   $ md5sum httpcomponents-client-$VERSION-bin.tar.gz
+4. Remove the binary-distribution subdirectory:
+   $ rm -rf binary-distribution/
+5. Extract the contents of the tarball into binary-distribution subdirectory:
+   $ tar xvfz httpcomponents-client-$VERSION-bin.tar.gz
+   $ mv httpcomponents-client-$VERSION binary-distribution
+6. Update httpcomponents-client.gyp:httpcomponents_client_javalib with path to
+   new Java jar, eg:
+   'input_jar_file': 'binary-distribution/lib/httpclient-$VERSION.jar',
+7. Update httpcomponents-client.gyp:httpcomponents_mime_javalib with path to
+   new Java jar, eg:
+   'input_jar_file': 'binary-distribution/lib/httpmime-$VERSION.jar',

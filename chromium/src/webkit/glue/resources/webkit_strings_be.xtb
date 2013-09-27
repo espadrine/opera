@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="be">
+<translation id="4522570452068850558">Падрабязнасьці</translation>
+<translation id="3358049263351449631">У гэтым сьпісе можна шукаць. Увядзіце словы пошуку: '''</translation>
+<translation id="6643016212128521049">Ачысьціць</translation>
+<translation id="2148716181193084225">Сёньня</translation>
+<translation id="248395913932153421">Дзень</translation>
+<translation id="8987927404178983737">Месяц</translation>
+<translation id="6015796118275082299">Год</translation>
+<translation id="2653659639078652383">Даслаць</translation>
+<translation id="5939518447894949180">Аднавіць</translation>
+<translation id="7364796246159120393">Выбраць файл</translation>
+<translation id="1637811476055996098">Выбраць файлы</translation>
+<translation id="795667975304826397">Файл не выбраны</translation>
+<translation id="8964020114565522021">Цягніце файл сюды</translation>
+<translation id="8444882422881193423">Файлы <ph name="NUMBER_OF_FILES"/></translation>
+<translation id="668171684555832681">Іншае...</translation>
+<translation id="1758486001363313524">Іншае...</translation>
+<translation id="9132465097189459683">Іншае...</translation>
+<translation id="5843503607508392247">Іншае...</translation>
+<translation id="739024184232394898">Іншае...</translation>
+<translation id="1921819250265091946">дд</translation>
+<translation id="3732799496749320381">мм</translation>
+<translation id="8199524924445686405">гггг</translation>
+<translation id="1591562245178063882">Гэтым месяцам</translation>
+<translation id="8117451130807776954">Гэтым тыднем</translation>
+<translation id="5966707198760109579">Тыдзень</translation>
+<translation id="2548326553472216322">Нядаўніх пошукаў няма</translation>
+<translation id="6663448176199120256">Нядаўнія пошукі</translation>
+<translation id="1235745349614807883">Выдаліць нядаўнія пошукі</translation>
+<translation id="4611115858363067980"><ph name="FILENAME"/><ph name="WIDTH"/>×<ph name="HEIGHT"/></translation>
+<translation id="7740050170769002709">Зьмест HTML</translation>
+<translation id="3040011195152428237">спасылка</translation>
+<translation id="5048533449481078685">маркер сьпісу</translation>
+<translation id="8244226242650769279">мапа малюнку</translation>
+<translation id="8597182159515967513">загаловак</translation>
+<translation id="2674318244760992338">зноска</translation>
+<translation id="6692633176391053278">крокавік</translation>
+<translation id="6845533974506654842">націснуць</translation>
+<translation id="1842960171412779397">выбраць</translation>
+<translation id="6119846243427417423">актываваць</translation>
+<translation id="5476505524087279545">зьняць сьцяжок</translation>
+<translation id="838869780401515933">пазначыць</translation>
+<translation id="4202807286478387388">скочыць</translation>
+<translation id="1822429046913737220">да / пасьля абеду</translation>
+<translation id="1014825444426747588">пусты</translation>
+<translation id="7673697353781729403">Гадзіны</translation>
+<translation id="8541249477527128034">кіраваньне граньнем</translation>
+<translation id="2723001399770238859">аўдыё</translation>
+<translation id="4763480195061959176">відэа</translation>
+<translation id="6843725295806269523">ціха</translation>
+<translation id="5546461542133609677">гук</translation>
+<translation id="2572483411312390101">граць</translation>
+<translation id="7789962463072032349">паўза</translation>
+<translation id="7057186640035488495">час відэа</translation>
+<translation id="6270583010843788609">мерка часу відэа</translation>
+<translation id="3471999216963526757">назад на 30 сэкундаў</translation>
+<translation id="2615751259741237794">вярнуцца ў сапраўдны час</translation>
+<translation id="7223624360433298498">мінулы час</translation>
+<translation id="7720026100085573005">засталося часу</translation>
+<translation id="1930711995431081526">стан</translation>
+<translation id="658823671542763450">увесь экран</translation>
+<translation id="5468998798572797635">ня ўвесь экран</translation>
+<translation id="4851297395436456855">хутка наперад</translation>
+<translation id="4484359737905287537">хутка назад</translation>
+<translation id="9050748414552849310">паказаць зачыненыя подпісы</translation>
+<translation id="6853785296079745596">схаваць зачыненыя подпісы</translation>
+<translation id="1020833440720551630">сьцішыць гуказапіс</translation>
+<translation id="6101327004457443354">дазволіць гук</translation>
+<translation id="8785498733064193001">граць запіс</translation>
+<translation id="5641012560118721995">перапыніць граньне</translation>
+<translation id="3785482301506746191">скакун часу відэа</translation>
+<translation id="6359256949422175976">мерка скакуна часу відэа</translation>
+<translation id="3356679314312413792">назад відэа на 30 сэкундаў</translation>
+<translation id="2426432199384958866">вярнуць відэа ў сапраўдны час</translation>
+<translation id="901493112792887934">цяперашні час у сэкундах</translation>
+<translation id="3632707345189162177">колькі сэкундаў відэа засталося</translation>
+<translation id="2901282870647571346">цяперашні стан відэа</translation>
+<translation id="819205353528511139">граць відэа на ўвесь экран</translation>
+<translation id="9039488204461337220">хутка наперад</translation>
+<translation id="1320012872283894746">хутка назад</translation>
+<translation id="8115662671911883373">паказваць зачыненыя подпісы</translation>
+<translation id="7740016676195725605">схаваць зачыненыя подпісы</translation>
+<translation id="4103419683916926126">Мілісэкунды</translation>
+<translation id="8534579021159131403">Хвіліны</translation>
+<translation id="1088086359088493902">Сэкунды</translation>
+<translation id="5944544982112848342">2048 (Высокая ступень)</translation>
+<translation id="2846343701378493991">1024 (Сярэдняя ступень)</translation>
+<translation id="2247351761944213033">Тыдзень <ph name="WEEKNUMBER"/>, <ph name="YEAR"/></translation>
+<translation id="5466621249238537318">Калі ласка, выберыце адзін або некалькі файлаў.</translation>
+<translation id="835897206747267392">Нядзейнае значэньне.</translation>
+<translation id="2908441821576996758">Калі ласка, увядзіце паштовыя адрасы праз коску.</translation>
+<translation id="5164977714490026579">Значэньне мусіць быць ня меншае за  <ph name="MINIMUM"/>.</translation>
+<translation id="3450233048674729344">Значэньне мусіць быць ня большае за  <ph name="MAXIMUM"/>.</translation>
+<translation id="3075154866155599887">Пазначце дзейныя зьвесткі. Поле няпоўнае, або дата нядзейная.</translation>
+<translation id="4812940957355064477">Калі ласка, увядзіце лік.</translation>
+<translation id="2507943997699731163">Калі ласка, запоўніце гэтае поле.</translation>
+<translation id="2761667185364618470">Калі ласка, пазначце гэты выбар, калі жадаеце працягнуць.</translation>
+<translation id="8451268428117625855">Калі ласка, выберыце файл.</translation>
+<translation id="8750798805984357768">Калі ласка, выберыце адзін з гэтых варыянтаў.</translation>
+<translation id="7263440858009898357">Калі ласка, выберыце пункт са сьпісу.</translation>
+<translation id="1171774979989969504">Калі ласа, увядзіце паштовую скрынку.</translation>
+<translation id="310520048233152454">Калі ласка, увядзіце URL.</translation>
+<translation id="709897737746224366">Калі ласка, выконвайце патрабаваньні да фармату.</translation>
+<translation id="2226276347425096477">Калі ласка, скараціце гэты тэкст сама болей да <ph name="MAX_CHARACTERS"/> знакаў (цяпер іх <ph name="CURRENT_LENGTH"/>).</translation>
+<translation id="2597378329261239068">Дакумэнт абаронены ключом. Калі ласка, увядзіце ключ.</translation>
+<translation id="370665806235115550">Зацягваецца...</translation>
+<translation id="9186171386827445984">Дакумэнт зацягваецца: <ph name="PAGE_NUMBER"/>/<ph name="NUMBER_OF_PAGES"/> старонак...</translation>
+<translation id="3934680773876859118">Не атрымалася загрузіць дакумэнт PDF</translation>
+<translation id="1639239467298939599">Зацягваецца</translation>
+<translation id="5919473608089529604">Не атрымалася зацягнуць дадатковы модуль.</translation>
+</translationbundle>

@@ -1,0 +1,11 @@
+# DO NOT EDIT. THIS IS A GENERATED FILE.
+# ALL MANUAL CHANGES WILL BE OVERWRITTEN.
+vars = {
+    'git_url':
+         'http://git.chromium.org',
+}
+
+deps = {
+    'src/breakpad/src':
+        Var('git_url') + '/external/google-breakpad/src.git@70c3f5d304bfde6494c140aecbc329dd566a5a7d',
+}

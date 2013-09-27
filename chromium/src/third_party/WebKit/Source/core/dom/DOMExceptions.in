@@ -1,0 +1,5 @@
+namespace=DOMException
+
+core/dom/DOMException implementedAs=DOMCoreException
+core/fileapi/FileException
+modules/webdatabase/SQLException

@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="zu">
+<translation id="2835170189407361413">Sula ifomu</translation>
+<translation id="2455981314101692989">Leli khasi lewebhu likhubaze ukugcwalisa ngokuzenzakalela leli fomu.</translation>
+<translation id="7542995811387359312">Ukugcwalisa ngokuzenzakalela kwekhadi lesikweletu kukhutshaziwe ngoba leli fomu alisebenzisi uxhumo oluvikelekile.</translation>
+<translation id="4148925816941278100">I-American Express</translation>
+<translation id="933712198907837967">I-Diners Club</translation>
+<translation id="3169472444629675720">I-Discover</translation>
+<translation id="6008256403891681546">I-JCB</translation>
+<translation id="3450660100078934250">I-MasterCard</translation>
+<translation id="719464814642662924">I-Visa</translation>
+<translation id="2451353479985491549">, </translation>
+<translation id="2107287771748948380"><ph name="OBFUSCATED_CC_NUMBER"/>, Exp: <ph name="CC_EXPIRATION_DATE"/></translation>
+<translation id="5089810972385038852">Izwe</translation>
+<translation id="6839929833149231406">Indawo</translation>
+<translation id="7087282848513945231">Izwe</translation>
+<translation id="2096368010154057602">Umnyango</translation>
+<translation id="6970216967273061347">Isiyingi</translation>
+<translation id="7139724024395191329">I-Emirate</translation>
+<translation id="3174168572213147020">Isiqhingi</translation>
+<translation id="3885155851504623709">I-Parish</translation>
+<translation id="777702478322588152">I-Prefecture</translation>
+<translation id="5095208057601539847">Isifunda</translation>
+<translation id="2053553514270667976">Ikhodi ye-ZIP</translation>
+<translation id="6282194474023008486">Ikhodi leposi</translation>
+<translation id="6445051938772793705">Izwe</translation>
+<translation id="1875753206475436906">Uhlobo olutholakalayo: <ph name="HEURISTIC_TYPE"/>
+    uhlobo lweseva: <ph name="SERVER_TYPE"/>
+    isiginisha yenkambu: <ph name="FIELD_SIGNATURE"/>
+    isiginisha yefomu: <ph name="FORM_SIGNATURE"/>
+    i-id yesilingo: "<ph name="EXPERIMENT_ID"/>"</translation>
+<translation id="8804164990146287819">Inqubomgomo Yobungasese</translation>
+<translation id="540773678181631572">Amasethingi we-Opera Autofill</translation>
+<translation id="1847321074516120686">Amasethingi we-Chrome Autofill</translation>
+</translationbundle>

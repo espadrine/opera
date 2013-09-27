@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="sw">
+<translation id="2835170189407361413">Futa fomu</translation>
+<translation id="2455981314101692989">Ukurasa huu wa wavuti umelemazwa kiotomatiki kwa sababu fomu hii haitumii muunganisho salama.</translation>
+<translation id="7542995811387359312">Kujaza kiotomatiki kadi ya mkopo kumelemazwa kwa sababu fomu hii haitumii muunganisho salama.</translation>
+<translation id="4148925816941278100">American Express</translation>
+<translation id="933712198907837967">Diners Club</translation>
+<translation id="3169472444629675720">Discover</translation>
+<translation id="6008256403891681546">JCB</translation>
+<translation id="3450660100078934250">MasterCard</translation>
+<translation id="719464814642662924">Visa</translation>
+<translation id="2451353479985491549">, </translation>
+<translation id="2107287771748948380"><ph name="OBFUSCATED_CC_NUMBER"/>, Exp: <ph name="CC_EXPIRATION_DATE"/></translation>
+<translation id="5089810972385038852">Jimbo</translation>
+<translation id="6839929833149231406">Eneo</translation>
+<translation id="7087282848513945231">Kaunti</translation>
+<translation id="2096368010154057602">Idara</translation>
+<translation id="6970216967273061347">Wilaya</translation>
+<translation id="7139724024395191329">Muungano wa Falme za Kiarabu</translation>
+<translation id="3174168572213147020">Kisiwa</translation>
+<translation id="3885155851504623709">Parishi</translation>
+<translation id="777702478322588152">Japani</translation>
+<translation id="5095208057601539847">Mkoa</translation>
+<translation id="2053553514270667976">Msimbo wa ZIP</translation>
+<translation id="6282194474023008486">Msimbo wa posta</translation>
+<translation id="6445051938772793705">Nchi</translation>
+<translation id="1875753206475436906">aina ya nadharia: <ph name="HEURISTIC_TYPE"/>
+    aina ya seva: <ph name="SERVER_TYPE"/>
+    sahihi ya sehemu: <ph name="FIELD_SIGNATURE"/>
+    sahihi ya fomu: <ph name="FORM_SIGNATURE"/>
+    id ya jaribio: "<ph name="EXPERIMENT_ID"/>"</translation>
+<translation id="8804164990146287819">Sera ya Faragha</translation>
+<translation id="540773678181631572">Mipangilio ya Mjazo otomatiki ya Opera</translation>
+<translation id="1847321074516120686">Mipangilio ya Mjazo otomatiki ya Chrome</translation>
+</translationbundle>

@@ -1,0 +1,37 @@
+Name: Apache HttpComponents Core
+Short Name: httpcomponents-core
+URL: http://hc.apache.org/httpcomponents-core-ga/
+Version: 4.2.2
+License: Apache 2.0
+License File: binary-distribution/LICENSE.txt
+Security Critical: no
+
+Description:
+HttpCore is a set of low level HTTP transport components that can be used to
+build custom client and server side HTTP services with a minimal footprint.
+HttpCore supports two I/O models: blocking I/O model based on the classic Java
+I/O and non-blocking, event driven I/O model based on Java NIO.
+
+The blocking I/O model may be more appropriate for data intensive, low latency
+scenarios, whereas the non-blocking model may be more appropriate for high
+latency scenarios where raw data throughput is less important than the ability
+to handle thousands of simultaneous HTTP connections in a resource efficient
+manner.
+
+Local Modifications:
+None.
+
+Update instructions:
+1. Find the new version you want on the project website.  Use as $VERSION below:
+   $ VERSION={version from website}
+2. Download the binary distribution tarball.
+3. Verify MD5 sum of package with online version:
+   $ md5sum httpcomponents-core-$VERSION-bin.tar.gz
+4. Remove the binary-distribution subdirectory:
+   $ rm -rf binary-distribution/
+5. Extract the contents of the tarball into binary-distribution subdirectory:
+   $ tar xvfz httpcomponents-core-$VERSION-bin.tar.gz
+   $ mv httpcomponents-core-$VERSION binary-distribution
+6. Update httpcomponents-core.gyp:httpcomponents_core_javalib with path to
+   new Java jar, eg:
+   'input_jar_file': 'binary-distribution/lib/httpcore-$VERSION.jar',

@@ -1,0 +1,171 @@
+#!/bin/bash
+
+# Copyright (c) 2011 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+CHROMITE_PATH=$(realpath "$(dirname "$0")/..")
+IN_CHROOT="cros_sdk"
+CHROOT_CHROMITE=../../chromite
+
+set -eu
+
+LOGFILE="$(mktemp)"
+
+# Helper function to add failed logs/tests to be printed out later.
+# $1 test that failed.
+# $2 log file where we stored the output of the failed test.
+append_failed_test() {
+  echo "ERROR: Unittest $1 failed.  Log will be output at end of run!!!"
+
+  cat << EOF >> "${LOGFILE}.$$"
+
+FAIL: Unittest $1 failed output:
+
+$(<"$2")
+EOF
+  rm -f "$2"
+}
+
+# Wrapper to run unittest.  Hides output unless test fails.
+# $1 test to run.  Must be in chromite/buildbot.
+# $2 If set, run inside the chroot.
+run_test() {
+  local log_file="$(mktemp)"
+  local special="${special_tests[$1]:-}"
+  local starttime="$(date +%s%N)"
+
+  if [[ "${special}" == "skip" ]]; then
+    echo "Skipping unittest $1"
+    rm "${log_file}"
+    return
+  elif [[ "${special}" == "outside" && -f /etc/debian_chroot ]]; then
+    echo "Skipping unittest $1 because it must run outside the chroot."
+    rm "${log_file}"
+    return
+  elif [[ "${special}" == "inside" && ! -f /etc/debian_chroot ]]; then
+    if ${SKIP_CHROOT_TESTS}; then
+      echo "Skipping unittest $1 because it must run inside the chroot"
+      rm "${log_file}"
+      return
+    else
+      echo "Starting unittest $1 inside the chroot"
+      ${IN_CHROOT} python "${CHROOT_CHROMITE}/$1" &> "${log_file}" ||
+        append_failed_test "$1" "${log_file}"
+    fi
+  else
+    echo "Starting unittest $1"
+    python "${CHROMITE_PATH}/$1" &> "${log_file}" ||
+      append_failed_test "$1" "${log_file}"
+  fi
+
+  local endtime="$(date +%s%N)"
+  local duration=$(( (endtime - starttime) / 1000000 ))
+
+  echo "Finished unittest $1 (${duration} ms)"
+  rm -f "${log_file}"
+}
+
+# For some versions of 'sudo' (notably, the 'sudo' in the chroot at
+# the time of this writing), sudo -v will ask for a password whether
+# or not it's needed.  'sudo true' will do what we want.
+sudo true
+
+# List all exceptions, with a token describing what's odd here.
+# inside - inside the chroot
+# skip - don't run this test (please comment on why)
+declare -A special_tests
+special_tests=(
+  # Tests that need to run inside the chroot.
+  ['cros/commands/cros_build_unittest.py']=inside
+  ['lib/upgrade_table_unittest.py']=inside
+  ['scripts/cros_mark_as_stable_unittest.py']=inside
+  ['scripts/cros_mark_chrome_as_stable_unittest.py']=inside
+  ['scripts/sync_package_status_unittest.py']=inside
+  ['scripts/cros_portage_upgrade_unittest.py']=inside
+  ['scripts/upload_package_status_unittest.py']=inside
+
+  # Tests that need to run outside the chroot.
+  ['lib/cgroups_unittest.py']=outside
+
+  # Tests that are presently broken.
+  ['lib/gdata_lib_unittest.py']=skip
+  ['scripts/chrome_set_ver_unittest.py']=skip
+  ['scripts/check_gdata_token_unittest.py']=skip
+  ['scripts/merge_package_status_unittest.py']=skip
+  ['scripts/upload_package_status_unittest.py']=skip
+
+  # Tests that take >2 minutes to run.
+  ['scripts/cros_portage_upgrade_unittest.py']=skip
+)
+
+if [[ $# -ne 0 && $1 == "--quick" ]]; then
+  shift
+  # Tests that require network can be really slow.
+  special_tests['buildbot/manifest_version_unittest.py']=skip
+  special_tests['buildbot/repository_unittest.py']=skip
+  special_tests['buildbot/remote_try_unittest.py']=skip
+  special_tests['lib/cros_build_lib_unittest.py']=skip
+  special_tests['lib/gerrit_unittest.py']=skip
+  special_tests['lib/patch_unittest.py']=skip
+
+  # cgroups_unittest runs cros_sdk a lot, so is slow.
+  special_tests['lib/cgroups_unittest.py']=skip
+fi
+
+SKIP_CHROOT_TESTS=false
+if ! repo list | grep -q chromiumos-overlay; then
+  echo "chromiumos-overlay is not present. Skipping chroot tests..."
+  SKIP_CHROOT_TESTS=true
+
+  # cgroups_unittest requires cros_sdk, so it doesn't work.
+  special_tests['lib/cgroups_unittest.py']=skip
+fi
+
+if [[ $# -eq 0 ]]; then
+  # List all unit test scripts that match the given pattern.
+  all_tests=(
+    $(find "${CHROMITE_PATH}" -name '*_unittest.py' -printf '%P ')
+  )
+  set -- "${all_tests[@]}"
+fi
+
+declare -a children
+cleanup() {
+  delayed_kill() {
+    sleep 5
+    kill -9 ${children[*]} &> /dev/null
+  }
+
+  echo "Cleaning up backgrounded jobs."
+  # Graceful exit.
+  kill -INT ${children[*]} &> /dev/null
+  # Set of a hard kill timer after a while.
+  delayed_kill &
+  wait ${children[*]}
+}
+
+trap cleanup INT TERM
+
+for test in "$@"; do
+  run_test ${test} &
+  children+=( $! )
+done
+
+wait ${children[*]}
+trap - INT TERM
+
+cat "${LOGFILE}".* > "${LOGFILE}" 2>/dev/null || :
+rm -f "${LOGFILE}".*
+if [[ $(wc -c "${LOGFILE}" |cut -f1 -d' ') -gt 0 ]]; then
+  cat "${LOGFILE}"
+  echo
+  echo
+  echo "FAIL: The following tests failed:"
+  sed -nre '/^FAIL:/s/^FAIL: Unittest (.*) failed output:/\1/p' "${LOGFILE}"
+  rm -f "${LOGFILE}"
+  exit 1
+fi
+
+rm -f "${LOGFILE}"
+echo "All tests succeeded!"

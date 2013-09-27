@@ -1,0 +1,23 @@
+/* Copyright 2013 The Chromium Authors. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be
+ * found in the LICENSE file. */
+
+#reset-profile-settings-overlay {
+  width: 500px;
+}
+
+#reset-profile-settings-throbber {
+  margin: 4px 10px;
+  vertical-align: middle;
+  visibility: hidden;
+}
+
+.feedback-area {
+  background-color: #f5f5f5;
+  border-color: #e7e7e7;
+  border-top-style: solid;
+  border-width: 1px;
+  color: #888;
+  display: -webkit-box;
+  padding: 14px 17px;
+}

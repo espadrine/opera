@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE translationbundle>
+<translationbundle lang="te">
+<translation id="2835170189407361413">ఫారం క్లియర్ చేయి</translation>
+<translation id="2455981314101692989">ఈ ఫారం కొరకు స్వయంచాలకంగా నింపడాన్ని ఈ వెబ్ పేజీ డిసేబుల్ చేసింది.</translation>
+<translation id="7542995811387359312">ఈ ఫారం సురక్షితమైన కనెక్షన్ ఉపయోగించకపోవడం వల్ల క్రెడిట్ కార్డు స్వయంచాలకంగా నింపడం డిసేబల్ చేయబడింది.</translation>
+<translation id="4148925816941278100">American Express</translation>
+<translation id="933712198907837967">Diners Club</translation>
+<translation id="3169472444629675720">Discover</translation>
+<translation id="6008256403891681546">JCB</translation>
+<translation id="3450660100078934250">MasterCard</translation>
+<translation id="719464814642662924">Visa</translation>
+<translation id="2451353479985491549">, </translation>
+<translation id="2107287771748948380"><ph name="OBFUSCATED_CC_NUMBER"/>, Exp: <ph name="CC_EXPIRATION_DATE"/></translation>
+<translation id="5089810972385038852">రాష్ట్రం</translation>
+<translation id="6839929833149231406">ప్రాంతం</translation>
+<translation id="7087282848513945231">దేశం</translation>
+<translation id="2096368010154057602">విభాగం</translation>
+<translation id="6970216967273061347">జిల్లా</translation>
+<translation id="7139724024395191329">ఎమరైట్స్</translation>
+<translation id="3174168572213147020">ద్వీపం</translation>
+<translation id="3885155851504623709">పరిష్</translation>
+<translation id="777702478322588152">ప్రిఫెక్చర్</translation>
+<translation id="5095208057601539847">ప్రావిన్స్</translation>
+<translation id="2053553514270667976">ZIP కోడ్</translation>
+<translation id="6282194474023008486">పోస్టల్ కోడ్</translation>
+<translation id="6445051938772793705">దేశం</translation>
+<translation id="1875753206475436906">హేరుస్టిక్ రకం: <ph name="HEURISTIC_TYPE"/>
+    సర్వర్ రకం: <ph name="SERVER_TYPE"/>
+    ఫీల్డ్ సంతకం: <ph name="FIELD_SIGNATURE"/>
+    ఫారం సంతకం: <ph name="FORM_SIGNATURE"/>
+    ప్రయోగ id: "<ph name="EXPERIMENT_ID"/>"</translation>
+<translation id="8804164990146287819">గోప్యతా పాలసీ</translation>
+<translation id="540773678181631572">Opera ఆటో ఫిల్ అమర్పులు</translation>
+<translation id="1847321074516120686">Chrome ఆటో ఫిల్ అమర్పులు</translation>
+</translationbundle>
